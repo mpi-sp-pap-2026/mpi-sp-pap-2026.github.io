@@ -51,7 +51,7 @@
     Answer: They are types! 
 <div class="paragraph"> </div>
 
-<a id="lab330"></a><h3 class="section"> </h3>
+<a id="lab327"></a><h3 class="section"> </h3>
  Look again at the formal definition of the <span class="inlinecode"><span class="id" title="var">ev</span></span> property.  
 </div>
 <div class="code">
@@ -68,7 +68,7 @@ We can pronounce the ":" here as either "has type" or "is a proof
     we can say that "<span class="inlinecode"><span class="id" title="var">ev_0</span></span> is a proof of <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">0</span>." 
 <div class="paragraph"> </div>
 
-<a id="lab331"></a><h3 class="section"> </h3>
+<a id="lab328"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -83,7 +83,7 @@ We can pronounce the ":" here as either "has type" or "is a proof
     See <a href="Bib.html#Wadler-2015"><span class="inlineref">[Wadler 2015]</span></a> for a brief history and modern exposition. 
 <div class="paragraph"> </div>
 
-<a id="lab332"></a><h3 class="section"> </h3>
+<a id="lab329"></a><h3 class="section"> </h3>
  Many useful insights follow from this connection.  To begin with,
     it gives us a natural interpretation of the type of the <span class="inlinecode"><span class="id" title="var">ev_SS</span></span>
     constructor: 
@@ -102,7 +102,7 @@ This can be read "<span class="inlinecode"><span class="id" title="var">ev_SS</s
     <span class="inlinecode"><span class="id" title="var">n</span></span> -- and yields evidence for the proposition <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode">(<span class="id" title="var">S</span></span> <span class="inlinecode"><span class="id" title="var">n</span>))</span>." 
 <div class="paragraph"> </div>
 
-<a id="lab333"></a><h3 class="section"> </h3>
+<a id="lab330"></a><h3 class="section"> </h3>
  Now let's look again at an earlier proof involving <span class="inlinecode"><span class="id" title="var">ev</span></span>. 
 </div>
 <div class="code">
@@ -125,7 +125,7 @@ Just as with ordinary data values and functions, we can use the
 </div>
 
 <div class="doc">
-<a id="lab334"></a><h3 class="section"> </h3>
+<a id="lab331"></a><h3 class="section"> </h3>
  Indeed, we can also write down this proof object directly,
     with no need for a proof script at all: 
 </div>
@@ -148,7 +148,7 @@ Similarly, as we've seen, we can directly apply theorems to
 </div>
 
 <div class="doc">
-<a id="lab335"></a><h1 class="section">Proof Scripts</h1>
+<a id="lab332"></a><h1 class="section">Proof Scripts</h1>
 
 <div class="paragraph"> </div>
 
@@ -171,7 +171,7 @@ Similarly, as we've seen, we can directly apply theorems to
 </div>
 
 <div class="doc">
-<a id="lab336"></a><h3 class="section"> </h3>
+<a id="lab333"></a><h3 class="section"> </h3>
  Tactic proofs are convenient, but they are not essential in Rocq:
     in principle, we can always just construct the required evidence
     by hand. Then we can use <span class="inlinecode"><span class="id" title="keyword">Definition</span></span> (rather than <span class="inlinecode"><span class="id" title="keyword">Theorem</span></span>) to
@@ -184,7 +184,7 @@ Similarly, as we've seen, we can directly apply theorems to
 </div>
 
 <div class="doc">
-<a id="lab337"></a><h1 class="section">Quantifiers, Implications, Functions</h1>
+<a id="lab334"></a><h1 class="section">Quantifiers, Implications, Functions</h1>
 
 <div class="paragraph"> </div>
 
@@ -201,7 +201,7 @@ Similarly, as we've seen, we can directly apply theorems to
     and... functions! 
 <div class="paragraph"> </div>
 
-<a id="lab338"></a><h3 class="section"> </h3>
+<a id="lab335"></a><h3 class="section"> </h3>
  For example, consider this statement: 
 </div>
 <div class="code">
@@ -219,7 +219,7 @@ Similarly, as we've seen, we can directly apply theorems to
 What is the proof object corresponding to <span class="inlinecode"><span class="id" title="var">ev_plus4</span></span>? 
 <div class="paragraph"> </div>
 
-<a id="lab339"></a><h3 class="section"> </h3>
+<a id="lab336"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -250,7 +250,7 @@ Or equivalently:
 </div>
 
 <div class="doc">
-<a id="lab340"></a><h3 class="section"> </h3>
+<a id="lab337"></a><h3 class="section"> </h3>
  When we view the proposition being proved by <span class="inlinecode"><span class="id" title="var">ev_plus4</span></span> as a
     function type, one interesting point becomes apparent: The second
     argument's type, <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode"><span class="id" title="var">n</span></span>, mentions the <i>value</i> of the first
@@ -264,7 +264,7 @@ Or equivalently:
     community over the past couple of decades demonstrates. 
 <div class="paragraph"> </div>
 
-<a id="lab341"></a><h3 class="section"> </h3>
+<a id="lab338"></a><h3 class="section"> </h3>
  Notice that both implication (<span class="inlinecode">→</span>) and quantification (<span class="inlinecode"><span class="id" title="keyword">∀</span></span>)
     correspond to functions on evidence.  In fact, they are really the
     same thing: <span class="inlinecode">→</span> is just a shorthand for a degenerate use of
@@ -328,7 +328,7 @@ Recall the definition of <span class="inlinecode"><span class="id" title="var">e
 </div></div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab342"></a><h1 class="section">Programming with Tactics</h1>
+<a id="lab339"></a><h1 class="section">Programming with Tactics</h1>
 
 <div class="paragraph"> </div>
 
@@ -361,7 +361,7 @@ Recall the definition of <span class="inlinecode"><span class="id" title="var">e
 </div>
 
 <div class="doc">
-<a id="lab343"></a><h1 class="section">Logical Connectives as Inductive Types</h1>
+<a id="lab340"></a><h1 class="section">Logical Connectives as Inductive Types</h1>
 
 <div class="paragraph"> </div>
 
@@ -376,7 +376,7 @@ Recall the definition of <span class="inlinecode"><span class="id" title="var">e
 </div>
 
 <div class="doc">
-<a id="lab344"></a><h2 class="section">Conjunction</h2>
+<a id="lab341"></a><h2 class="section">Conjunction</h2>
 
 <div class="paragraph"> </div>
 
@@ -407,7 +407,7 @@ Notice the similarity with the definition of the <span class="inlinecode"><span 
 </div>
 
 <div class="doc">
-<a id="lab345"></a><h3 class="section"> </h3>
+<a id="lab342"></a><h3 class="section"> </h3>
  This similarity should clarify why <span class="inlinecode"><span class="id" title="tactic">destruct</span></span> and <span class="inlinecode"><span class="id" title="tactic">intros</span></span>
     patterns can be used on a conjunctive hypothesis.  Case analysis
     allows us to consider all possible ways in which <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode">∧</span> <span class="inlinecode"><span class="id" title="var">Q</span></span> was
@@ -443,7 +443,7 @@ Similarly, the <span class="inlinecode"><span class="id" title="tactic">split</s
 </div>
 
 <div class="doc">
-<a id="lab346"></a><h3 class="section"> </h3>
+<a id="lab343"></a><h3 class="section"> </h3>
  This shows why the inductive definition of <span class="inlinecode"><span class="id" title="var">and</span></span> can be
     manipulated by tactics as we've been doing.  We can also use it to
     build proofs directly, using pattern-matching.  For instance: 
@@ -508,7 +508,7 @@ What is the type of this expression?
 </div></div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab347"></a><h2 class="section">Disjunction</h2>
+<a id="lab344"></a><h2 class="section">Disjunction</h2>
 
 <div class="paragraph"> </div>
 
@@ -531,7 +531,7 @@ This declaration explains the behavior of the <span class="inlinecode"><span cla
     shape of the <span class="inlinecode"><span class="id" title="var">or_introl</span></span> and <span class="inlinecode"><span class="id" title="var">or_intror</span></span> constructors. 
 <div class="paragraph"> </div>
 
-<a id="lab348"></a><h3 class="section"> </h3>
+<a id="lab345"></a><h3 class="section"> </h3>
  Once again, we can also directly write proof objects for theorems
     involving <span class="inlinecode"><span class="id" title="var">or</span></span>, without resorting to tactics. 
 </div>
@@ -547,7 +547,7 @@ This declaration explains the behavior of the <span class="inlinecode"><span cla
 </div>
 
 <div class="doc">
-<a id="lab349"></a><h3 class="section"> </h3>
+<a id="lab346"></a><h3 class="section"> </h3>
 
 </div>
 <div class="code">
@@ -615,7 +615,7 @@ What is the type of this expression?
 </div></div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab350"></a><h2 class="section">Existential Quantification</h2>
+<a id="lab347"></a><h2 class="section">Existential Quantification</h2>
 
 <div class="paragraph"> </div>
 
@@ -633,7 +633,7 @@ What is the type of this expression?
 </div>
 
 <div class="doc">
-<a id="lab351"></a><h3 class="section"> </h3>
+<a id="lab348"></a><h3 class="section"> </h3>
  The more familiar form <span class="inlinecode"><span class="id" title="tactic">∃</span></span> <span class="inlinecode"><span class="id" title="var">x</span>,</span> <span class="inlinecode"><span class="id" title="var">ev</span></span> <span class="inlinecode"><span class="id" title="var">x</span></span> desugars to an expression
     involving <span class="inlinecode"><span class="id" title="var">ex</span></span>: 
 </div>
@@ -695,7 +695,7 @@ Which of the following propositions is proved by
 </div></div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab352"></a><h3 class="section"> </h3>
+<a id="lab349"></a><h3 class="section"> </h3>
  To destruct existentials in a proof term we simply use match: 
 </div>
 <div class="code">
@@ -711,7 +711,7 @@ Which of the following propositions is proved by
 </div>
 
 <div class="doc">
-<a id="lab353"></a><h2 class="section"><span class="inlinecode"><span class="id" title="var">True</span></span> and <span class="inlinecode"><span class="id" title="var">False</span></span></h2>
+<a id="lab350"></a><h2 class="section"><span class="inlinecode"><span class="id" title="var">True</span></span> and <span class="inlinecode"><span class="id" title="var">False</span></span></h2>
 
 <div class="paragraph"> </div>
 
@@ -728,7 +728,7 @@ It has one constructor (so every proof of <span class="inlinecode"><span class="
     being given a proof of <span class="inlinecode"><span class="id" title="var">True</span></span> is not informative.) 
 <div class="paragraph"> </div>
 
-<a id="lab354"></a><h3 class="section"> </h3>
+<a id="lab351"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -754,7 +754,7 @@ That is, <span class="inlinecode"><span class="id" title="var">False</span></spa
 </div>
 
 <div class="doc">
-<a id="lab355"></a><h3 class="section"> </h3>
+<a id="lab352"></a><h3 class="section"> </h3>
  But it is possible to destruct <span class="inlinecode"><span class="id" title="var">False</span></span> by pattern matching. There can
     be no patterns that match it, since it has no constructors.  So
     the pattern match also is so simple it may look syntactically
@@ -775,7 +775,7 @@ Since there are no branches to evaluate, the <span class="inlinecode"><span clas
 </div>
 
 <div class="doc">
-<a id="lab356"></a><h1 class="section">Equality</h1>
+<a id="lab353"></a><h1 class="section">Equality</h1>
 
 <div class="paragraph"> </div>
 
@@ -792,7 +792,7 @@ Since there are no branches to evaluate, the <span class="inlinecode"><span clas
 </div>
 
 <div class="doc">
-<a id="lab357"></a><h3 class="section"> </h3>
+<a id="lab354"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -810,7 +810,7 @@ Since there are no branches to evaluate, the <span class="inlinecode"><span clas
 </div>
 
 <div class="doc">
-<a id="lab358"></a><h3 class="section"> </h3>
+<a id="lab355"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -825,7 +825,7 @@ Since there are no branches to evaluate, the <span class="inlinecode"><span clas
 </div>
 
 <div class="doc">
-<a id="lab359"></a><h3 class="section"> </h3>
+<a id="lab356"></a><h3 class="section"> </h3>
  We can also pattern-match on an equality proof: 
 </div>
 <div class="code">
@@ -837,7 +837,7 @@ Since there are no branches to evaluate, the <span class="inlinecode"><span clas
 </div>
 
 <div class="doc">
-<a id="lab360"></a><h3 class="section"> </h3>
+<a id="lab357"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -905,7 +905,7 @@ Which of the following is a correct proof object for the proposition
 </div></div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab361"></a><h1 class="section">Rocq's Trusted Computing Base</h1>
+<a id="lab358"></a><h1 class="section">Rocq's Trusted Computing Base</h1>
 
 <div class="paragraph"> </div>
 
@@ -945,7 +945,7 @@ The tactic language and its implementation are <i>not</i> part
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>

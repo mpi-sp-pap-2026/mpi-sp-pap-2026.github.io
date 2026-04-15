@@ -36,7 +36,7 @@
 
 
 <div class="doc">
-<a id="lab110"></a><h2 class="section">Polymorphic Lists</h2>
+<a id="lab107"></a><h2 class="section">Polymorphic Lists</h2>
 
 <div class="paragraph"> </div>
 
@@ -51,7 +51,7 @@
 </div>
 
 <div class="doc">
-<a id="lab111"></a><h3 class="section"> </h3>
+<a id="lab108"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -69,7 +69,7 @@
 We can now write <span class="inlinecode"><span class="id" title="var">list</span></span> <span class="inlinecode"><span class="id" title="var">nat</span></span> in place of <span class="inlinecode"><span class="id" title="var">natlist</span></span>. 
 <div class="paragraph"> </div>
 
-<a id="lab112"></a><h3 class="section"> </h3>
+<a id="lab109"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -85,7 +85,7 @@ We can now write <span class="inlinecode"><span class="id" title="var">list</spa
 </div>
 
 <div class="doc">
-<a id="lab113"></a><h3 class="section"> </h3>
+<a id="lab110"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -112,7 +112,7 @@ Side note: In .v files, the "forall" quantifier is spelled
 </div>
 
 <div class="doc">
-<a id="lab114"></a><h3 class="section"> </h3>
+<a id="lab111"></a><h3 class="section"> </h3>
  We can now define polymorphic versions of the functions
     we've already seen... 
 </div>
@@ -234,7 +234,7 @@ What is the type of <span class="inlinecode"><span class="id" title="tactic">rep
 </div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab115"></a><h3 class="section">Type Annotation Inference</h3>
+<a id="lab112"></a><h3 class="section">Type Annotation Inference</h3>
 
 <div class="paragraph"> </div>
 
@@ -252,7 +252,7 @@ What is the type of <span class="inlinecode"><span class="id" title="tactic">rep
 </div>
 
 <div class="doc">
-<a id="lab116"></a><h3 class="section"> </h3>
+<a id="lab113"></a><h3 class="section"> </h3>
  Indeed it will.  Let's see what type Rocq has assigned to <span class="inlinecode"><span class="id" title="var">repeat'</span></span>... 
 </div>
 <div class="code">
@@ -269,7 +269,7 @@ Rocq has used <i>type inference</i> to deduce the proper types
 </div>
 
 <div class="doc">
-<a id="lab117"></a><h3 class="section">Type Argument Synthesis</h3>
+<a id="lab114"></a><h3 class="section">Type Argument Synthesis</h3>
 
 <div class="paragraph"> </div>
 
@@ -288,7 +288,7 @@ Rocq has used <i>type inference</i> to deduce the proper types
 </div>
 
 <div class="doc">
-<a id="lab118"></a><h3 class="section">Implicit Arguments</h3>
+<a id="lab115"></a><h3 class="section">Implicit Arguments</h3>
 
 <div class="paragraph"> </div>
 
@@ -318,7 +318,7 @@ Now we don't have to supply any type arguments at all in the example:
 </div>
 
 <div class="doc">
-<a id="lab119"></a><h3 class="section"> </h3>
+<a id="lab116"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -335,7 +335,7 @@ Now we don't have to supply any type arguments at all in the example:
 </div>
 
 <div class="doc">
-<a id="lab120"></a><h3 class="section"> </h3>
+<a id="lab117"></a><h3 class="section"> </h3>
  Here are polymorphic versions of a few more functions that
     we'll need later: 
 </div>
@@ -349,7 +349,7 @@ Now we don't have to supply any type arguments at all in the example:
 </div>
 
 <div class="doc">
-<a id="lab121"></a><h3 class="section"> </h3>
+<a id="lab118"></a><h3 class="section"> </h3>
 
 </div>
 <div class="code">
@@ -387,7 +387,7 @@ Now we don't have to supply any type arguments at all in the example:
 </div>
 
 <div class="doc">
-<a id="lab122"></a><h3 class="section">Supplying Type Arguments Explicitly</h3>
+<a id="lab119"></a><h3 class="section">Supplying Type Arguments Explicitly</h3>
 
 <div class="paragraph"> </div>
 
@@ -419,7 +419,7 @@ Alternatively, we can disable the implicit argument to <span class="inlinecode">
 </div>
 
 <div class="doc">
-<a id="lab123"></a><h3 class="section"> </h3>
+<a id="lab120"></a><h3 class="section"> </h3>
  Using argument synthesis and implicit arguments, we can
     define concrete notations that work for lists of any type. 
 </div>
@@ -672,7 +672,7 @@ This one?
 </div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab127"></a><h2 class="section">Polymorphic Pairs</h2>
+<a id="lab124"></a><h2 class="section">Polymorphic Pairs</h2>
 
 <div class="paragraph"> </div>
 
@@ -702,7 +702,7 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
     symbol.) 
 <div class="paragraph"> </div>
 
- Be careful not to get <span class="inlinecode">(<span class="id" title="var">x</span>,<span class="id" title="var">y</span>)</span> and <span class="inlinecode"><span class="id" title="var">X</span>×<span class="id" title="var">Y</span></span> confused! <a id="lab128"></a><h3 class="section"> </h3>
+ Be careful not to get <span class="inlinecode">(<span class="id" title="var">x</span>,<span class="id" title="var">y</span>)</span> and <span class="inlinecode"><span class="id" title="var">X</span>×<span class="id" title="var">Y</span></span> confused! <a id="lab125"></a><h3 class="section"> </h3>
 
 </div>
 <div class="code">
@@ -718,7 +718,7 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
 </div>
 
 <div class="doc">
-<a id="lab129"></a><h3 class="section"> </h3>
+<a id="lab126"></a><h3 class="section"> </h3>
  What does this function do? 
 </div>
 <div class="code">
@@ -733,7 +733,7 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
 </div>
 
 <div class="doc">
-<a id="lab130"></a><h2 class="section">Polymorphic Options</h2>
+<a id="lab127"></a><h2 class="section">Polymorphic Options</h2>
 
 </div>
 <div class="code">
@@ -748,7 +748,7 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
 </div>
 
 <div class="doc">
-<a id="lab131"></a><h3 class="section"> </h3>
+<a id="lab128"></a><h3 class="section"> </h3>
 
 </div>
 <div class="code">
@@ -780,12 +780,12 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
 </div>
 
 <div class="doc">
-<a id="lab132"></a><h1 class="section">Functions as Data</h1>
+<a id="lab129"></a><h1 class="section">Functions as Data</h1>
 
 </div>
 
 <div class="doc">
-<a id="lab133"></a><h2 class="section">Higher-Order Functions</h2>
+<a id="lab130"></a><h2 class="section">Higher-Order Functions</h2>
 
 <div class="paragraph"> </div>
 
@@ -811,7 +811,7 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
 </div>
 
 <div class="doc">
-<a id="lab134"></a><h2 class="section">Filter</h2>
+<a id="lab131"></a><h2 class="section">Filter</h2>
 
 </div>
 <div class="code">
@@ -831,7 +831,7 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
 </div>
 
 <div class="doc">
-<a id="lab135"></a><h3 class="section"> </h3>
+<a id="lab132"></a><h3 class="section"> </h3>
 
 </div>
 <div class="code">
@@ -848,7 +848,7 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
 </div>
 
 <div class="doc">
-<a id="lab136"></a><h3 class="section"> </h3>
+<a id="lab133"></a><h3 class="section"> </h3>
  The <span class="inlinecode"><span class="id" title="var">filter</span></span> function (especially when combined with some
     other functions we'll see later) enables a powerful
     <i>wholemeal</i> (or <i>collection-oriented</i>) programming style. 
@@ -875,7 +875,7 @@ We can also use the <span class="inlinecode"><span class="id" title="keyword">No
 </div>
 
 <div class="doc">
-<a id="lab137"></a><h2 class="section">Anonymous Functions</h2>
+<a id="lab134"></a><h2 class="section">Anonymous Functions</h2>
 
 <div class="paragraph"> </div>
 
@@ -909,7 +909,7 @@ The expression <span class="inlinecode">(<span class="id" title="keyword">fun</s
 </div>
 
 <div class="doc">
-<a id="lab138"></a><h2 class="section">Map</h2>
+<a id="lab135"></a><h2 class="section">Map</h2>
 
 </div>
 <div class="code">
@@ -978,7 +978,7 @@ Recall the definition of <span class="inlinecode"><span class="id" title="var">m
 </div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab139"></a><h3 class="section"> </h3>
+<a id="lab136"></a><h3 class="section"> </h3>
 
 <div class="paragraph"> </div>
 
@@ -996,7 +996,7 @@ Recall the definition of <span class="inlinecode"><span class="id" title="var">m
 </div>
 
 <div class="doc">
-<a id="lab140"></a><h2 class="section">Fold</h2>
+<a id="lab137"></a><h2 class="section">Fold</h2>
 
 </div>
 <div class="code">
@@ -1013,7 +1013,7 @@ Recall the definition of <span class="inlinecode"><span class="id" title="var">m
 This is the "reduce" in map/reduce... 
 <div class="paragraph"> </div>
 
-<a id="lab141"></a><h3 class="section"> </h3>
+<a id="lab138"></a><h3 class="section"> </h3>
 
 </div>
 <div class="code">
@@ -1111,7 +1111,7 @@ What does "fold plus <span class="inlinecode">1;2;3;4</span> 0" simplify to?
 </div> <!-- /quiz -->
 
 <div class="doc">
-<a id="lab142"></a><h2 class="section">Functions That Construct Functions</h2>
+<a id="lab139"></a><h2 class="section">Functions That Construct Functions</h2>
 
 <div class="paragraph"> </div>
 
@@ -1138,7 +1138,7 @@ What does "fold plus <span class="inlinecode">1;2;3;4</span> 0" simplify to?
 </div>
 
 <div class="doc">
-<a id="lab143"></a><h3 class="section"> </h3>
+<a id="lab140"></a><h3 class="section"> </h3>
  A two-argument function in Rocq is actually a function that
     returns a function! 
 </div>
@@ -1175,7 +1175,7 @@ Similarly, we can write:
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>
