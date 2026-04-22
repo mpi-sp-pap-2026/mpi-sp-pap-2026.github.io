@@ -44,10 +44,10 @@
     basic concepts of logic, computer-assisted theorem proving, the
     Rocq prover, functional programming, operational semantics, logics
     and techniques for reasoning about programs, static type systems,
-    property-based random testing, and verification of practical C
-    code.  The exposition is intended for a broad range of readers,
-    from advanced undergraduates to PhD students and researchers.  No
-    specific background in logic or programming languages is assumed,
+    property-based random testing, verification of practical C
+    code, and security. The exposition is intended for a broad range of
+    readers, from advanced undergraduates to PhD students and researchers.
+    No specific background in logic or programming languages is assumed,
     though a degree of mathematical maturity will be helpful.
 
 <div class="paragraph"> </div>
@@ -378,127 +378,30 @@
 <div class="paragraph"> </div>
 
  Rocq runs on Windows, Linux, and macOS.  The files in this book
-    have been tested with Rocq 9.0.0. 
+    have been tested with various Rocq versions, but for ensuring
+    reproducibility of auto-grading for our lecture in Bochum please
+    use Rocq 9.0.1 for your homework solutions. 
 <div class="paragraph"> </div>
 
-<a id="lab10"></a><h3 class="section">Recommended Installation Method: VSCode + Docker</h3>
-
-<div class="paragraph"> </div>
-
- The Visual Studio Code IDE can cooperate with the Docker
-    virtualization platform to compile Rocq scripts without the need
-    for any separate Rocq installation.  This method is recommended for
-    most Software Foundations readers.
+<a id="lab10"></a><h2 class="section">Recommended Installation Method</h2>
 
 <div class="paragraph"> </div>
 
-<ul class="doclist">
-<li> Install Docker from <a href="https://www.docker.com/get-started/"><span class="inlineref" <a href='https://www.docker.com/get-started/</span></a>'>https://www.docker.com/get-started/</span></a></a>or
-      make sure your existing installation is up to date.
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> Make sure Docker is running.
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> Install VSCode from <a href="https://code.visualstudio.com"><span class="inlineref" <a href='https://code.visualstudio.com</span></a>'>https://code.visualstudio.com</span></a></a>and start it
-      running.
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> Install VSCode's Dev Containers Extension from
-      <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers"><span class="inlineref" <a href='https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers</span></a>'>https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers</span></a></a>
-
-<div class="paragraph"> </div>
-
-      (Note that this extension only works with the official version
-      of VSCode, not with some VSCode forks like VsCodium.)
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> Set up a directory for this SF volume by downloading the
-      provided <span class="inlinecode">.<span class="id" title="var">tgz</span></span> file.  Besides the <span class="inlinecode">.<span class="id" title="var">v</span></span> file for each chapter,
-      this directory will contain a <span class="inlinecode">.<span class="id" title="var">devcontainer</span></span> subdirectory with
-      instructions for VSCode about where to find an appropriate
-      Docker image and a <span class="inlinecode"><span class="id" title="var">_CoqProject</span></span> file, whose presence triggers
-      the VSRocq extension.
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> In VSCode, use <span class="inlinecode"><span class="id" title="var">File</span></span> <span class="inlinecode">&gt;</span> <span class="inlinecode"><span class="id" title="keyword">Open</span></span> <span class="inlinecode"><span class="id" title="var">Folder</span></span> to open the new directory.
-      VSCode should ask you whether you want to run the project in the
-      associated Docker container.  (If it does not ask you, you can
-      open the command palette by pressing F<sub>1</sub> and run the command “Dev
-      Containers: Reopen in Container”.)
-
-<div class="paragraph"> </div>
-
-      This step may take some time.
-
-<div class="paragraph"> </div>
-
-
-</li>
-<li> Check that VSRocq is working by double-clicking the file
-      <span class="inlinecode"><span class="id" title="var">Basics.v</span></span> from the list on the left (you should see a blinking
-      cursor in the window that opens; if not you can click in that
-      window to select it), and pressing <span class="inlinecode"><span class="id" title="var">alt</span>+<span class="id" title="var">downarrow</span></span> (on MacOS,
-      <span class="inlinecode"><span class="id" title="var">control</span>+<span class="id" title="var">option</span>+<span class="id" title="var">downarrow</span></span>) a few times.  You should see the
-      cursor move through the file and the region above the cursor get
-      highlighted.
+ You will need:
 
 <div class="paragraph"> </div>
 
 <ul class="doclist">
-<li> If VSRocq does not work and you receive an error indicating that
-        <span class="inlinecode"><span class="id" title="var">vsrocqtop</span></span> was not found, open a new terminal in the container
-        (you can do this by opening the command palette and running the
-        command “Terminal: Create New Terminal”) and run the command
-        <span class="inlinecode"><span class="id" title="var">which</span></span> <span class="inlinecode"><span class="id" title="var">vsrocqtop</span></span>. This should print the path to the VSRocq
-        installation inside the container. Copy this path
-        and paste it into the “VSRocq: Path” textbox in the
-        VSRocq extension settings (accessible via the gear icon on
-        the VSRocq extension page in VSCode), then reload your window.
-
-<div class="paragraph"> </div>
-
-
-</li>
-</ul>
-
-</li>
-<li> To see what other key bindings are available, press F<sub>1</sub> and then
-      type <span class="inlinecode"><span class="id" title="var">Coq</span>:</span>, or visit the VSRocq web pages:
-      <a href="https://github.com/rocq-prover/vsrocq"><span class="inlineref" <a href='https://github.com/rocq-prover/vsrocq</span></a>.'>https://github.com/rocq-prover/vsrocq</span></a>.</a> 
-</li>
-</ul>
-
-<div class="paragraph"> </div>
-
-<a id="lab11"></a><h2 class="section">Alternative Installation Methods</h2>
-
-<div class="paragraph"> </div>
-
- If you prefer, there are several other ways to use Rocq. You will need:
-
-<div class="paragraph"> </div>
-
-<ul class="doclist">
-<li> A current installation of Rocq, available from the Rocq home
+<li> A current installation of Rocq 9.0.1, available from the Rocq home
       page (<a href="https://rocq-prover.org/install"><span class="inlineref" <a href='https://rocq-prover.org/install</span></a>).'>https://rocq-prover.org/install</span></a>).</a> The "Rocq Platform"
       offers the easiest installation experience for most people,
-      especially on Windows.
+      especially on Windows:
+      <a href="https://github.com/rocq-prover/platform/releases/tag/2025.08.2"><span class="inlineref" <a href='https://github.com/rocq-prover/platform/releases/tag/2025.08.2</span></a>'>https://github.com/rocq-prover/platform/releases/tag/2025.08.2</span></a></a>
+
+<div class="paragraph"> </div>
+
+      If you use the advanced VsCode + Docker option described below,
+      you don't need to install Rocq separately.
 
 <div class="paragraph"> </div>
 
@@ -509,15 +412,14 @@
 <div class="paragraph"> </div>
 
 <ul class="doclist">
-<li> <i>VsCoq</i> is an extension for Visual Studio Code that offers a
+<li> <i>VsRocq</i> is an extension for Visual Studio Code that offers a
           simple interface via a familiar IDE.  This option is the
           recommended default.
 
 <div class="paragraph"> </div>
 
-          VsCoq can be used as an ordinary IDE or it can be combined
-          with Docker (see below) for a lightweight installation
-          experience.
+          VsRocq can be used as an ordinary IDE or it can be combined
+          with Docker (see advanced alternative below).
 
 <div class="paragraph"> </div>
 
@@ -590,6 +492,111 @@
 
 <div class="paragraph"> </div>
 
+<a id="lab11"></a><h2 class="section">Advanced Alternative Installation Method: VSCode + Docker</h2>
+
+<div class="paragraph"> </div>
+
+ The Visual Studio Code IDE can cooperate with the Docker
+    virtualization platform to compile Rocq scripts without the need
+    for any separate Rocq installation.  This method is recommended for
+    most Software Foundations readers.
+
+<div class="paragraph"> </div>
+
+<ul class="doclist">
+<li> Install Docker from <a href="https://www.docker.com/get-started/"><span class="inlineref" <a href='https://www.docker.com/get-started/</span></a>'>https://www.docker.com/get-started/</span></a></a>or
+      make sure your existing installation is up to date.
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> Make sure Docker is running.
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> Install VSCode from <a href="https://code.visualstudio.com"><span class="inlineref" <a href='https://code.visualstudio.com</span></a>'>https://code.visualstudio.com</span></a></a>and start it
+      running.
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> Install VSCode's Dev Containers Extension from
+      <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers"><span class="inlineref" <a href='https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers</span></a>'>https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers</span></a></a>
+
+<div class="paragraph"> </div>
+
+      (Note that this extension only works with the official version
+      of VSCode, not with some VSCode forks like VsCodium.)
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> Set up a directory for this SF volume by downloading the
+      <span class="inlinecode">.<span class="id" title="var">tgz</span></span> file from <a href="https://softwarefoundations.cis.upenn.edu/lf-current/lf.tgz"><span class="inlineref" <a href='https://softwarefoundations.cis.upenn.edu/lf-current/lf.tgz</span></a>'>https://softwarefoundations.cis.upenn.edu/lf-current/lf.tgz</span></a></a>
+      and extracting the <span class="inlinecode">.<span class="id" title="var">devcontainer</span></span> subdirectory with
+      instructions for VSCode about where to find an appropriate
+      Docker image. Next to this subdirectory add the <span class="inlinecode">.<span class="id" title="var">v</span></span> files
+      we give out to you (in Bochum via Moodle) for each chapter
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> In VSCode, use <span class="inlinecode"><span class="id" title="var">File</span></span> <span class="inlinecode">&gt;</span> <span class="inlinecode"><span class="id" title="keyword">Open</span></span> <span class="inlinecode"><span class="id" title="var">Folder</span></span> to open the new directory.
+      VSCode should ask you whether you want to run the project in the
+      associated Docker container.  (If it does not ask you, you can
+      open the command palette by pressing F<sub>1</sub> and run the command “Dev
+      Containers: Reopen in Container”.)
+
+<div class="paragraph"> </div>
+
+      This step may take some time.
+
+<div class="paragraph"> </div>
+
+
+</li>
+<li> Check that VSRocq is working by double-clicking the file
+      <span class="inlinecode"><span class="id" title="var">Basics.v</span></span> from the list on the left (you should see a blinking
+      cursor in the window that opens; if not you can click in that
+      window to select it), and pressing <span class="inlinecode"><span class="id" title="var">alt</span>+<span class="id" title="var">downarrow</span></span> (on MacOS,
+      <span class="inlinecode"><span class="id" title="var">control</span>+<span class="id" title="var">option</span>+<span class="id" title="var">downarrow</span></span>) a few times.  You should see the
+      cursor move through the file and the region above the cursor get
+      highlighted.
+
+<div class="paragraph"> </div>
+
+<ul class="doclist">
+<li> If VSRocq does not work and you receive an error indicating that
+        <span class="inlinecode"><span class="id" title="var">vsrocqtop</span></span> was not found, open a new terminal in the container
+        (you can do this by opening the command palette and running the
+        command “Terminal: Create New Terminal”) and run the command
+        <span class="inlinecode"><span class="id" title="var">which</span></span> <span class="inlinecode"><span class="id" title="var">vsrocqtop</span></span>. This should print the path to the VSRocq
+        installation inside the container. Copy this path
+        and paste it into the “VSRocq: Path” textbox in the
+        VSRocq extension settings (accessible via the gear icon on
+        the VSRocq extension page in VSCode), then reload your window.
+
+<div class="paragraph"> </div>
+
+
+</li>
+</ul>
+
+</li>
+<li> To see what other key bindings are available, press F<sub>1</sub> and then
+      type <span class="inlinecode"><span class="id" title="var">Coq</span>:</span>, or visit the VSRocq web pages:
+      <a href="https://github.com/rocq-prover/vsrocq"><span class="inlineref" <a href='https://github.com/rocq-prover/vsrocq</span></a>.'>https://github.com/rocq-prover/vsrocq</span></a>.</a> 
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
 <a id="lab12"></a><h2 class="section">Exercises</h2>
 
 <div class="paragraph"> </div>
@@ -641,12 +648,13 @@
 <div class="paragraph"> </div>
 
     Some exercises are marked "advanced," and some are marked
-    "optional."  Doing just the non-optional, non-advanced exercises
-    should provide good coverage of the core material.  Optional
-    exercises provide a bit of extra practice with key concepts and
-    introduce secondary themes that may be of interest to some
-    readers.  Advanced exercises are for readers who want an extra
-    challenge and a deeper cut at the material.
+    "optional." In the Proofs are Programs course in Bochum all
+    non-"optional" exercises are part of your homework, irrespective
+    of whether they are marked "advanced" or not. While they are not
+    part of the homework, Optional exercises provide a bit of extra
+    practice with key concepts and introduce secondary themes that may
+    be of interest to some readers. Optional advanced exercises are
+    for readers who want an extra challenge and a deeper cut at the material.
 
 <div class="paragraph"> </div>
 
@@ -659,20 +667,14 @@
     search engines. 
 <div class="paragraph"> </div>
 
-<a id="lab13"></a><h2 class="section">Downloading the Rocq Files</h2>
+<a id="lab13"></a><h2 class="section">Getting the Rocq Files</h2>
 
 <div class="paragraph"> </div>
 
- A tar file containing the full sources for the "release version"
-    of this book (as a collection of Rocq scripts and HTML files) is
-    available at <a href="https://softwarefoundations.cis.upenn.edu"><span class="inlineref" <a href='https://softwarefoundations.cis.upenn.edu</span></a>.'>https://softwarefoundations.cis.upenn.edu</span></a>.</a>
-
-<div class="paragraph"> </div>
-
-    If you are using the book as part of a class, your professor may
-    give you access to a locally modified version of the files; you
-    should use that one instead of the public release version, so that
-    you get any local updates during the semester. 
+ In the Proofs are Programs course in Bochum the Rocq files
+    corresponding to each book chapter will be given out to you each
+    week as homework. You should use these Bochum-specific versions of
+    the files, so that we can properly grade your homework. 
 <div class="paragraph"> </div>
 
 <a id="lab14"></a><h2 class="section">Chapter Dependencies</h2>
@@ -712,11 +714,7 @@
 </div>
 
 <div class="doc">
-<a id="lab16"></a><h1 class="section">Resources</h1>
-
-<div class="paragraph"> </div>
-
-<a id="lab17"></a><h2 class="section">Sample Exams</h2>
+<a id="lab16"></a><h1 class="section">Sample Exams</h1>
 
 <div class="paragraph"> </div>
 
@@ -728,77 +726,13 @@
     the problems are still relevant to the current text. 
 <div class="paragraph"> </div>
 
-<a id="lab18"></a><h2 class="section">Lecture Videos</h2>
-
-<div class="paragraph"> </div>
-
- Lectures for two intensive summer courses based on <i>Logical
-    Foundations</i> (part of the DeepSpec summer school series) can be
-    found at <a href="https://deepspec.org/event/dsss17"><span class="inlineref" <a href='https://deepspec.org/event/dsss17</span></a>'>https://deepspec.org/event/dsss17</span></a></a>and
-    <a href="https://deepspec.org/event/dsss18/"><span class="inlineref" <a href='https://deepspec.org/event/dsss18/</span></a>.'>https://deepspec.org/event/dsss18/</span></a>.</a> The video quality in the
-    2017 lectures is poor at the beginning but gets better in the
-    later lectures. 
+ The first midterms from University of Pennsylvania (named "mid1")
+    cover similar material to the whole Proofs are Programs course, so
+    only the first midterms are of relevance to us in Bochum at this point. 
 </div>
 
 <div class="doc">
-<a id="lab19"></a><h1 class="section">Note for Instructors and Contributors</h1>
-
-<div class="paragraph"> </div>
-
- If you plan to use these materials in your own teaching, or if you
-    are using software foundations for self study and are finding
-    things you'd like to help add or improve, your contributions are
-    welcome!  You are warmly invited to join the private SF git repo.
-
-<div class="paragraph"> </div>
-
-    In order to keep the legalities simple and to have a single point
-    of responsibility in case the need should ever arise to adjust the
-    license terms, sublicense, etc., we ask all contributors (i.e.,
-    everyone with access to the developers' repository) to assign
-    copyright in their contributions to the appropriate "author of
-    record," as follows:
-
-<div class="paragraph"> </div>
-
-<ul class="doclist">
-<li> I hereby assign copyright in my past and future contributions
-        to the Software Foundations project to the Author of Record of
-        each volume or component, to be licensed under the same terms
-        as the rest of Software Foundations.  I understand that, at
-        present, the Authors of Record are as follows: For Volumes 1
-        and 2, known until 2016 as "Software Foundations" and from
-        2016 as (respectively) "Logical Foundations" and "Programming
-        Foundations," and for Volume 4, "QuickChick: Property-Based
-        Testing in Rocq," the Author of Record is Benjamin C. Pierce.
-        For Volume 3, "Verified Functional Algorithms," and volume 5,
-        "Verifiable C," the Author of Record is Andrew W. Appel. For
-        Volume 6, "Separation Logic Foundations," the author of record
-        is Arthur Chargueraud. For Volume 7, "Security Foundations," the
-        author of record is Catalin Hritcu. For components outside of
-        designated volumes (e.g., typesetting and grading tools and other
-        software infrastructure), the Author of Record is Benjamin C.
-        Pierce.
-
-</li>
-</ul>
-
-<div class="paragraph"> </div>
-
-    To get started, please send an email to Benjamin Pierce,
-    describing yourself and how you plan to use the materials and
-    including (A) the above copyright transfer text and (B) your
-    github username.
-
-<div class="paragraph"> </div>
-
-    We'll set you up with access to the git repository and developers'
-    mailing lists.  In the repository you'll find the files
-    <span class="inlinecode"><span class="id" title="var">INSTRUCTORS</span></span> and <span class="inlinecode"><span class="id" title="var">CONTRIBUTING</span></span> with further instructions. 
-</div>
-
-<div class="doc">
-<a id="lab20"></a><h1 class="section">Translations</h1>
+<a id="lab17"></a><h1 class="section">Translations</h1>
 
 <div class="paragraph"> </div>
 
@@ -809,7 +743,7 @@
 </div>
 
 <div class="doc">
-<a id="lab21"></a><h1 class="section">Thanks</h1>
+<a id="lab18"></a><h1 class="section">Thanks</h1>
 
 <div class="paragraph"> </div>
 
@@ -820,12 +754,12 @@
 </div>
 <div class="code">
 
-<span class="comment">(*&nbsp;2026-04-14&nbsp;20:32&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-04-15&nbsp;20:50&nbsp;*)</span><br/>
 </div>
 </div>
 
 <div id="footer">
-<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr/">coqdoc</a>
+<hr/><a href="coqindex.html">Index</a><hr/>This page has been generated by <a href="http://rocq-prover.org/">coqdoc</a>
 </div>
 
 </div>
