@@ -48,7 +48,7 @@
 </div>
 
 <div class="doc">
-<a id="lab34"></a><h1 class="section">Noninterference</h1>
+<a id="lab35"></a><h1 class="section">Noninterference</h1>
 
 <div class="paragraph"> </div>
 
@@ -286,7 +286,7 @@ Still, our type systems will reject programs containing
     any explicit or implicit flows, this one included. C'est la vie! 
 <div class="paragraph"> </div>
 
-<a id="lab35"></a><h1 class="section">Type system for noninterference of expressions</h1>
+<a id="lab36"></a><h1 class="section">Type system for noninterference of expressions</h1>
 
 <div class="paragraph"> </div>
 
@@ -325,7 +325,7 @@ Still, our type systems will reject programs containing
 
 <div class="paragraph"> </div>
 
-<a id="lab36"></a><h2 class="section">Combining labels</h2>
+<a id="lab37"></a><h2 class="section">Combining labels</h2>
 
 <div class="paragraph"> </div>
 
@@ -462,7 +462,7 @@ We now define a set of rules for the IFC typing relation for
 </div>
 
 <div class="doc">
-<a id="lab37"></a><h2 class="section">Computing labels of arithmetic expressions</h2>
+<a id="lab38"></a><h2 class="section">Computing labels of arithmetic expressions</h2>
 
 <div class="paragraph"> </div>
 
@@ -632,7 +632,7 @@ We now define a set of rules for the IFC typing relation for
 </div>
 
 <div class="doc">
-<a id="lab38"></a><h2 class="section">Computing labels of boolean expressions</h2>
+<a id="lab39"></a><h2 class="section">Computing labels of boolean expressions</h2>
 
 </div>
 <div class="code">
@@ -694,7 +694,7 @@ We now define a set of rules for the IFC typing relation for
 </div>
 
 <div class="doc">
-<a id="lab39"></a><h1 class="section">Restrictive type system prohibiting branching on secrets</h1>
+<a id="lab40"></a><h1 class="section">Restrictive type system prohibiting branching on secrets</h1>
 
 <div class="paragraph"> </div>
 
@@ -884,7 +884,7 @@ For commands we use the previous relations to define a
 </div>
 
 <div class="doc">
-<a id="lab40"></a><h2 class="section">Typechecker for <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span></h2>
+<a id="lab41"></a><h2 class="section">Typechecker for <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span></h2>
 
 </div>
 <div class="code">
@@ -957,7 +957,7 @@ It is worth noting that, while our type-checker is sound and
     <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span> relation for concrete programs by computation: 
 <div class="paragraph"> </div>
 
-<a id="lab41"></a><h2 class="section">Secure program that is <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span>:</h2>
+<a id="lab42"></a><h2 class="section">Secure program that is <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span>:</h2>
 
 </div>
 <div class="code">
@@ -970,7 +970,7 @@ It is worth noting that, while our type-checker is sound and
 </div>
 
 <div class="doc">
-<a id="lab42"></a><h2 class="section">Explicit flow prevented by <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span>:</h2>
+<a id="lab43"></a><h2 class="section">Explicit flow prevented by <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span>:</h2>
 
 </div>
 <div class="code">
@@ -983,7 +983,7 @@ It is worth noting that, while our type-checker is sound and
 </div>
 
 <div class="doc">
-<a id="lab43"></a><h2 class="section">Implicit flow prevented by <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span>:</h2>
+<a id="lab44"></a><h2 class="section">Implicit flow prevented by <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span>:</h2>
 
 </div>
 <div class="code">
@@ -997,7 +997,7 @@ It is worth noting that, while our type-checker is sound and
 </div>
 
 <div class="doc">
-<a id="lab44"></a><h2 class="section">Noninterference enforced by <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span></h2>
+<a id="lab45"></a><h2 class="section">Noninterference enforced by <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span></h2>
 
 <div class="paragraph"> </div>
 
@@ -1095,7 +1095,7 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 
 <div class="paragraph"> </div>
 
-<a id="lab45"></a><h2 class="section"><span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span> too strong for noninterference</h2>
+<a id="lab46"></a><h2 class="section"><span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span> too strong for noninterference</h2>
 
 <div class="paragraph"> </div>
 
@@ -1105,7 +1105,7 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
     by the type system just because it branches on a secret: 
 <div class="paragraph"> </div>
 
-<a id="lab46"></a><h4 class="section">Exercise: 1 star, standard (not_cf_wt_noninterferent_com)</h4>
+<a id="lab47"></a><h4 class="section">Exercise: 1 star, standard (not_cf_wt_noninterferent_com)</h4>
 
 <div class="paragraph"> </div>
 
@@ -1161,7 +1161,7 @@ We will later show that <span class="inlinecode"><span class="id" title="var">cf
     serves as the base for cryptographic constant-time. 
 <div class="paragraph"> </div>
 
-<a id="lab47"></a><h1 class="section">IFC type system allowing branching on secrets</h1>
+<a id="lab48"></a><h1 class="section">IFC type system allowing branching on secrets</h1>
 
 <div class="paragraph"> </div>
 
@@ -1283,7 +1283,7 @@ We now allow branching on arbitrary boolean expressions in <span class="inlineco
     still prevent implicit flows. 
 <div class="paragraph"> </div>
 
-<a id="lab48"></a><h2 class="section">Typechecker for <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span> relation.</h2>
+<a id="lab49"></a><h2 class="section">Typechecker for <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span> relation.</h2>
 
 </div>
 <div class="code">
@@ -1383,7 +1383,7 @@ And we still prevent implicit flows:
 </div>
 
 <div class="doc">
-<a id="lab49"></a><h2 class="section">Dealing with unsynchronized executions running different code</h2>
+<a id="lab50"></a><h2 class="section">Dealing with unsynchronized executions running different code</h2>
 
 <div class="paragraph"> </div>
 
@@ -1434,7 +1434,7 @@ And we still prevent implicit flows:
 </div>
 
 <div class="doc">
-<a id="lab50"></a><h2 class="section">We show that <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span> commands are <span class="inlinecode"><span class="id" title="var">noninterferent</span></span>.</h2>
+<a id="lab51"></a><h2 class="section">We show that <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span> commands are <span class="inlinecode"><span class="id" title="var">noninterferent</span></span>.</h2>
 
 </div>
 <div class="code">
@@ -1502,7 +1502,7 @@ The noninterference proof is still relatively simple, since the
     is working with a big-step semantics for Imp. 
 <div class="paragraph"> </div>
 
-<a id="lab51"></a><h1 class="section">Type system for termination-sensitive noninterference</h1>
+<a id="lab52"></a><h1 class="section">Type system for termination-sensitive noninterference</h1>
 
 <div class="paragraph"> </div>
 
@@ -1528,7 +1528,7 @@ We could prove that <span class="inlinecode"><span class="id" title="var">cf_wel
     secrets <a href="Bib.html#Volpano-and Smith 1997"><span class="inlineref">[Volpano and Smith 1997]</span></a>. 
 <div class="paragraph"> </div>
 
-<a id="lab52"></a><h2 class="section">We just need to update the while rule of <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span>:</h2>
+<a id="lab53"></a><h2 class="section">We just need to update the while rule of <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span>:</h2>
 
 <div class="paragraph"> </div>
 
@@ -1599,7 +1599,7 @@ We could prove that <span class="inlinecode"><span class="id" title="var">cf_wel
 </div>
 
 <div class="doc">
-<a id="lab53"></a><h2 class="section">TSNI Type-Checker</h2>
+<a id="lab54"></a><h2 class="section">TSNI Type-Checker</h2>
 
 <div class="paragraph"> </div>
 
@@ -1607,7 +1607,7 @@ We could prove that <span class="inlinecode"><span class="id" title="var">cf_wel
     system above and prove your type-checker sound and complete. 
 <div class="paragraph"> </div>
 
-<a id="lab54"></a><h4 class="section">Exercise: 2 stars, standard (ts_typechecker)</h4>
+<a id="lab55"></a><h4 class="section">Exercise: 2 stars, standard (ts_typechecker)</h4>
 
 </div>
 <div class="code">
@@ -1628,7 +1628,7 @@ We could prove that <span class="inlinecode"><span class="id" title="var">cf_wel
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab55"></a><h4 class="section">Exercise: 2 stars, standard (ts_typechecker_sound)</h4>
+<a id="lab56"></a><h4 class="section">Exercise: 2 stars, standard (ts_typechecker_sound)</h4>
 
 </div>
 <div class="code">
@@ -1643,7 +1643,7 @@ We could prove that <span class="inlinecode"><span class="id" title="var">cf_wel
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab56"></a><h4 class="section">Exercise: 2 stars, standard (ts_typechecker_complete)</h4>
+<a id="lab57"></a><h4 class="section">Exercise: 2 stars, standard (ts_typechecker_complete)</h4>
 
 </div>
 <div class="code">
@@ -1687,7 +1687,7 @@ But our new termination-sensitive type system rejects it,
     and you can use your new type-checker to prove it: 
 <div class="paragraph"> </div>
 
-<a id="lab57"></a><h4 class="section">Exercise: 1 star, standard (not_ts_non_termination_com)</h4>
+<a id="lab58"></a><h4 class="section">Exercise: 1 star, standard (not_ts_non_termination_com)</h4>
 
 </div>
 <div class="code">
@@ -1701,7 +1701,7 @@ But our new termination-sensitive type system rejects it,
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab58"></a><h2 class="section">We prove that <span class="inlinecode"><span class="id" title="var">ts_well_typed</span></span> enforces TSNI.</h2>
+<a id="lab59"></a><h2 class="section">We prove that <span class="inlinecode"><span class="id" title="var">ts_well_typed</span></span> enforces TSNI.</h2>
 
 <div class="paragraph"> </div>
 
@@ -1804,7 +1804,7 @@ But our new termination-sensitive type system rejects it,
 </div>
 
 <div class="doc">
-<a id="lab59"></a><h1 class="section">Control Flow security</h1>
+<a id="lab60"></a><h1 class="section">Control Flow security</h1>
 
 <div class="paragraph"> </div>
 
@@ -1830,7 +1830,7 @@ But our new termination-sensitive type system rejects it,
 </div>
 
 <div class="doc">
-<a id="lab60"></a><h2 class="section">Instrumented semantics with branches</h2>
+<a id="lab61"></a><h2 class="section">Instrumented semantics with branches</h2>
 
 <div class="paragraph"> </div>
 
@@ -1956,7 +1956,7 @@ But our new termination-sensitive type system rejects it,
 </div>
 
 <div class="doc">
-<a id="lab61"></a><h2 class="section">Control Flow security definition</h2>
+<a id="lab62"></a><h2 class="section">Control Flow security definition</h2>
 
 <div class="paragraph"> </div>
 
@@ -2025,7 +2025,7 @@ The proof does rely on <span class="inlinecode"><span class="id" title="var">cf_
     cryptographic constant time in the <a href="SpecCT.html"><span class="inlineref">SpecCT</span></a> chapter. 
 <div class="paragraph"> </div>
 
-<a id="lab62"></a><h4 class="section">Exercise: 4 stars, standard (cf_well_typed_ts_cf_secure)</h4>
+<a id="lab63"></a><h4 class="section">Exercise: 4 stars, standard (cf_well_typed_ts_cf_secure)</h4>
 
 <div class="paragraph"> </div>
 
@@ -2059,11 +2059,11 @@ In this exercise, you have to prove that <span class="inlinecode"><span class="i
 <div class="doc"> 
 <div class="paragraph"> </div>
 
-<a id="lab63"></a><h1 class="section">Exercise: Adding public outputs</h1>
+<a id="lab64"></a><h1 class="section">Exercise: Adding public outputs</h1>
 
 <div class="paragraph"> </div>
 
-<a id="lab64"></a><h4 class="section">Exercise: 5 stars, standard (public_outputs)</h4>
+<a id="lab65"></a><h4 class="section">Exercise: 5 stars, standard (public_outputs)</h4>
 
 <div class="paragraph"> </div>
 
