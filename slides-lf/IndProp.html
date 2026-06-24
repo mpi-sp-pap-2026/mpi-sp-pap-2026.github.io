@@ -283,8 +283,8 @@ However, this can result in some tedium in proof scripts. Consider:
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;l&nbsp;=&nbsp;m&nbsp;::&nbsp;l'&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">destruct</span> (<span class="id" title="var">n</span> =? <span class="id" title="var">m</span>) <span class="id" title="var">eqn</span>:<span class="id" title="var">H</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;+ <span class="comment">(*&nbsp;n&nbsp;=?&nbsp;m&nbsp;=&nbsp;true&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">_</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">eqb_eq</span> <span class="id" title="keyword">in</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">H</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">left</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">_</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">eqb_eq</span> <span class="id" title="keyword">in</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">left</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;+ <span class="comment">(*&nbsp;n&nbsp;=?&nbsp;m&nbsp;=&nbsp;false&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">H'</span>. <span class="id" title="tactic">right</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">IHl'</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">H'</span>.<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
@@ -292,12 +292,7 @@ However, this can result in some tedium in proof scripts. Consider:
 
 <div class="doc">
 The first subcase (where <span class="inlinecode"><span class="id" title="var">n</span></span> <span class="inlinecode">=?</span> <span class="inlinecode"><span class="id" title="var">m</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">true</span></span>) is a bit tedious
-    because we have to explicitly "switch worlds."
-
-<div class="paragraph"> </div>
-
-    It would be annoying to have to do this kind of thing all the
-    time. 
+    because we have to explicitly "switch worlds." 
 <div class="paragraph"> </div>
 
 <a id="lab312"></a><h3 class="section"> </h3>
@@ -332,7 +327,11 @@ Notice that the only way to produce evidence for <span class="inlinecode"><span 
     <i>evidence</i> for <span class="inlinecode"><span class="id" title="var">P</span></span> from evidence for <span class="inlinecode"><span class="id" title="var">reflect</span></span> <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode"><span class="id" title="var">true</span></span>. 
 <div class="paragraph"> </div>
 
- To put this observation to work, we first prove that the
+<a id="lab313"></a><h3 class="section"> </h3>
+
+<div class="paragraph"> </div>
+
+ To put these observations to work, we first prove that the
     statements <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode">↔</span> <span class="inlinecode"><span class="id" title="var">b</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">true</span></span> and <span class="inlinecode"><span class="id" title="var">reflect</span></span> <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode"><span class="id" title="var">b</span></span> are indeed
     equivalent.  First, the left-to-right implication: 
 </div>
@@ -347,9 +346,8 @@ Notice that the only way to produce evidence for <span class="inlinecode"><span 
 (The right-to-left implication is left as an exercise.) 
 <div class="paragraph"> </div>
 
-<a id="lab313"></a><h3 class="section"> </h3>
- We can think of <span class="inlinecode"><span class="id" title="var">reflect</span></span> as a variant of the usual "if and only
-    if" connective; the advantage of <span class="inlinecode"><span class="id" title="var">reflect</span></span> is that, by destructing
+ So we can think of <span class="inlinecode"><span class="id" title="var">reflect</span></span> as a variant of the usual "if and only
+    if" connective. The advantage of <span class="inlinecode"><span class="id" title="var">reflect</span></span> is that, by destructing
     a hypothesis or lemma of the form <span class="inlinecode"><span class="id" title="var">reflect</span></span> <span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode"><span class="id" title="var">b</span></span>, we can perform
     case analysis on <span class="inlinecode"><span class="id" title="var">b</span></span> while <i>at the same time</i> generating
     appropriate hypothesis in the two branches (<span class="inlinecode"><span class="id" title="var">P</span></span> in the first
@@ -366,7 +364,7 @@ Notice that the only way to produce evidence for <span class="inlinecode"><span 
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Lemma</span> <span class="id" title="var">eqbP</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">n</span> <span class="id" title="var">m</span>, <span class="id" title="var">reflect</span> (<span class="id" title="var">n</span> = <span class="id" title="var">m</span>) (<span class="id" title="var">n</span> =? <span class="id" title="var">m</span>).<br/>
+<span class="id" title="keyword">Lemma</span> <span class="id" title="var">eqb_spec</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">n</span> <span class="id" title="var">m</span>, <span class="id" title="var">reflect</span> (<span class="id" title="var">n</span> = <span class="id" title="var">m</span>) (<span class="id" title="var">n</span> =? <span class="id" title="var">m</span>).<br/>
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">n</span> <span class="id" title="var">m</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">iff_reflect</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">eqb_eq</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
@@ -389,7 +387,7 @@ Notice that the only way to produce evidence for <span class="inlinecode"><span 
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;l&nbsp;=&nbsp;<span class="inlinecode"></span>&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">intros</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;l&nbsp;=&nbsp;m&nbsp;::&nbsp;l'&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">destruct</span> (<span class="id" title="var">eqbP</span> <span class="id" title="var">n</span> <span class="id" title="var">m</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">EQnm</span> | <span class="id" title="var">NEQnm</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">destruct</span> (<span class="id" title="var">eqb_spec</span> <span class="id" title="var">n</span> <span class="id" title="var">m</span>) <span class="id" title="keyword">as</span> [<span class="id" title="var">EQnm</span> | <span class="id" title="var">NEQnm</span>].<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;+ <span class="comment">(*&nbsp;n&nbsp;=&nbsp;m&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">_</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">EQnm</span>. <span class="id" title="tactic">left</span>. <span class="id" title="tactic">reflexivity</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;+ <span class="comment">(*&nbsp;n&nbsp;&lt;&gt;&nbsp;m&nbsp;*)</span><br/>
