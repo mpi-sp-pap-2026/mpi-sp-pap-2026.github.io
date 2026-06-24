@@ -479,4 +479,4 @@ Proof.
 
     Again, there is no free lunch! *)
 
-(* 2026-06-24 16:36 *)
+(* 2026-06-24 17:07 *)
