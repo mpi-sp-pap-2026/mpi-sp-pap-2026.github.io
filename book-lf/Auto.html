@@ -178,7 +178,7 @@ Intuitively, we can understand the <span class="inlinecode"><span class="id" tit
 
 </li>
 <li> If the goal is an implication (<span class="inlinecode">→</span>) or universally quantified
-      (<span class="inlinecode"><span class="id" title="keyword">∀</span></span>), apply <span class="inlinecode"><span class="id" title="tactic">intro</span></span> and continue.
+      (<span class="inlinecode"><span class="id" title="keyword">∀</span></span>), apply <span class="inlinecode"><span class="id" title="tactic">intros</span></span> and continue.
 
 <div class="paragraph"> </div>
 
@@ -197,7 +197,7 @@ Intuitively, we can understand the <span class="inlinecode"><span class="id" tit
   leaving the goal unchanged. 
 <div class="paragraph"> </div>
 
- If <span class="inlinecode"><span class="id" title="tactic">auto</span></span> is not solving our goal as expected we can use <span class="inlinecode"><span class="id" title="tactic">debug</span></span>
+ If <span class="inlinecode"><span class="id" title="tactic">auto</span></span> does not solve our goal as expected we can use <span class="inlinecode"><span class="id" title="tactic">debug</span></span>
     <span class="inlinecode"><span class="id" title="tactic">auto</span></span> to see a trace. In fact, <span class="inlinecode"><span class="id" title="tactic">debug</span></span> <span class="inlinecode"><span class="id" title="tactic">auto</span></span> prints the whole
     search trace even when <span class="inlinecode"><span class="id" title="tactic">auto</span></span> <i>succeeds</i>, so we can also use it to
     watch <span class="inlinecode"><span class="id" title="tactic">auto</span></span> backtrack: 
@@ -205,16 +205,16 @@ Intuitively, we can understand the <span class="inlinecode"><span class="id" tit
 <div class="code">
 
 <span class="id" title="keyword">Example</span> <a id="auto_algorithm" class="idref" href="#auto_algorithm"><span class="id" title="definition">auto_algorithm</span></a> : <span class="id" title="keyword">∀</span> (<a id="P:17" class="idref" href="#P:17"><span class="id" title="binder">P</span></a> <a id="Q:18" class="idref" href="#Q:18"><span class="id" title="binder">Q</span></a> <a id="R:19" class="idref" href="#R:19"><span class="id" title="binder">R</span></a>: <span class="id" title="keyword">Prop</span>),<br/>
-&nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="Auto.html#Q:18"><span class="id" title="variable">Q</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Auto.html#R:19"><span class="id" title="variable">R</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="comment">(*&nbsp;HQR&nbsp;:&nbsp;leaves&nbsp;<span class="inlinecode"><span class="id" title="var">Q</span></span>&nbsp;--&nbsp;dead&nbsp;end&nbsp;*)</span><br/>
-&nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">((</span></a><a class="idref" href="Auto.html#P:17"><span class="id" title="variable">P</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Auto.html#P:17"><span class="id" title="variable">P</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Auto.html#R:19"><span class="id" title="variable">R</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="comment">(*&nbsp;HPPR&nbsp;:&nbsp;leaves&nbsp;<span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">P</span></span>&nbsp;--&nbsp;closed&nbsp;by&nbsp;<span class="inlinecode"><span class="id" title="tactic">intro</span></span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;<span class="inlinecode"><span class="id" title="tactic">assumption</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">(</span></a><a class="idref" href="Auto.html#Q:18"><span class="id" title="variable">Q</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Auto.html#R:19"><span class="id" title="variable">R</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="comment">(*&nbsp;HQR&nbsp;:&nbsp;requires&nbsp;<span class="inlinecode"><span class="id" title="var">Q</span></span>&nbsp;--&nbsp;dead&nbsp;end&nbsp;*)</span><br/>
+&nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">((</span></a><a class="idref" href="Auto.html#P:17"><span class="id" title="variable">P</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Auto.html#P:17"><span class="id" title="variable">P</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="Auto.html#R:19"><span class="id" title="variable">R</span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">)</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="comment">(*&nbsp;HPPR&nbsp;:&nbsp;requires&nbsp;<span class="inlinecode"><span class="id" title="var">P</span></span> <span class="inlinecode">→</span> <span class="inlinecode"><span class="id" title="var">P</span></span>&nbsp;--&nbsp;proved&nbsp;by&nbsp;<span class="inlinecode"><span class="id" title="tactic">intro</span></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;<span class="inlinecode"><span class="id" title="tactic">assumption</span></span>&nbsp;*)</span><br/>
 &nbsp;&nbsp;<a class="idref" href="Auto.html#R:19"><span class="id" title="variable">R</span></a>.<br/>
 <span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">intros</span> <span class="id" title="var">P</span> <span class="id" title="var">Q</span> <span class="id" title="var">R</span> <span class="id" title="var">HQR</span> <span class="id" title="var">HPPR</span>. <span class="id" title="tactic">debug</span> <span class="id" title="tactic">auto</span>. <span class="id" title="keyword">Qed</span>.<br/>
 </div>
 
 <div class="doc">
 Proof search could, in principle, take an arbitrarily long time,
-    so there is a limit to how deep <span class="inlinecode"><span class="id" title="tactic">auto</span></span> will search by default. 
+    so there is a limit to how deep <span class="inlinecode"><span class="id" title="tactic">auto</span></span> will search (by default 5). 
 </div>
 <div class="code">
 
@@ -230,10 +230,10 @@ Proof search could, in principle, take an arbitrarily long time,
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">P</span> <span class="id" title="var">Q</span> <span class="id" title="var">R</span> <span class="id" title="var">S</span> <span class="id" title="var">T</span> <span class="id" title="var">U</span> <span class="id" title="var">HPQ</span> <span class="id" title="var">HQR</span> <span class="id" title="var">HRS</span> <span class="id" title="var">HST</span> <span class="id" title="var">HTU</span> <span class="id" title="var">HP</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;When&nbsp;it&nbsp;cannot&nbsp;solve&nbsp;the&nbsp;goal,&nbsp;<span class="inlinecode"><span class="id" title="tactic">auto</span></span>&nbsp;does&nbsp;nothing&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="id" title="tactic">auto</span>.<br/><hr class='doublespaceincode'/>
-&nbsp;&nbsp;<span class="comment">(*&nbsp;Let's&nbsp;see&nbsp;where&nbsp;<span class="inlinecode"><span class="id" title="tactic">auto</span></span>&nbsp;gets&nbsp;stuck&nbsp;using&nbsp;<span class="inlinecode"><span class="id" title="tactic">debug</span></span> <span class="inlinecode"><span class="id" title="tactic">auto</span></span>&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;Let's&nbsp;see&nbsp;where&nbsp;<span class="inlinecode"><span class="id" title="tactic">auto</span></span>&nbsp;gets&nbsp;stuck&nbsp;with&nbsp;the&nbsp;default&nbsp;depth<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;5&nbsp;using&nbsp;<span class="inlinecode"><span class="id" title="tactic">debug</span></span> <span class="inlinecode"><span class="id" title="tactic">auto</span></span>&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="id" title="tactic">debug</span> <span class="id" title="tactic">auto</span>.<br/><hr class='doublespaceincode'/>
-&nbsp;&nbsp;<span class="comment">(*&nbsp;Optional&nbsp;argument&nbsp;to&nbsp;<span class="inlinecode"><span class="id" title="tactic">auto</span></span>&nbsp;says&nbsp;how&nbsp;deep&nbsp;to&nbsp;search<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(default&nbsp;is&nbsp;5)&nbsp;*)</span><br/>
+&nbsp;&nbsp;<span class="comment">(*&nbsp;Optional&nbsp;argument&nbsp;to&nbsp;<span class="inlinecode"><span class="id" title="tactic">auto</span></span>&nbsp;says&nbsp;how&nbsp;deep&nbsp;to&nbsp;search&nbsp;*)</span><br/>
 &nbsp;&nbsp;<span class="id" title="tactic">auto</span> 6.<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
 </div>
@@ -1485,7 +1485,7 @@ The <span class="inlinecode"><span class="id" title="tactic">congruence</span></
 
 <div class="code">
 
-<span class="comment">(*&nbsp;2026-07-08&nbsp;11:57&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-07-08&nbsp;17:17&nbsp;*)</span><br/>
 </div>
 </div>
 
