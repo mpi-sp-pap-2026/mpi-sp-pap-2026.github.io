@@ -40,15 +40,6 @@ idtac "Possible points: 1".
 print_manual_grade Exercise.manual_grade_for_pumping_constant_ge_1_redux.
 idtac " ".
 
-idtac "-------------------  pumping_redux_strong  --------------------".
-idtac " ".
-
-idtac "#> Manually graded: Exercise.pumping_redux_strong".
-idtac "Advanced".
-idtac "Possible points: 3".
-print_manual_grade Exercise.manual_grade_for_pumping_redux_strong.
-idtac " ".
-
 idtac "-------------------  re_opt_match_auto  --------------------".
 idtac " ".
 
@@ -107,7 +98,7 @@ idtac " ".
 idtac " ".
 
 idtac "Max points - standard: 6".
-idtac "Max points - advanced: 9".
+idtac "Max points - advanced: 6".
 idtac "".
 idtac "Allowed Axioms:".
 idtac "functional_extensionality".
@@ -145,8 +136,6 @@ idtac "---------- pair_equal ---------".
 Print Assumptions pair_equal.
 idtac "".
 idtac "********** Advanced **********".
-idtac "---------- pumping_redux_strong ---------".
-idtac "MANUAL".
 Abort.
 
-(* 2026-07-08 20:19 *)
+(* 2026-07-10 14:40 *)

@@ -349,7 +349,7 @@ Lemma pumping_constant_ge_1 :
 Definition manual_grade_for_pumping_constant_ge_1_redux : option (nat*string) := None.
 (** [] *)
 
-(** **** Exercise: 3 stars, advanced (pumping_redux_strong)
+(** **** Exercise: 3 stars, advanced, optional (pumping_redux_strong)
 
     Use [auto], [lia], and any other useful tactics from this chapter
     to shorten your proof (or the "official" solution proof) of the
@@ -1217,4 +1217,4 @@ Theorem pair_equal : forall {X} (a b c d: X) (e: X * X),
 Proof. (* FILL IN HERE *) Admitted.
 (** [] *)
 
-(* 2026-07-08 20:20 *)
+(* 2026-07-10 14:40 *)
