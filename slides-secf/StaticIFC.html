@@ -1361,13 +1361,6 @@ The noninterference proof is still relatively simple, since the
 
 <div class="paragraph"> </div>
 
- The noninterference notion we used above was "termination
-    insensitive". If we reject loop conditions depending on secrets we
-    can actually enforce termination-sensitive noninterference (TSNI),
-    in which the attacker can also observe whether the program
-    terminates or not. 
-<div class="paragraph"> </div>
-
  We just need to update the while rule of <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span>.
     Here is the old rule for termination-insensitive noninterference (TINI):
 <center><table class="infrule">
