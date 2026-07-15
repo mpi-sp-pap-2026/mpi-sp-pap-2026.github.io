@@ -1003,8 +1003,7 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 &nbsp;&nbsp;¬<span class="id" title="var">LXP</span> &#x22A2;<span class="id" title="var">cf</span>- &lt;{ <span class="id" title="keyword">if</span> <span class="id" title="var">Y</span>=0 <span class="comment">(*&nbsp;check:&nbsp;L&nbsp;&#x22A2;b-&nbsp;Y=0&nbsp;&#x2208;&nbsp;public&nbsp;(fails!)&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">then</span> <span class="id" title="var">Z</span> := 0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">skip</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">X</span> := 42 }&gt;.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span> }&gt;.<br/>
 <span class="id" title="keyword">Proof</span>. <span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" title="var">Admitted</span>.<br/>
 <font size=-2>&#9744;</font>
 </div>
@@ -1017,9 +1016,7 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 <div class="paragraph"> </div>
 
  Yet this program contains no explicit flows and no implicit flows
-    (the only variable assigned in the branches is the secret <span class="inlinecode"><span class="id" title="var">Z</span></span>, and
-    the public variable <span class="inlinecode"><span class="id" title="var">X</span></span> is only assigned the constant <span class="inlinecode">42</span> after
-    the branches have joined back), so it is intuitively
+    (since the assigned variable <span class="inlinecode"><span class="id" title="var">Z</span></span> is secret), so it is intuitively
     noninterferent, and with a bit more work we can prove this formally: 
 </div>
 <div class="code">
@@ -1028,33 +1025,21 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 &nbsp;&nbsp;<span class="id" title="var">noninterferent_com</span> <span class="id" title="var">LXP</span> &lt;{ <span class="id" title="keyword">if</span> <span class="id" title="var">Y</span>=0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">then</span> <span class="id" title="var">Z</span> := 0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">skip</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">X</span> := 42 }&gt;.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span> }&gt;.<br/>
 <div class="togglescript" id="proofcontrol20" onclick="toggleDisplay('proof20');toggleDisplay('proofcontrol20')"><span class="show"></span></div>
 <div class="proofscript" id="proof20" onclick="toggleDisplay('proof20');toggleDisplay('proofcontrol20')">
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">noninterferent_com</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">s<sub>1</sub></span> <span class="id" title="var">s<sub>2</sub></span> <span class="id" title="var">s<sub>1</sub>'</span> <span class="id" title="var">s<sub>2</sub>'</span> <span class="id" title="var">H</span> <span class="id" title="var">red1</span> <span class="id" title="var">red2</span>.<br/>
-&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">red1</span>; <span class="id" title="var">invert</span> <span class="id" title="var">red2</span>.<br/>
-&nbsp;&nbsp;<span class="comment">(*&nbsp;the&nbsp;final&nbsp;<span class="inlinecode"><span class="id" title="var">X</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">42</span>&nbsp;assignments&nbsp;*)</span><br/>
-&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>5</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>7</sub></span>.<br/>
-&nbsp;&nbsp;<span class="comment">(*&nbsp;the&nbsp;branchings&nbsp;on&nbsp;the&nbsp;secret&nbsp;<span class="inlinecode"><span class="id" title="var">Y</span></span>&nbsp;*)</span><br/>
-&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>2</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>3</sub></span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">red1</span>; <span class="id" title="var">invert</span> <span class="id" title="var">red2</span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>6</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>.<br/>
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;both&nbsp;runs&nbsp;assign&nbsp;to&nbsp;the&nbsp;secret&nbsp;<span class="inlinecode"><span class="id" title="var">Z</span></span>&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>9</sub></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">pub_equiv_update_same</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">pub_equiv_update_secret</span>; [<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span> | <span class="id" title="tactic">reflexivity</span>].<br/>
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;only&nbsp;the&nbsp;first&nbsp;run&nbsp;assigns&nbsp;to&nbsp;<span class="inlinecode"><span class="id" title="var">Z</span></span>&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>9</sub></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">pub_equiv_update_same</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">pub_equiv_update_secret_l</span>; [<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span> | <span class="id" title="tactic">reflexivity</span>].<br/>
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;only&nbsp;the&nbsp;second&nbsp;run&nbsp;assigns&nbsp;to&nbsp;<span class="inlinecode"><span class="id" title="var">Z</span></span>&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>9</sub></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">pub_equiv_update_same</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">pub_equiv_update_secret_r</span>; [<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span> | <span class="id" title="tactic">reflexivity</span>].<br/>
-&nbsp;&nbsp;- <span class="comment">(*&nbsp;neither&nbsp;run&nbsp;assigns&nbsp;in&nbsp;the&nbsp;branches&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>9</sub></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">pub_equiv_update_same</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;- <span class="comment">(*&nbsp;neither&nbsp;run&nbsp;assigns,&nbsp;so&nbsp;the&nbsp;states&nbsp;unchanged&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
 </div>
 </div>
@@ -1161,6 +1146,20 @@ We will later show that <span class="inlinecode"><span class="id" title="var">cf
     still prevent implicit flows. 
 <div class="paragraph"> </div>
 
+<a id="lab81"></a><h2 class="section">A bit more on the sequence rule</h2>
+
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+<br/>
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> ;; <span class="id" title="var">pc</span> &#x22A2;<span class="id" title="var">ni</span>- <span class="id" title="var">c<sub>1</sub></span>    <span class="id" title="var">L</span> ;; <span class="id" title="var">pc</span> &#x22A2;<span class="id" title="var">ni</span>- <span class="id" title="var">c<sub>2</sub></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--------------------------------             (<span class="id" title="var">NIWT_Seq</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> ;; <span class="id" title="var">pc</span> &#x22A2;<span class="id" title="var">ni</span>- <span class="id" title="var">c<sub>1</sub></span>;<span class="id" title="var">c<sub>2</sub></span>
+</span>
+<div class="paragraph"> </div>
+
  The sequence rule is more interesting than it may look: both <span class="inlinecode"><span class="id" title="var">c<sub>1</sub></span></span>
     and <span class="inlinecode"><span class="id" title="var">c<sub>2</sub></span></span> are type-checked under the <i>same</i> <span class="inlinecode"><span class="id" title="var">pc</span></span> label as the whole
     sequence. In particular, branching on secrets <i>inside</i> <span class="inlinecode"><span class="id" title="var">c<sub>1</sub></span></span> raises
@@ -1179,7 +1178,7 @@ We will later show that <span class="inlinecode"><span class="id" title="var">cf
 </div>
 
 <div class="doc">
-<a id="lab81"></a><h2 class="section">Type-Checker for <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span> relation</h2>
+<a id="lab82"></a><h2 class="section">Type-Checker for <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span> relation</h2>
 
 </div>
 <div class="code">
@@ -1227,13 +1226,13 @@ We will later show that <span class="inlinecode"><span class="id" title="var">cf
 </div>
 
 <div class="doc">
-<a id="lab82"></a><h2 class="section"> </h2>
+<a id="lab83"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
  With this more permissive type system we can accept more
     noninterferent programs that were rejected by <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span>,
-    including the one we saw above: 
+    including an extension of the one we saw above: 
 </div>
 <div class="code">
 
@@ -1263,7 +1262,7 @@ And we still prevent implicit flows:
 </div>
 
 <div class="doc">
-<a id="lab83"></a><h2 class="section">Dealing with unsynchronized executions running different code</h2>
+<a id="lab84"></a><h2 class="section">Dealing with unsynchronized executions running different code</h2>
 
 <div class="paragraph"> </div>
 
@@ -1314,7 +1313,7 @@ And we still prevent implicit flows:
 </div>
 
 <div class="doc">
-<a id="lab84"></a><h2 class="section">We show that <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span> commands are noninterferent</h2>
+<a id="lab85"></a><h2 class="section">We show that <span class="inlinecode"><span class="id" title="var">ni_well_typed</span></span> commands are noninterferent</h2>
 
 </div>
 <div class="code">
@@ -1385,7 +1384,7 @@ The noninterference proof is still relatively simple, since the
     is working with a big-step semantics for Imp. 
 <div class="paragraph"> </div>
 
-<a id="lab85"></a><h1 class="section">Type system for termination-sensitive noninterference</h1>
+<a id="lab86"></a><h1 class="section">Type system for termination-sensitive noninterference</h1>
 
 <div class="paragraph"> </div>
 
@@ -1438,7 +1437,7 @@ The noninterference proof is still relatively simple, since the
 </div>
 
 <div class="doc">
-<a id="lab86"></a><h2 class="section">Back to our <span class="inlinecode"><span class="id" title="var">termination_leak</span></span> example</h2>
+<a id="lab87"></a><h2 class="section">Back to our <span class="inlinecode"><span class="id" title="var">termination_leak</span></span> example</h2>
 
 <div class="paragraph"> </div>
 
@@ -1469,7 +1468,7 @@ But our new termination-sensitive type system rejects it,
     and you can use your own type-checker to prove it: 
 <div class="paragraph"> </div>
 
-<a id="lab87"></a><h4 class="section">Exercise: 1 star, standard (not_ts_non_termination_com)</h4>
+<a id="lab88"></a><h4 class="section">Exercise: 1 star, standard (not_ts_non_termination_com)</h4>
 
 </div>
 <div class="code">
@@ -1482,7 +1481,7 @@ But our new termination-sensitive type system rejects it,
 
 
 <div class="doc">
-<a id="lab88"></a><h2 class="section">Equivalent <span class="inlinecode"><span class="id" title="var">tsni</span></span> characterization</h2>
+<a id="lab89"></a><h2 class="section">Equivalent <span class="inlinecode"><span class="id" title="var">tsni</span></span> characterization</h2>
 
 <div class="paragraph"> </div>
 
@@ -1525,7 +1524,7 @@ But our new termination-sensitive type system rejects it,
 </div>
 
 <div class="doc">
-<a id="lab89"></a><h2 class="section">We first prove that <span class="inlinecode"><span class="id" title="var">ts_well_typed</span></span> enforces <span class="inlinecode"><span class="id" title="var">noninterference</span></span></h2>
+<a id="lab90"></a><h2 class="section">We first prove that <span class="inlinecode"><span class="id" title="var">ts_well_typed</span></span> enforces <span class="inlinecode"><span class="id" title="var">noninterference</span></span></h2>
 
 <div class="paragraph"> </div>
 
@@ -1550,7 +1549,7 @@ But our new termination-sensitive type system rejects it,
 </div>
 
 <div class="doc">
-<a id="lab90"></a><h2 class="section">We use this to show <span class="inlinecode"><span class="id" title="var">ts_well_typed</span></span> enforces equitermination</h2>
+<a id="lab91"></a><h2 class="section">We use this to show <span class="inlinecode"><span class="id" title="var">ts_well_typed</span></span> enforces equitermination</h2>
 
 <div class="paragraph"> </div>
 
@@ -1636,7 +1635,7 @@ We use this to show that <span class="inlinecode"><span class="id" title="var">t
 </div>
 
 <div class="doc">
-<a id="lab91"></a><h2 class="section">We put things together to prove <span class="inlinecode"><span class="id" title="var">ts_well_typed</span></span> enforces <span class="inlinecode"><span class="id" title="var">tsni</span></span></h2>
+<a id="lab92"></a><h2 class="section">We put things together to prove <span class="inlinecode"><span class="id" title="var">ts_well_typed</span></span> enforces <span class="inlinecode"><span class="id" title="var">tsni</span></span></h2>
 
 <div class="paragraph"> </div>
 
@@ -1656,7 +1655,7 @@ We use this to show that <span class="inlinecode"><span class="id" title="var">t
 </div>
 
 <div class="doc">
-<a id="lab92"></a><h1 class="section">Control Flow security</h1>
+<a id="lab93"></a><h1 class="section">Control Flow security</h1>
 
 <div class="paragraph"> </div>
 
@@ -1684,7 +1683,7 @@ We use this to show that <span class="inlinecode"><span class="id" title="var">t
 </div>
 
 <div class="doc">
-<a id="lab93"></a><h2 class="section">Instrumented semantics with branches</h2>
+<a id="lab94"></a><h2 class="section">Instrumented semantics with branches</h2>
 
 <div class="paragraph"> </div>
 
@@ -1770,7 +1769,7 @@ We use this to show that <span class="inlinecode"><span class="id" title="var">t
 </div>
 
 <div class="doc">
-<a id="lab94"></a><h2 class="section">Control Flow security definition</h2>
+<a id="lab95"></a><h2 class="section">Control Flow security definition</h2>
 
 <div class="paragraph"> </div>
 
@@ -1791,7 +1790,7 @@ CF security is mostly orthogonal to noninterference and
     the program to be independent of secrets. 
 <div class="paragraph"> </div>
 
-<a id="lab95"></a><h2 class="section">Control Flow security proof</h2>
+<a id="lab96"></a><h2 class="section">Control Flow security proof</h2>
 
 <div class="paragraph"> </div>
 
@@ -1845,7 +1844,7 @@ Similarly to our previous equitermination proof, this proof relies
     the <a href="SpecCT.html"><span class="inlineref">SpecCT</span></a> chapter. 
 <div class="paragraph"> </div>
 
-<a id="lab96"></a><h2 class="section">Summary</h2>
+<a id="lab97"></a><h2 class="section">Summary</h2>
  This diagram summarizes the type systems from this chapter, the
     strength relations between them, and the semantic security notions
     they enforce. Even stronger (so at the top) is cryptographic

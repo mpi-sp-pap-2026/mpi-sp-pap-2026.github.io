@@ -1315,8 +1315,7 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 &nbsp;&nbsp;<a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#63a68285c81db8f9bc456233bb9ed181"><span class="id" title="notation">¬</span></a> <a class="idref" href="Noninterference.html#LXP"><span class="id" title="definition">LXP</span></a> <a class="idref" href="StaticIFC.html#8fd635b1a1fd42f63c9d7e6bf0918f8d"><span class="id" title="notation">&#x22A2;</span></a><a class="idref" href="StaticIFC.html#8fd635b1a1fd42f63c9d7e6bf0918f8d"><span class="id" title="notation">cf</span></a><a class="idref" href="StaticIFC.html#8fd635b1a1fd42f63c9d7e6bf0918f8d"><span class="id" title="notation">-</span></a> <span class="id" title="notation">&lt;{</span> <span class="id" title="notation">if</span> <span class="id" title="definition">Y</span><span class="id" title="notation">=</span>0 <span class="comment">(*&nbsp;check:&nbsp;L&nbsp;&#x22A2;b-&nbsp;Y=0&nbsp;&#x2208;&nbsp;public&nbsp;(fails!)&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">then</span> <span class="id" title="definition">Z</span> <span class="id" title="notation">:=</span> 0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">else</span> <span class="id" title="notation">skip</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">end</span><span class="id" title="notation">;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">X</span> <span class="id" title="notation">:=</span> 42 <span class="id" title="notation">}&gt;</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">end</span> <span class="id" title="notation">}&gt;</span>.<br/>
 <span class="id" title="keyword">Proof</span>. <span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" title="var">Admitted</span>.<br/>
 <font size=-2>&#9744;</font>
 </div>
@@ -1325,9 +1324,7 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 <div class="paragraph"> </div>
 
  Yet this program contains no explicit flows and no implicit flows
-    (the only variable assigned in the branches is the secret <span class="inlinecode"><span class="id" title="var">Z</span></span>, and
-    the public variable <span class="inlinecode"><span class="id" title="var">X</span></span> is only assigned the constant <span class="inlinecode">42</span> after
-    the branches have joined back), so it is intuitively
+    (since the assigned variable <span class="inlinecode"><span class="id" title="var">Z</span></span> is secret), so it is intuitively
     noninterferent, and with a bit more work we can prove this formally: 
 </div>
 <div class="code">
@@ -1336,33 +1333,21 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 &nbsp;&nbsp;<a class="idref" href="Noninterference.html#noninterferent_com"><span class="id" title="definition">noninterferent_com</span></a> <a class="idref" href="Noninterference.html#LXP"><span class="id" title="definition">LXP</span></a> <span class="id" title="notation">&lt;{</span> <span class="id" title="notation">if</span> <span class="id" title="definition">Y</span><span class="id" title="notation">=</span>0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">then</span> <span class="id" title="definition">Z</span> <span class="id" title="notation">:=</span> 0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">else</span> <span class="id" title="notation">skip</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">end</span><span class="id" title="notation">;</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="definition">X</span> <span class="id" title="notation">:=</span> 42 <span class="id" title="notation">}&gt;</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">end</span> <span class="id" title="notation">}&gt;</span>.<br/>
 <div class="togglescript" id="proofcontrol19" onclick="toggleDisplay('proof19');toggleDisplay('proofcontrol19')"><span class="show"></span></div>
 <div class="proofscript" id="proof19" onclick="toggleDisplay('proof19');toggleDisplay('proofcontrol19')">
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <a class="idref" href="Noninterference.html#noninterferent_com"><span class="id" title="definition">noninterferent_com</span></a>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">s<sub>1</sub></span> <span class="id" title="var">s<sub>2</sub></span> <span class="id" title="var">s<sub>1</sub>'</span> <span class="id" title="var">s<sub>2</sub>'</span> <span class="id" title="var">H</span> <span class="id" title="var">red1</span> <span class="id" title="var">red2</span>.<br/>
-&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">red1</span>; <span class="id" title="var">invert</span> <span class="id" title="var">red2</span>.<br/>
-&nbsp;&nbsp;<span class="comment">(*&nbsp;the&nbsp;final&nbsp;<span class="inlinecode"><span class="id" title="var">X</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">42</span>&nbsp;assignments&nbsp;*)</span><br/>
-&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>5</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>7</sub></span>.<br/>
-&nbsp;&nbsp;<span class="comment">(*&nbsp;the&nbsp;branchings&nbsp;on&nbsp;the&nbsp;secret&nbsp;<span class="inlinecode"><span class="id" title="var">Y</span></span>&nbsp;*)</span><br/>
-&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>2</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>3</sub></span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">red1</span>; <span class="id" title="var">invert</span> <span class="id" title="var">red2</span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>6</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>.<br/>
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;both&nbsp;runs&nbsp;assign&nbsp;to&nbsp;the&nbsp;secret&nbsp;<span class="inlinecode"><span class="id" title="var">Z</span></span>&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>9</sub></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="StaticIFC.html#pub_equiv_update_same"><span class="id" title="lemma">pub_equiv_update_same</span></a>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="StaticIFC.html#pub_equiv_update_secret"><span class="id" title="lemma">pub_equiv_update_secret</span></a>; [<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span> | <span class="id" title="tactic">reflexivity</span>].<br/>
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;only&nbsp;the&nbsp;first&nbsp;run&nbsp;assigns&nbsp;to&nbsp;<span class="inlinecode"><span class="id" title="var">Z</span></span>&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>9</sub></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="StaticIFC.html#pub_equiv_update_same"><span class="id" title="lemma">pub_equiv_update_same</span></a>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="StaticIFC.html#pub_equiv_update_secret_l"><span class="id" title="lemma">pub_equiv_update_secret_l</span></a>; [<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span> | <span class="id" title="tactic">reflexivity</span>].<br/>
 &nbsp;&nbsp;- <span class="comment">(*&nbsp;only&nbsp;the&nbsp;second&nbsp;run&nbsp;assigns&nbsp;to&nbsp;<span class="inlinecode"><span class="id" title="var">Z</span></span>&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>9</sub></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="StaticIFC.html#pub_equiv_update_same"><span class="id" title="lemma">pub_equiv_update_same</span></a>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="StaticIFC.html#pub_equiv_update_secret_r"><span class="id" title="lemma">pub_equiv_update_secret_r</span></a>; [<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span> | <span class="id" title="tactic">reflexivity</span>].<br/>
-&nbsp;&nbsp;- <span class="comment">(*&nbsp;neither&nbsp;run&nbsp;assigns&nbsp;in&nbsp;the&nbsp;branches&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>8</sub></span>; <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>9</sub></span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <a class="idref" href="StaticIFC.html#pub_equiv_update_same"><span class="id" title="lemma">pub_equiv_update_same</span></a>. <span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.<br/>
+&nbsp;&nbsp;- <span class="comment">(*&nbsp;neither&nbsp;run&nbsp;assigns,&nbsp;so&nbsp;the&nbsp;states&nbsp;unchanged&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>.<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
 </div>
 </div>
@@ -1563,7 +1548,7 @@ We will later show that <span class="inlinecode"><span class="id" title="var">cf
 <div class="doc">
 With this more permissive type system we can accept more
     noninterferent programs that were rejected by <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span>,
-    including the one we saw above: 
+    including an extension of the one we saw above: 
 </div>
 <div class="code">
 
@@ -2797,7 +2782,7 @@ To prove <span class="inlinecode"><span class="id" title="var">output_secure</sp
 <div class="code">
 
 <span class="id" title="keyword">End</span> <a class="idref" href="StaticIFC.html#OUTPUT"><span class="id" title="module">OUTPUT</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2026-07-15&nbsp;17:29&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-07-15&nbsp;17:38&nbsp;*)</span><br/>
 </div>
 </div>
 
