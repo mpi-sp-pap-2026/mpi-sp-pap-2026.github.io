@@ -1153,14 +1153,23 @@ We will later show that <span class="inlinecode"><span class="id" title="var">cf
 
 <div class="paragraph"> </div>
 
-<br/>
-<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> ;; <span class="id" title="var">pc</span> &#x22A2;<span class="id" title="var">ni</span>- <span class="id" title="var">c<sub>1</sub></span>    <span class="id" title="var">L</span> ;; <span class="id" title="var">pc</span> &#x22A2;<span class="id" title="var">ni</span>- <span class="id" title="var">c<sub>2</sub></span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--------------------------------             (<span class="id" title="var">NIWT_Seq</span>)<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> ;; <span class="id" title="var">pc</span> &#x22A2;<span class="id" title="var">ni</span>- <span class="id" title="var">c<sub>1</sub></span>;<span class="id" title="var">c<sub>2</sub></span>
-</span>
+<center><table class="infrule">
+<tr class="infruleassumption">
+  <td class="infrule">L ;; pc &#x22A2;ni- c<sub>1</sub>&nbsp;&nbsp;&nbsp;&nbsp;L ;; pc &#x22A2;ni- c<sub>2</sub></td>
+  <td class="infrulenamecol" rowspan="3">
+    (NIWT_Seq) &nbsp;
+  </td></tr>
+<tr class="infrulemiddle">
+  <td class="infrule"><hr /></td>
+</tr>
+<tr class="infruleassumption">
+  <td class="infrule">L ;; pc &#x22A2;ni- c<sub>1</sub>;c<sub>2</sub></td>
+  <td></td>
+</tr>
+</table></center>
 <div class="paragraph"> </div>
 
- The sequence rule is more interesting than it may look: both <span class="inlinecode"><span class="id" title="var">c<sub>1</sub></span></span>
+ Also the sequence rule is more interesting than it may look: both <span class="inlinecode"><span class="id" title="var">c<sub>1</sub></span></span>
     and <span class="inlinecode"><span class="id" title="var">c<sub>2</sub></span></span> are type-checked under the <i>same</i> <span class="inlinecode"><span class="id" title="var">pc</span></span> label as the whole
     sequence. In particular, branching on secrets <i>inside</i> <span class="inlinecode"><span class="id" title="var">c<sub>1</sub></span></span> raises
     the pc label only for the branches of <span class="inlinecode"><span class="id" title="var">c<sub>1</sub></span></span>: once these branches
