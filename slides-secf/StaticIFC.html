@@ -1398,8 +1398,7 @@ The noninterference proof is still relatively simple, since the
 
    Beyond requiring the label of <span class="inlinecode"><span class="id" title="var">b</span></span> to be <span class="inlinecode"><span class="id" title="var">public</span></span>, this rule also
    requires that once one branches on secrets with if-then-else
-   (i.e. <span class="inlinecode"><span class="id" title="var">pc</span>=<span class="id" title="var">secret</span></span>) no while loops are allowed.
-
+   (i.e. <span class="inlinecode"><span class="id" title="var">pc</span>=<span class="id" title="var">secret</span></span>) no while loops are allowed. 
 </div>
 
 <div class="doc">
@@ -1720,7 +1719,7 @@ We use this to show that <span class="inlinecode"><span class="id" title="var">t
 </tr>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule">st =[ if b then c; while b do c end else skip end ]=> st', bs</td>
+  <td class="infrule">st =[ if b then (c; while b do c end) else skip end ]=> st', bs</td>
   <td class="infrulenamecol" rowspan="3">
     (CFE_While) &nbsp;
   </td></tr>
@@ -1802,7 +1801,7 @@ Similarly to our previous equitermination proof, this proof relies
     on typing implying noninterference, since otherwise the induction
     doesn't go through for the sequencing case (and indirectly for the
     while case too, since in our instrumented semantics while
-    evaluates to an if+while sequence). 
+    evaluates to one loop unrolling sequenced with the rest of the loop). 
 <div class="paragraph"> </div>
 
  Finally, it is worth noting that control flow security forms the
