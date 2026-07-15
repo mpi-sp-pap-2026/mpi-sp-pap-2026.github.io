@@ -855,7 +855,7 @@ This type-checker is sound and complete with respect to the
 <br/>
 <span class="id" title="keyword">Lemma</span> <span class="id" title="var">cf_type_checker_complete</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">L</span> <span class="id" title="var">c</span>,<br/>
 &nbsp;&nbsp;<span class="id" title="var">cf_type_checker</span> <span class="id" title="var">L</span> <span class="id" title="var">c</span> = <span class="id" title="var">false</span> →<br/>
-&nbsp;&nbsp;¬<span class="id" title="var">L</span> &#x22A2;<span class="id" title="var">cf</span>- <span class="id" title="var">c</span>.<br/>
+&nbsp;&nbsp;~(<span class="id" title="var">L</span> &#x22A2;<span class="id" title="var">cf</span>- <span class="id" title="var">c</span>).<br/>
 <div class="togglescript" id="proofcontrol14" onclick="toggleDisplay('proof14');toggleDisplay('proofcontrol14')"><span class="show"></span></div>
 <div class="proofscript" id="proof14" onclick="toggleDisplay('proof14');toggleDisplay('proofcontrol14')">
 <span class="id" title="keyword">Proof</span>.<br/>
@@ -893,9 +893,9 @@ This type-checker is sound and complete with respect to the
 <div class="code">
 
 <span class="id" title="keyword">Example</span> <span class="id" title="var">not_cf_wt_insecure_com1</span> :<br/>
-&nbsp;&nbsp;¬<span class="id" title="var">LXP</span> &#x22A2;<span class="id" title="var">cf</span>- &lt;{ <span class="id" title="var">X</span> := <span class="id" title="var">Y</span>+1;  <span class="comment">(*&nbsp;check:&nbsp;can_flow&nbsp;secret&nbsp;public&nbsp;(FAILS!)&nbsp;*)</span><br/>
+&nbsp;&nbsp;~(<span class="id" title="var">LXP</span> &#x22A2;<span class="id" title="var">cf</span>- &lt;{ <span class="id" title="var">X</span> := <span class="id" title="var">Y</span>+1;  <span class="comment">(*&nbsp;check:&nbsp;can_flow&nbsp;secret&nbsp;public&nbsp;(FAILS!)&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Y</span> := <span class="id" title="var">X</span>+<span class="id" title="var">Y</span>*2 <span class="comment">(*&nbsp;check:&nbsp;can_flow&nbsp;secret&nbsp;secret&nbsp;(OK!)&nbsp;&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&gt;.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&gt;).<br/>
 <span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">cf_type_checker_complete</span>. <span class="id" title="tactic">reflexivity</span>. <span class="id" title="keyword">Qed</span>.<br/>
 </div>
 
@@ -906,10 +906,10 @@ This type-checker is sound and complete with respect to the
 <div class="code">
 
 <span class="id" title="keyword">Example</span> <span class="id" title="var">not_cf_wt_insecure_com2</span> :<br/>
-&nbsp;&nbsp;¬<span class="id" title="var">LXP</span> &#x22A2;<span class="id" title="var">cf</span>- &lt;{ <span class="id" title="keyword">if</span> <span class="id" title="var">Y</span>=0  <span class="comment">(*&nbsp;check:&nbsp;L&nbsp;&#x22A2;b-&nbsp;Y=0&nbsp;&#x2208;&nbsp;public&nbsp;(FAILS!)&nbsp;*)</span><br/>
+&nbsp;&nbsp;~(<span class="id" title="var">LXP</span> &#x22A2;<span class="id" title="var">cf</span>- &lt;{ <span class="id" title="keyword">if</span> <span class="id" title="var">Y</span>=0  <span class="comment">(*&nbsp;check:&nbsp;L&nbsp;&#x22A2;b-&nbsp;Y=0&nbsp;&#x2208;&nbsp;public&nbsp;(FAILS!)&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">then</span> <span class="id" title="var">Y</span> := 42<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">X</span> := <span class="id" title="var">X</span>+1 <span class="comment">(*&nbsp;&lt;-&nbsp;bad&nbsp;implicit&nbsp;flow!&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span> }&gt;.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span> }&gt;).<br/>
 <span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">apply</span> <span class="id" title="var">cf_type_checker_complete</span>. <span class="id" title="tactic">reflexivity</span>. <span class="id" title="keyword">Qed</span>.<br/>
 </div>
 
@@ -1000,10 +1000,10 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 <div class="code">
 
 <span class="id" title="keyword">Example</span> <span class="id" title="var">not_cf_wt_noninterferent_com</span> :<br/>
-&nbsp;&nbsp;¬<span class="id" title="var">LXP</span> &#x22A2;<span class="id" title="var">cf</span>- &lt;{ <span class="id" title="keyword">if</span> <span class="id" title="var">Y</span>=0 <span class="comment">(*&nbsp;check:&nbsp;L&nbsp;&#x22A2;b-&nbsp;Y=0&nbsp;&#x2208;&nbsp;public&nbsp;(fails!)&nbsp;*)</span><br/>
+&nbsp;&nbsp;~(<span class="id" title="var">LXP</span> &#x22A2;<span class="id" title="var">cf</span>- &lt;{ <span class="id" title="keyword">if</span> <span class="id" title="var">Y</span>=0 <span class="comment">(*&nbsp;check:&nbsp;L&nbsp;&#x22A2;b-&nbsp;Y=0&nbsp;&#x2208;&nbsp;public&nbsp;(fails!)&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">then</span> <span class="id" title="var">Z</span> := 0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">skip</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span> }&gt;.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span> }&gt;).<br/>
 <span class="id" title="keyword">Proof</span>. <span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" title="var">Admitted</span>.<br/>
 <font size=-2>&#9744;</font>
 </div>
@@ -1184,7 +1184,7 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 <br/>
 <span class="id" title="keyword">Lemma</span> <span class="id" title="var">ni_type_checker_complete</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">L</span> <span class="id" title="var">pc</span> <span class="id" title="var">c</span>,<br/>
 &nbsp;&nbsp;<span class="id" title="var">ni_type_checker</span> <span class="id" title="var">L</span> <span class="id" title="var">pc</span> <span class="id" title="var">c</span> = <span class="id" title="var">false</span> →<br/>
-&nbsp;&nbsp;¬<span class="id" title="var">L</span> ;; <span class="id" title="var">pc</span> &#x22A2;<span class="id" title="var">ni</span>- <span class="id" title="var">c</span>.<br/>
+&nbsp;&nbsp;~(<span class="id" title="var">L</span> ;; <span class="id" title="var">pc</span> &#x22A2;<span class="id" title="var">ni</span>- <span class="id" title="var">c</span>).<br/>
 <div class="togglescript" id="proofcontrol21" onclick="toggleDisplay('proof21');toggleDisplay('proofcontrol21')"><span class="show"></span></div>
 <div class="proofscript" id="proof21" onclick="toggleDisplay('proof21');toggleDisplay('proofcontrol21')">
 <span class="id" title="keyword">Proof</span>.<br/>
