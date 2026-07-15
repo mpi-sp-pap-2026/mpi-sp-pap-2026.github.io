@@ -1298,7 +1298,7 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 
  While we have just proved that <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span> implies
     noninterference, this type system is too restrictive for enforcing just
-    noninterference. For instance, the following program is rejected
+    noninterference. For instance, the following secure program is rejected
     by the type system just because it branches on a secret: 
 <div class="paragraph"> </div>
 
@@ -1324,11 +1324,12 @@ forall s<sub>1</sub> s<sub>2</sub> s<sub>1</sub>' s<sub>2</sub>',
 <div class="paragraph"> </div>
 
  Yet this program contains no explicit flows and no implicit flows
-    (since the assigned variable <span class="inlinecode"><span class="id" title="var">Z</span></span> is secret), so it is intuitively
-    noninterferent, and with a bit more work we can prove this formally: 
+    (since the assigned variable <span class="inlinecode"><span class="id" title="var">Z</span></span> is secret), so it is intuitively secure. 
+<div class="paragraph"> </div>
+
+ With a bit more work we can prove this formally: 
 </div>
 <div class="code">
-
 <span class="id" title="keyword">Example</span> <a id="not_cf_wt_noninterferent_com_is_noninterferent" class="idref" href="#not_cf_wt_noninterferent_com_is_noninterferent"><span class="id" title="definition">not_cf_wt_noninterferent_com_is_noninterferent</span></a>:<br/>
 &nbsp;&nbsp;<a class="idref" href="Noninterference.html#noninterferent_com"><span class="id" title="definition">noninterferent_com</span></a> <a class="idref" href="Noninterference.html#LXP"><span class="id" title="definition">LXP</span></a> <span class="id" title="notation">&lt;{</span> <span class="id" title="notation">if</span> <span class="id" title="definition">Y</span><span class="id" title="notation">=</span>0<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="notation">then</span> <span class="id" title="definition">Z</span> <span class="id" title="notation">:=</span> 0<br/>
@@ -1462,8 +1463,8 @@ We will later show that <span class="inlinecode"><span class="id" title="var">cf
     <span class="inlinecode"><span class="id" title="var">c<sub>2</sub></span></span> gets executed no matter which branch was taken. So it is fine
     to type-check <span class="inlinecode"><span class="id" title="var">c<sub>2</sub></span></span> at the original <span class="inlinecode"><span class="id" title="var">pc</span></span> label, unaffected by the
     branching in <span class="inlinecode"><span class="id" title="var">c<sub>1</sub></span></span>. For instance,
-    <span class="inlinecode">[<span class="id" title="keyword">if</span></span> <span class="inlinecode"><span class="id" title="var">Y</span></span> <span class="inlinecode">=</span> <span class="inlinecode">0</span> <span class="inlinecode"><span class="id" title="keyword">then</span></span> <span class="inlinecode"><span class="id" title="var">Z</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">0</span> <span class="inlinecode"><span class="id" title="keyword">else</span></span> <span class="inlinecode"><span class="id" title="var">skip</span></span> <span class="inlinecode"><span class="id" title="keyword">end</span>;</span> <span class="inlinecode"><span class="id" title="var">X</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">42]</span> is accepted at
-    <span class="inlinecode"><span class="id" title="var">pc</span></span> <span class="inlinecode">=</span> <span class="inlinecode"><span class="id" title="var">public</span></span>: the assignment to the public variable <span class="inlinecode"><span class="id" title="var">X</span></span> happens
+    <span class="inlinecode">[<span class="id" title="keyword">if</span></span> <span class="inlinecode"><span class="id" title="var">Y</span></span> <span class="inlinecode">=</span> <span class="inlinecode">0</span> <span class="inlinecode"><span class="id" title="keyword">then</span></span> <span class="inlinecode"><span class="id" title="var">Z</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">0</span> <span class="inlinecode"><span class="id" title="keyword">else</span></span> <span class="inlinecode"><span class="id" title="var">skip</span></span> <span class="inlinecode"><span class="id" title="keyword">end</span>;</span> <span class="inlinecode"><span class="id" title="var">X</span></span> <span class="inlinecode">:=</span> <span class="inlinecode">42]</span> is well-typed:
+    the assignment to the public variable <span class="inlinecode"><span class="id" title="var">X</span></span> happens
     only after the control flow has joined, so it doesn't leak any
     information about the secret <span class="inlinecode"><span class="id" title="var">Y</span></span>. Resetting the pc label this way
     is possible because Imp only has structured control flow; in a
@@ -2782,7 +2783,7 @@ To prove <span class="inlinecode"><span class="id" title="var">output_secure</sp
 <div class="code">
 
 <span class="id" title="keyword">End</span> <a class="idref" href="StaticIFC.html#OUTPUT"><span class="id" title="module">OUTPUT</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2026-07-15&nbsp;17:42&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-07-15&nbsp;17:45&nbsp;*)</span><br/>
 </div>
 </div>
 
