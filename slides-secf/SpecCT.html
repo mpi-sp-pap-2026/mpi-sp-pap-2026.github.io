@@ -423,7 +423,7 @@ This chapter looks at security against side-channel attacks:
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Definition</span> <span class="id" title="var">cct_insecure_prog</span> :=<br/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">cct_insecure_load</span> :=<br/>
 &nbsp;&nbsp;&nbsp;&lt;<span style='letter-spacing:-.4em;'>{</span>{ <span class="id" title="var">V</span> &lt;- <span class="id" title="var">AP</span>[[<span class="id" title="var">W</span>]] <span style='letter-spacing:-.4em;'>}</span>}&gt; .<br/>
 </div>
 
@@ -434,8 +434,8 @@ Let's assume that <span class="inlinecode"><span class="id" title="var">W</span>
 </div>
 <div class="code">
 <hr class='doublespaceincode'/>
-<span class="id" title="keyword">Example</span> <span class="id" title="var">cct_insecure_prog_is_not_cct_secure</span> :<br/>
-&nbsp;&nbsp;¬(<span class="id" title="var">cct_secure</span> <span class="id" title="var">XYZpub</span> <span class="id" title="var">APpub</span> <span class="id" title="var">cct_insecure_prog</span>).<br/>
+<span class="id" title="keyword">Example</span> <span class="id" title="var">cct_insecure_load_is_not_cct_secure</span> :<br/>
+&nbsp;&nbsp;¬(<span class="id" title="var">cct_secure</span> <span class="id" title="var">XYZpub</span> <span class="id" title="var">APpub</span> <span class="id" title="var">cct_insecure_load</span>).<br/>
 </div>
 
 <div class="doc">
