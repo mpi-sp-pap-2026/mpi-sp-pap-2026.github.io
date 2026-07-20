@@ -587,9 +587,11 @@ We define an instrumented big-step operational semantics producing these
   <td></td>
 </tr>
 </table></center>
+<div class="paragraph"> </div>
+
+ Formally this looks as follows: 
 </div>
 <div class="code">
-
 <span class="id" title="keyword">Reserved Notation</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"'&lt;(' s , m ')&gt;' '=[' c ']=&gt;' '&lt;(' s' , m' , os ')&gt;'"<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40, <span class="id" title="var">c</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 99,<br/>
@@ -922,7 +924,14 @@ Finally, we can prove semantically that <span class="inlinecode"><span class="id
 <span class="id" title="keyword">Lemma</span> <a id="join_public_l" class="idref" href="#join_public_l"><span class="id" title="lemma">join_public_l</span></a> : <span class="id" title="keyword">∀</span> {<a id="l:167" class="idref" href="#l:167"><span class="id" title="binder">l</span></a>},<br/>
 &nbsp;&nbsp;<a class="idref" href="SpecCT.html#join"><span class="id" title="definition">join</span></a> <a class="idref" href="SpecCT.html#public"><span class="id" title="definition">public</span></a> <a class="idref" href="SpecCT.html#l:167"><span class="id" title="variable">l</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="SpecCT.html#l:167"><span class="id" title="variable">l</span></a>.<br/>
 <span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">reflexivity</span>. <span class="id" title="keyword">Qed</span>.<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Definition</span> <a id="can_flow" class="idref" href="#can_flow"><span class="id" title="definition">can_flow</span></a> (<a id="l<sub>1</sub>:168" class="idref" href="#l<sub>1</sub>:168"><span class="id" title="binder">l<sub>1</sub></span></a> <a id="l<sub>2</sub>:169" class="idref" href="#l<sub>2</sub>:169"><span class="id" title="binder">l<sub>2</sub></span></a> : <a class="idref" href="SpecCT.html#label"><span class="id" title="definition">label</span></a>) : <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> := <a class="idref" href="SpecCT.html#l<sub>1</sub>:168"><span class="id" title="variable">l<sub>1</sub></span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#081ff67d3116402bb680e8692aa39185"><span class="id" title="notation">||</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#negb"><span class="id" title="definition">negb</span></a> <a class="idref" href="SpecCT.html#l<sub>2</sub>:169"><span class="id" title="variable">l<sub>2</sub></span></a>.<br/><hr class='doublespaceincode'/>
+<span class="id" title="keyword">Definition</span> <a id="can_flow" class="idref" href="#can_flow"><span class="id" title="definition">can_flow</span></a> (<a id="l<sub>1</sub>:168" class="idref" href="#l<sub>1</sub>:168"><span class="id" title="binder">l<sub>1</sub></span></a> <a id="l<sub>2</sub>:169" class="idref" href="#l<sub>2</sub>:169"><span class="id" title="binder">l<sub>2</sub></span></a> : <a class="idref" href="SpecCT.html#label"><span class="id" title="definition">label</span></a>) : <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#bool"><span class="id" title="inductive">bool</span></a> := <a class="idref" href="SpecCT.html#l<sub>1</sub>:168"><span class="id" title="variable">l<sub>1</sub></span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#081ff67d3116402bb680e8692aa39185"><span class="id" title="notation">||</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Datatypes.html#negb"><span class="id" title="definition">negb</span></a> <a class="idref" href="SpecCT.html#l<sub>2</sub>:169"><span class="id" title="variable">l<sub>2</sub></span></a>.<br/>
+</div>
+
+<div class="doc">
+Formally the label assignment judgement looks as follows: 
+</div>
+<div class="code">
+
 <span class="id" title="keyword">Reserved Notation</span> &quot;L '&#x22A2;' a &#x2208; l" (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40).<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Inductive</span> <a id="exp_has_label" class="idref" href="#exp_has_label"><span class="id" title="definition, inductive"><span id="exp_has_label_ind" class="id"><span id="exp_has_label_sind" class="id">exp_has_label</span></span></span></a> (<a id="L:170" class="idref" href="#L:170"><span class="id" title="binder">L</span></a>:<a class="idref" href="SpecCT.html#label_map"><span class="id" title="definition">label_map</span></a>) : <a class="idref" href="SpecCT.html#exp"><span class="id" title="inductive">exp</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <a class="idref" href="SpecCT.html#label"><span class="id" title="definition">label</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="T_Num" class="idref" href="#T_Num"><span class="id" title="constructor">T_Num</span></a> : <span class="id" title="keyword">∀</span> <a id="n:173" class="idref" href="#n:173"><span class="id" title="binder">n</span></a>,<br/>
@@ -1069,9 +1078,11 @@ All rules for commands are the same as for <span class="inlinecode"><span class=
   <td></td>
 </tr>
 </table></center>
+<div class="paragraph"> </div>
+
+ Formally this looks as follows: 
 </div>
 <div class="code">
-
 <span class="id" title="keyword">Reserved Notation</span> &quot;L ';;' LA '&#x22A2;ct-' c" (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40).<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Inductive</span> <a id="cct_well_typed" class="idref" href="#cct_well_typed"><span class="id" title="definition, inductive"><span id="cct_well_typed_ind" class="id"><span id="cct_well_typed_sind" class="id">cct_well_typed</span></span></span></a> (<a id="L:190" class="idref" href="#L:190"><span class="id" title="binder">L</span></a> <a id="LA:191" class="idref" href="#LA:191"><span class="id" title="binder">LA</span></a>:<a class="idref" href="SpecCT.html#label_map"><span class="id" title="definition">label_map</span></a>) : <a class="idref" href="SpecCT.html#com"><span class="id" title="inductive">com</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="CCT_Skip" class="idref" href="#CCT_Skip"><span class="id" title="constructor">CCT_Skip</span></a> :<br/>
@@ -1655,15 +1666,15 @@ Finally, prove that your program updates the array <span class="inlinecode"><spa
 &nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="SpecCT.html#m'':283"><span class="id" title="variable">m''</span></a> <a class="idref" href="SpecCT.html#AS"><span class="id" title="definition">AS</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#6cd0f7b28b6092304087c7049437bb1a"><span class="id" title="notation">=</span></a> <a class="idref" href="SpecCT.html#m':280"><span class="id" title="variable">m'</span></a> <a class="idref" href="SpecCT.html#AS"><span class="id" title="definition">AS</span></a>.<br/>
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="comment">(*&nbsp;FILL&nbsp;IN&nbsp;HERE&nbsp;*)</span> <span class="id" title="var">Admitted</span>.<br/>
+<font size=-2>&#9744;</font>
 </div>
 
-<div class="doc">
-Storing at a secret index comes up less often in cryptographic code. When it
-    does, the fix from the exercise above would prevent leaking the index,
-    though this is even more expensive than the fix for loads. 
+<div class="doc"> 
 <div class="paragraph"> </div>
 
- <font size=-2>&#9744;</font> 
+ Storing at a secret index comes up less often in cryptographic code. When it
+    does, the fix from the exercise above would prevent leaking the index,
+    though this is even more expensive than the fix for loads. 
 <div class="paragraph"> </div>
 
 <a id="lab102"></a><h2 class="section">Exercise: Adding division (non-constant-time operation)</h2>
@@ -1672,7 +1683,9 @@ Storing at a secret index comes up less often in cryptographic code. When it
 
  The CCT discipline also prevents passing secrets to operations that are not
     constant time. For instance, division often takes time that depends on the
-    values of the two operands. In this exercise we will add a new
+    values of the two operands. Much like long division on paper, the hardware
+    produces the quotient one digit at a time, so a division whose quotient has
+    more digits usually takes longer. In this exercise we will add a new
     <span class="inlinecode"><span class="id" title="var">x</span></span> <span class="inlinecode">:=</span> <span class="inlinecode"><span class="id" title="var">e<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">div</span></span> <span class="inlinecode"><span class="id" title="var">e<sub>2</sub></span></span> command for division, add corresponding evaluation and
     typing rules, and extend the security proofs with the new division case. 
 </div>
@@ -1800,8 +1813,7 @@ We add a new rule to the big-step operational semantics that produces an
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">&lt;(</span></a><a class="idref" href="SpecCT.html#s:362"><span class="id" title="variable">s</span></a><a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">,</span></a> <a class="idref" href="SpecCT.html#m:363"><span class="id" title="variable">m</span></a><a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">)&gt;</span></a> <a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">=[</span></a> <a class="idref" href="SpecCT.html#x:368"><span class="id" title="variable">x</span></a> <a class="idref" href="SpecCT.html#2f09d656af53d197e4c802960829e041"><span class="id" title="notation">:=</span></a> <a class="idref" href="SpecCT.html#e<sub>1</sub>:364"><span class="id" title="variable">e<sub>1</sub></span></a> <a class="idref" href="SpecCT.html#2f09d656af53d197e4c802960829e041"><span class="id" title="notation">div</span></a> <a class="idref" href="SpecCT.html#e<sub>2</sub>:366"><span class="id" title="variable">e<sub>2</sub></span></a>  <a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">]=&gt;</span></a> <a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">&lt;(</span></a><a class="idref" href="SpecCT.html#x:368"><span class="id" title="variable">x</span></a> <span class="id" title="notation">!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span></span> (<a class="idref" href="SpecCT.html#n<sub>1</sub>:365"><span class="id" title="variable">n<sub>1</sub></span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Nat.html#2e0d8202c5a48097752d760d3a1db6a<sub>7</sub>"><span class="id" title="notation">/</span></a> <a class="idref" href="SpecCT.html#n<sub>2</sub>:367"><span class="id" title="variable">n<sub>2</sub></span></a>)%<span class="id" title="var">nat</span><span class="id" title="notation">;</span> <a class="idref" href="SpecCT.html#s:362"><span class="id" title="variable">s</span></a><a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">,</span></a> <a class="idref" href="SpecCT.html#m:363"><span class="id" title="variable">m</span></a><a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">,</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#ddd65c2f7ee73ecec433744948d846bb"><span class="id" title="notation">[</span></a><a class="idref" href="SpecCT.html#Div.ODiv"><span class="id" title="constructor">ODiv</span></a> <a class="idref" href="SpecCT.html#n<sub>1</sub>:365"><span class="id" title="variable">n<sub>1</sub></span></a> <a class="idref" href="SpecCT.html#n<sub>2</sub>:367"><span class="id" title="variable">n<sub>2</sub></span></a><a class="idref" href="https://rocq-prover.org/doc/V9.0.0/stdlib//Stdlib.Lists.List.html#ddd65c2f7ee73ecec433744948d846bb"><span class="id" title="notation">]</span></a> <a class="idref" href="SpecCT.html#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">)&gt;</span></a><br/>
 <br/>
 &nbsp;&nbsp;<span class="id" title="keyword">where</span> <a id="7bf19be32fcb2c1dfe6b1842873daac8" class="idref" href="#7bf19be32fcb2c1dfe6b1842873daac8"><span class="id" title="notation">&quot;</span></a>&lt;( s , m )&gt; =[ c ]=&gt; &lt;( s' , m' , os )&gt;" := (<a class="idref" href="SpecCT.html#cteval:315"><span class="id" title="inductive">cteval</span></a> <span class="id" title="var">c</span> <span class="id" title="var">s</span> <span class="id" title="var">m</span> <span class="id" title="var">s'</span> <span class="id" title="var">m'</span> <span class="id" title="var">os</span>).<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="SpecCT.html#cteval"><span class="id" title="inductive">cteval</span></a> : <span class="id" title="var">core</span>.<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Reserved Notation</span> &quot;L ';;' LA '&#x22A2;ct-' c" (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40).<br/>
+<span class="id" title="keyword">Hint Constructors</span> <a class="idref" href="SpecCT.html#cteval"><span class="id" title="inductive">cteval</span></a> : <span class="id" title="var">core</span>.<br/>
 </div>
 
 <div class="doc">
@@ -1811,6 +1823,7 @@ We add a new rule to the big-step operational semantics that produces an
 </div>
 <div class="code">
 
+<span class="id" title="keyword">Reserved Notation</span> &quot;L ';;' LA '&#x22A2;ct-' c" (<span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 40).<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Inductive</span> <a id="Div.cct_well_typed" class="idref" href="#Div.cct_well_typed"><span class="id" title="definition, inductive"><span id="Div.cct_well_typed_ind" class="id"><span id="Div.cct_well_typed_sind" class="id">cct_well_typed</span></span></span></a> (<a id="L:369" class="idref" href="#L:369"><span class="id" title="binder">L</span></a> <a id="LA:370" class="idref" href="#LA:370"><span class="id" title="binder">LA</span></a>:<a class="idref" href="SpecCT.html#label_map"><span class="id" title="definition">label_map</span></a>) : <a class="idref" href="SpecCT.html#Div.com"><span class="id" title="inductive">com</span></a> <a class="idref" href="https://rocq-prover.org/doc/V9.0.0/corelib//Corelib.Init.Logic.html#::type_scope:x_'-&gt;'_x"><span class="id" title="notation">→</span></a> <span class="id" title="keyword">Prop</span> :=<br/>
 &nbsp;&nbsp;| <a id="Div.CCT_Skip" class="idref" href="#Div.CCT_Skip"><span class="id" title="constructor">CCT_Skip</span></a> :<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="idref" href="SpecCT.html#L:369"><span class="id" title="variable">L</span></a> <a class="idref" href="SpecCT.html#04eca9680fedff1506322d238cd03f<sub>68</sub>"><span class="id" title="notation">;;</span></a> <a class="idref" href="SpecCT.html#LA:370"><span class="id" title="variable">LA</span></a> <a class="idref" href="SpecCT.html#04eca9680fedff1506322d238cd03f<sub>68</sub>"><span class="id" title="notation">&#x22A2;</span></a><a class="idref" href="SpecCT.html#04eca9680fedff1506322d238cd03f<sub>68</sub>"><span class="id" title="notation">ct</span></a><a class="idref" href="SpecCT.html#04eca9680fedff1506322d238cd03f<sub>68</sub>"><span class="id" title="notation">-</span></a> <a class="idref" href="SpecCT.html#b980709f1dd80c7e5c312e7bff2251bf"><span class="id" title="notation">&lt;<span style='letter-spacing:-.4em;'>{</span>{</span></a> <a class="idref" href="SpecCT.html#Div.:com:com_scope:'skip'"><span class="id" title="notation">skip</span></a> <a class="idref" href="SpecCT.html#b980709f1dd80c7e5c312e7bff2251bf"><span class="id" title="notation"><span style='letter-spacing:-.4em;'>}</span>}&gt;</span></a><br/>
@@ -4241,7 +4254,7 @@ As a result we get:
 <div class="code">
 
 <span class="id" title="keyword">End</span> <a class="idref" href="SpecCT.html#SpecCTInterpreter"><span class="id" title="module">SpecCTInterpreter</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2026-07-20&nbsp;16:13&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-07-20&nbsp;16:29&nbsp;*)</span><br/>
 </div>
 </div>
 
