@@ -1250,10 +1250,9 @@ Finally, we use the type-checker to show that the <span class="inlinecode"><span
 
 <div class="paragraph"> </div>
 
- To prove the security of our type system, we first show a noninterference
-    lemma, which is not that hard, given that our very restrictive type system
-    ensures the two executions run in lock-step, since it disallows branching
-    on secrets. 
+ To prove the security of our type system, we first show it ensures
+    noninterference, which is not that hard, given that branching on secrets is
+    completely disallowed. 
 </div>
 <div class="code">
 
@@ -1312,7 +1311,12 @@ Finally, we use the type-checker to show that the <span class="inlinecode"><span
 </div>
 
 <div class="doc">
-<a id="lab97"></a><h2 class="section">Final theorem: cryptographic constant-time security</h2>
+The proof above closely follows <span class="inlinecode"><span class="id" title="var">cf_well_typed_noninterferent</span></span>, with
+    extra cases for the array operations. For array stores we show that the
+    memories stay publicly equivalent. 
+<div class="paragraph"> </div>
+
+<a id="lab97"></a><h2 class="section">Final theorem: cryptographic constant-time security by typing</h2>
 
 </div>
 <div class="code">
@@ -1417,7 +1421,7 @@ This program is not CCT secure: the branching immediately leaks
 </div>
 
 <div class="doc">
-Prove that your program is accepted by the type-checker: 
+Show that your program is accepted by the type-checker: 
 </div>
 <div class="code">
 
@@ -1478,6 +1482,7 @@ Note that only the <i>combination</i> of these two properties
 <div class="doc"> 
 <div class="paragraph"> </div>
 
+<a id="lab100"></a><h4 class="section">Exercise: 4 stars, advanced (fixing_cct_insecure_load)</h4>
  Recall <span class="inlinecode"><span class="id" title="var">cct_insecure_load</span></span>, which loads from the public array
     <span class="inlinecode"><span class="id" title="var">AP</span></span> at a <i>secret</i> index <span class="inlinecode"><span class="id" title="var">W</span></span>, leaking the index via the <span class="inlinecode"><span class="id" title="var">OALoad</span></span>
     observation: 
@@ -1498,7 +1503,6 @@ Also this program can be fixed: the fixed program loads from <i>all</i>
     implementations. 
 <div class="paragraph"> </div>
 
-<a id="lab100"></a><h4 class="section">Exercise: 4 stars, advanced (fixing_cct_insecure_load)</h4>
  Define such a fixed program, assuming for simplicity that the
     array <span class="inlinecode"><span class="id" title="var">AP</span></span> has size 2, so that the secret index <span class="inlinecode"><span class="id" title="var">W</span></span> is either 0
     or 1. You can use public variables <span class="inlinecode"><span class="id" title="var">X</span></span> and <span class="inlinecode"><span class="id" title="var">Y</span></span> as temporaries. 
@@ -4172,7 +4176,7 @@ As a result we get:
 <div class="code">
 
 <span class="id" title="keyword">End</span> <a class="idref" href="SpecCT.html#SpecCTInterpreter"><span class="id" title="module">SpecCTInterpreter</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2026-07-20&nbsp;13:30&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-07-20&nbsp;13:46&nbsp;*)</span><br/>
 </div>
 </div>
 

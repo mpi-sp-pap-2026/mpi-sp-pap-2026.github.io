@@ -666,10 +666,9 @@ We also define a type-checker for this type system and
 
 <div class="paragraph"> </div>
 
- To prove the security of our type system, we first show a noninterference
-    lemma, which is not that hard, given that our very restrictive type system
-    ensures the two executions run in lock-step, since it disallows branching
-    on secrets. 
+ To prove the security of our type system, we first show it ensures
+    noninterference, which is not that hard, given that branching on secrets is
+    completely disallowed. 
 </div>
 <div class="code">
 
@@ -728,7 +727,7 @@ We also define a type-checker for this type system and
 </div>
 
 <div class="doc">
-<a id="lab111"></a><h2 class="section">Final theorem: cryptographic constant-time security</h2>
+<a id="lab111"></a><h2 class="section">Final theorem: cryptographic constant-time security by typing</h2>
 
 </div>
 <div class="code">
