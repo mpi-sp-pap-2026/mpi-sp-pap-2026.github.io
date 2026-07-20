@@ -90,11 +90,11 @@ This chapter looks at security against side-channel attacks:
 
 <div class="paragraph"> </div>
 
-<a id="lab98"></a><h2 class="section"> </h2>
+<a id="lab98"></a><h2 class="section">CCT leakage model</h2>
 
 <div class="paragraph"> </div>
 
- Instead CCT works with a <i>more abstract model of leakage</i>,
+ Instead CCT works with a <i>more abstract leakage model</i>,
     which simply assumes that:
 <ul class="doclist">
 <li> <i>all branches the program takes are leaked</i>;
@@ -119,7 +119,8 @@ This chapter looks at security against side-channel attacks:
 </ul>
 
 </li>
-<li> <i>the operands influencing timing of variable-time operations are leaked</i>;
+<li> <i>the operands that influence the timing of variable-time operations
+       are leaked</i>;
 <ul class="doclist">
 <li> as an exercise we will add a division operation that leaks both operands.
 
@@ -131,11 +132,12 @@ This chapter looks at security against side-channel attacks:
 
 <div class="paragraph"> </div>
 
-<a id="lab99"></a><h2 class="section"> </h2>
+<a id="lab99"></a><h2 class="section">CCT programming discipline</h2>
 
 <div class="paragraph"> </div>
 
- To ensure security against this leakage model, the CCT discipline requires that:
+ To ensure security against this leakage model, the CCT programming
+    discipline requires that:
 
 <div class="paragraph"> </div>
 
@@ -156,7 +158,7 @@ This chapter looks at security against side-channel attacks:
 </li>
 <li> <i>the accessed memory addresses do not depend on secrets</i>;
 <ul class="doclist">
-<li> intuitively this prevents secrets from leaking into the data cache:
+<li> intuitively this prevents secret addresses from leaking into the data cache:
 <br/>
 <span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Vsecret</span> &lt;- <span class="id" title="var">AP</span>[<span class="id" title="var">Wsecret</span>]
 </span>
@@ -196,13 +198,8 @@ This chapter looks at security against side-channel attacks:
  But first, we add a conditional expression <span class="inlinecode"><span class="id" title="var">b</span></span> <span class="inlinecode">?</span> <span class="inlinecode"><span class="id" title="var">e<sub>1</sub></span></span> <span class="inlinecode">:</span> <span class="inlinecode"><span class="id" title="var">e<sub>2</sub></span></span> that executes in
     constant time (for instance by being compiled to a special constant-time
     conditional move instruction). This constant-time conditional can be used to
-    fix some CCT insecure programs as we will see below. It will also be used in
-    our SLH countermeasure later in the chapter. 
-<div class="paragraph"> </div>
-
- Technically, adding such conditionals to Imp arithmetic expressions would
-    make them dependent on boolean expressions. But boolean expressions are
-    already dependent on arithmetic expressions. 
+    fix some CCT insecure programs as we will see in the exercises. It will also
+    be used in our SLH countermeasure later in the chapter. 
 <div class="paragraph"> </div>
 
  To avoid making the definitions of arithmetic and boolean expressions
@@ -266,7 +263,7 @@ This chapter looks at security against side-channel attacks:
 <div class="paragraph"> </div>
 
  In addition to the boolean branches, which are observable in the CF security
-    model, for CCT security also the array name and index of array loads and
+    model, for CCT security also the array and index of array loads and
     stores are observable: 
 </div>
 <div class="code">
@@ -283,15 +280,7 @@ This chapter looks at security against side-channel attacks:
 
 <div class="paragraph"> </div>
 
- We define an instrumented big-step operational semantics producing these
-    observations:
-<br/>
-<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&lt;(<span class="id" title="var">s</span>, <span class="id" title="var">m</span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s'</span>, <span class="id" title="var">m'</span>, <span class="id" title="var">os</span>)&gt;
-</span>
-<div class="paragraph"> </div>
-
-    Intuitively, variables act like machine registers (accesses not observable),
-    while arrays act like the memory (accessed array+index observable). 
+ We define an instrumented operational semantics producing these observations: 
 <div class="paragraph"> </div>
 
  <center><table class="infrule">
@@ -360,7 +349,7 @@ This chapter looks at security against side-channel attacks:
 </tr>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><(s,m)> =[ if be then (c; while be do c) end else skip end ]=></td>
+  <td class="infrule"><(s,m)> =[if be then (c; while be do c) end else skip end]=></td>
   <td></td>
 </tr>
 <tr class="infruleassumption">
@@ -410,21 +399,6 @@ This chapter looks at security against side-channel attacks:
   <td></td>
 </tr>
 </table></center>
-<div class="paragraph"> </div>
-
- This semantics uses two tricks to simplify the proofs in this file:
-<ul class="doclist">
-<li> We have a single <span class="inlinecode"><span class="id" title="keyword">if</span></span> rule (instead of the two ones in Imp) by using a
-      Rocq <span class="inlinecode"><span class="id" title="keyword">let</span></span> and <span class="inlinecode"><span class="id" title="keyword">if</span>-<span class="id" title="keyword">then</span>-<span class="id" title="keyword">else</span></span> in the premise.
-
-</li>
-<li> We have a single <span class="inlinecode"><span class="id" title="var">while</span></span> rule (instead of the two ones in Imp) by
-      evaluating the <span class="inlinecode"><span class="id" title="var">while</span></span> <span class="inlinecode"><span class="id" title="var">be</span></span> <span class="inlinecode"><span class="id" title="tactic">do</span></span> <span class="inlinecode"><span class="id" title="var">c</span></span> <span class="inlinecode"><span class="id" title="keyword">end</span></span> in terms of its 1-step unrolling: <br/>
-<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> <span class="id" title="var">be</span> <span class="id" title="keyword">then</span> (<span class="id" title="var">c</span>; <span class="id" title="var">while</span> <span class="id" title="var">be</span> <span class="id" title="tactic">do</span> <span class="id" title="var">c</span> <span class="id" title="keyword">end</span>) <span class="id" title="keyword">else</span> <span class="id" title="var">skip</span> <span class="id" title="keyword">end</span>
-</span>
-</li>
-</ul>
-
 </div>
 
 <div class="doc">
@@ -433,11 +407,7 @@ This chapter looks at security against side-channel attacks:
 </div>
 
 <div class="doc">
-A program is CCT secure if what the attacker observes about its execution
-    does not depend on secrets. We formalize this similarly to CF security: if
-    the initial states agree on the variables that <span class="inlinecode"><span class="id" title="var">L</span></span> labels public, and the
-    initial memories agree on the arrays that <span class="inlinecode"><span class="id" title="var">LA</span></span> labels public, then both runs
-    have to produce exactly the same observations. 
+We formalize this similarly to CF security: 
 </div>
 <div class="code">
 
@@ -447,36 +417,11 @@ A program is CCT secure if what the attacker observes about its execution
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pub_equiv</span> <span class="id" title="var">LA</span> <span class="id" title="var">m<sub>1</sub></span> <span class="id" title="var">m<sub>2</sub></span> →<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;(<span class="id" title="var">s<sub>1</sub></span>, <span class="id" title="var">m<sub>1</sub></span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>1</sub>'</span>, <span class="id" title="var">m<sub>1</sub>'</span>, <span class="id" title="var">os<sub>1</sub></span>)&gt; →<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;(<span class="id" title="var">s<sub>2</sub></span>, <span class="id" title="var">m<sub>2</sub></span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>2</sub>'</span>, <span class="id" title="var">m<sub>2</sub>'</span>, <span class="id" title="var">os<sub>2</sub></span>)&gt; →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">os<sub>1</sub></span> = <span class="id" title="var">os<sub>2</sub></span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">os<sub>1</sub></span> = <span class="id" title="var">os<sub>2</sub></span>.<br/><hr class='doublespaceincode'/>
 </div>
 
 <div class="doc">
-<a id="lab107"></a><h2 class="section">Example CF secure program that is not CCT secure</h2>
-
-<div class="paragraph"> </div>
-
- Assuming that <span class="inlinecode"><span class="id" title="var">W</span></span> and <span class="inlinecode"><span class="id" title="var">V</span></span> are secret variables, the following program is
-    trivially CF secure, because it does not branch at all.
-    But it is not CCT secure. 
-</div>
-<div class="code">
-
-<span class="id" title="keyword">Definition</span> <span class="id" title="var">cct_insecure_load</span> :=<br/>
-&nbsp;&nbsp;&nbsp;&lt;<span style='letter-spacing:-.4em;'>{</span>{ <span class="id" title="var">V</span> &lt;- <span class="id" title="var">AP</span>[<span class="id" title="var">W</span>] <span style='letter-spacing:-.4em;'>}</span>}&gt; .<br/><hr class='doublespaceincode'/>
-</div>
-
-<div class="doc">
-Finally, we can prove semantically that <span class="inlinecode"><span class="id" title="var">cct_insecure_load</span></span> is CCT-insecure,
-    because different <span class="inlinecode"><span class="id" title="var">W</span></span> values produce different <span class="inlinecode"><span class="id" title="var">OALoad</span></span> observations: 
-</div>
-<div class="code">
-
-<span class="id" title="keyword">Example</span> <span class="id" title="var">cct_insecure_load_is_not_cct_secure</span> :<br/>
-&nbsp;&nbsp;¬(<span class="id" title="var">cct_secure</span> <span class="id" title="var">LXYZpub</span> <span class="id" title="var">LAPpub</span> <span class="id" title="var">cct_insecure_load</span>).<br/>
-</div>
-
-<div class="doc">
-<a id="lab108"></a><h2 class="section">Type system for cryptographic constant-time programming</h2>
+<a id="lab107"></a><h2 class="section">Type system for cryptographic constant-time programming</h2>
 
 <div class="paragraph"> </div>
 
@@ -569,7 +514,7 @@ Our refactoring gives us a single noninterference theorem for expressions:
 </div>
 
 <div class="doc">
-<a id="lab109"></a><h2 class="section"> </h2>
+<a id="lab108"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -578,71 +523,6 @@ Our refactoring gives us a single noninterference theorem for expressions:
 <div class="paragraph"> </div>
 
  <center><table class="infrule">
-<tr class="infruleassumption">
-  <td class="infrule">&nbsp;&nbsp;</td>
-  <td class="infrulenamecol" rowspan="3">
-    (CCT_Skip) &nbsp;
-  </td></tr>
-<tr class="infrulemiddle">
-  <td class="infrule"><hr /></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule">L ;; LA &#x22A2;ct- skip</td>
-  <td></td>
-</tr>
-</table></center><center><table class="infrule">
-<tr class="infruleassumption">
-  <td class="infrule">L &#x22A2; e &#x2208; l&nbsp;&nbsp;&nbsp;&nbsp;can_flow l (L X) = true</td>
-  <td class="infrulenamecol" rowspan="3">
-    (CCT_Asgn) &nbsp;
-  </td></tr>
-<tr class="infrulemiddle">
-  <td class="infrule"><hr /></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule">L ;; LA &#x22A2;ct- X := e</td>
-  <td></td>
-</tr>
-</table></center><center><table class="infrule">
-<tr class="infruleassumption">
-  <td class="infrule">L ;; LA &#x22A2;ct- c<sub>1</sub>&nbsp;&nbsp;&nbsp;&nbsp;L ;; LA &#x22A2;ct- c<sub>2</sub></td>
-  <td class="infrulenamecol" rowspan="3">
-    (CCT_Seq) &nbsp;
-  </td></tr>
-<tr class="infrulemiddle">
-  <td class="infrule"><hr /></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule">L ;; LA &#x22A2;ct- c<sub>1</sub>;c<sub>2</sub></td>
-  <td></td>
-</tr>
-</table></center><center><table class="infrule">
-<tr class="infruleassumption">
-  <td class="infrule">L &#x22A2; be &#x2208; public&nbsp;&nbsp;&nbsp;&nbsp;L ;; LA &#x22A2;ct- c<sub>1</sub>&nbsp;&nbsp;&nbsp;&nbsp;L ;; LA &#x22A2;ct- c<sub>2</sub></td>
-  <td class="infrulenamecol" rowspan="3">
-    (CCT_If) &nbsp;
-  </td></tr>
-<tr class="infrulemiddle">
-  <td class="infrule"><hr /></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule">L ;; LA &#x22A2;ct- if be then c<sub>1</sub> else c<sub>2</sub></td>
-  <td></td>
-</tr>
-</table></center><center><table class="infrule">
-<tr class="infruleassumption">
-  <td class="infrule">L &#x22A2; be &#x2208; public&nbsp;&nbsp;&nbsp;&nbsp;L &#x22A2;ct- c</td>
-  <td class="infrulenamecol" rowspan="3">
-    (CCT_While) &nbsp;
-  </td></tr>
-<tr class="infrulemiddle">
-  <td class="infrule"><hr /></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule">L ;; LA &#x22A2;ct- while be then c end</td>
-  <td></td>
-</tr>
-</table></center><center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">L &#x22A2; i &#x2208; public&nbsp;&nbsp;&nbsp;can_flow (LA a) (L x) = true</td>
   <td class="infrulenamecol" rowspan="3">
@@ -672,12 +552,7 @@ Our refactoring gives us a single noninterference theorem for expressions:
 </div>
 
 <div class="doc">
-We also define a type-checker for this type system and
-    prove it sound and complete with respect to the typing rules
-    above. 
-<div class="paragraph"> </div>
-
-<a id="lab110"></a><h2 class="section">Noninterference lemma</h2>
+<a id="lab109"></a><h2 class="section">Noninterference lemma</h2>
 
 <div class="paragraph"> </div>
 
@@ -742,7 +617,7 @@ We also define a type-checker for this type system and
 </div>
 
 <div class="doc">
-<a id="lab111"></a><h2 class="section">Final theorem: cryptographic constant-time security by typing</h2>
+<a id="lab110"></a><h2 class="section">Theorem: cryptographic constant-time security by typing</h2>
 
 </div>
 <div class="code">
@@ -791,9 +666,9 @@ We also define a type-checker for this type system and
 </div>
 
 <div class="doc">
-Most cases of this proof are similar to the security proof for
-    <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span> from <a href="StaticIFC.html"><span class="inlineref">StaticIFC</span></a>. In particular, <span class="inlinecode"><span class="id" title="var">noninterference</span></span> is
-    used to prove the sequence case in both proofs.
+Most proof cases are similar to the security proof for <span class="inlinecode"><span class="id" title="var">cf_well_typed</span></span> from
+    <a href="StaticIFC.html"><span class="inlineref">StaticIFC</span></a>. In particular, <span class="inlinecode"><span class="id" title="var">noninterference</span></span> is used to prove the
+    sequence case in both proofs.
 
 <div class="paragraph"> </div>
 
@@ -802,7 +677,7 @@ Most cases of this proof are similar to the security proof for
     array indices to be public. 
 <div class="paragraph"> </div>
 
-<a id="lab112"></a><h1 class="section">Speculative constant-time (text under development)</h1>
+<a id="lab111"></a><h1 class="section">Speculative constant-time (text under development)</h1>
 
 <div class="paragraph"> </div>
 
@@ -819,7 +694,7 @@ Most cases of this proof are similar to the security proof for
     look there for a high-level overview of the security proof. 
 <div class="paragraph"> </div>
 
-<a id="lab113"></a><h2 class="section">CCT programs can be insecure under speculative execution</h2>
+<a id="lab112"></a><h2 class="section">CCT programs can be insecure under speculative execution</h2>
 
 <div class="paragraph"> </div>
 
@@ -842,7 +717,7 @@ Most cases of this proof are similar to the security proof for
 </div>
 
 <div class="doc">
-<a id="lab114"></a><h2 class="section"> </h2>
+<a id="lab113"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -900,7 +775,7 @@ All variables mentioned in the program are again public, so also this
     speculative execution. 
 <div class="paragraph"> </div>
 
-<a id="lab115"></a><h2 class="section">Speculative semantics</h2>
+<a id="lab114"></a><h2 class="section">Speculative semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -934,7 +809,7 @@ This gives us a very high-level model of speculation that abstracts away
     high-assurance crypto. 
 <div class="paragraph"> </div>
 
-<a id="lab116"></a><h2 class="section">Rules of Speculative Semantics</h2>
+<a id="lab115"></a><h2 class="section">Rules of Speculative Semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1006,7 +881,7 @@ This gives us a very high-level model of speculation that abstracts away
 </table></center>
 <div class="paragraph"> </div>
 
-<a id="lab117"></a><h2 class="section">If Rules of Speculative Semantics</h2>
+<a id="lab116"></a><h2 class="section">If Rules of Speculative Semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1055,7 +930,7 @@ This gives us a very high-level model of speculation that abstracts away
 </table></center>
 <div class="paragraph"> </div>
 
-<a id="lab118"></a><h2 class="section">Load and Store Rules of Speculative Semantics</h2>
+<a id="lab117"></a><h2 class="section">Load and Store Rules of Speculative Semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1135,7 +1010,7 @@ This gives us a very high-level model of speculation that abstracts away
 </div>
 
 <div class="doc">
-<a id="lab119"></a><h2 class="section">Speculative constant-time security definition</h2>
+<a id="lab118"></a><h2 class="section">Speculative constant-time security definition</h2>
 
 <div class="paragraph"> </div>
 
@@ -1155,7 +1030,7 @@ This gives us a very high-level model of speculation that abstracts away
 </div>
 
 <div class="doc">
-<a id="lab120"></a><h2 class="section"> </h2>
+<a id="lab119"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1225,7 +1100,7 @@ For this we build a counterexample where the attacker chooses an
 </div>
 
 <div class="doc">
-<a id="lab121"></a><h2 class="section">Selective SLH transformation</h2>
+<a id="lab120"></a><h2 class="section">Selective SLH transformation</h2>
 
 <div class="paragraph"> </div>
 
@@ -1254,7 +1129,7 @@ For this we build a counterexample where the attacker chooses an
     implement is anyway much more complicated. 
 <div class="paragraph"> </div>
 
-<a id="lab122"></a><h2 class="section">Selective SLH in Rocq</h2>
+<a id="lab121"></a><h2 class="section">Selective SLH in Rocq</h2>
 
 </div>
 <div class="code">
@@ -1279,7 +1154,7 @@ For this we build a counterexample where the attacker chooses an
 </div>
 
 <div class="doc">
-<a id="lab123"></a><h2 class="section">Securing speculatively-insecure program using Selective SLH</h2>
+<a id="lab122"></a><h2 class="section">Securing speculatively-insecure program using Selective SLH</h2>
 
 </div>
 <div class="code">
@@ -1308,7 +1183,7 @@ For this we build a counterexample where the attacker chooses an
 </div>
 
 <div class="doc">
-<a id="lab124"></a><h2 class="section">Main proof idea: use compiler correctness wrt ideal semantics</h2>
+<a id="lab123"></a><h2 class="section">Main proof idea: use compiler correctness wrt ideal semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1328,7 +1203,7 @@ For this we build a counterexample where the attacker chooses an
  
 <div class="paragraph"> </div>
 
-<a id="lab125"></a><h2 class="section"> </h2>
+<a id="lab124"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1364,7 +1239,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
     in our compiler correctness proof . 
 <div class="paragraph"> </div>
 
-<a id="lab126"></a><h2 class="section">Ideal semantics definition</h2>
+<a id="lab125"></a><h2 class="section">Ideal semantics definition</h2>
 
 <div class="paragraph"> </div>
 
@@ -1417,7 +1292,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab127"></a><h2 class="section">Ideal semantics enforces speculative constant-time</h2>
+<a id="lab126"></a><h2 class="section">Ideal semantics enforces speculative constant-time</h2>
 
 <div class="paragraph"> </div>
 
@@ -1456,7 +1331,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab128"></a><h2 class="section"> </h2>
+<a id="lab127"></a><h2 class="section"> </h2>
 
 </div>
 <div class="code">
@@ -1472,7 +1347,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab129"></a><h2 class="section">Correctness of sel_slh as a compiler from ideal to speculative semantics</h2>
+<a id="lab128"></a><h2 class="section">Correctness of sel_slh as a compiler from ideal to speculative semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1516,7 +1391,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab130"></a><h2 class="section"> </h2>
+<a id="lab129"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1725,7 +1600,7 @@ The backwards compiler correctness proof uses <span class="inlinecode"><span cla
 </div>
 
 <div class="doc">
-<a id="lab131"></a><h2 class="section">Speculative constant-time security for Selective SLH</h2>
+<a id="lab130"></a><h2 class="section">Speculative constant-time security for Selective SLH</h2>
 
 <div class="paragraph"> </div>
 
