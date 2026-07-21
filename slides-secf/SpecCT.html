@@ -38,7 +38,7 @@
 <div class="doc">
 This chapter looks at security against side-channel attacks:
 <ul class="doclist">
-<li> The <i>cryptographic constant-time</i> (CCT) discipline
+<li> The <i>cryptographic constant-time</i> (CCT) programming discipline
 <ul class="doclist">
 <li> Enforced by a simple type system
 
@@ -61,7 +61,42 @@ This chapter looks at security against side-channel attacks:
 
 <div class="paragraph"> </div>
 
-<a id="lab97"></a><h1 class="section">Cryptographic constant-time</h1>
+<a id="lab97"></a><h1 class="section">Announcements</h1>
+
+<div class="paragraph"> </div>
+
+ But first a few local announcements:
+<ul class="doclist">
+<li> Please participate in the course evaluation
+<ul class="doclist">
+<li> This is already happening on Moodle; open until 5 August
+
+</li>
+</ul>
+
+</li>
+<li> Final exam on Friday, 7 August at 15:30-17:30 in HIA
+<ul class="doclist">
+<li> Email on preparation and logistics coming out soon
+
+</li>
+<li> Covers all the content of the course
+
+</li>
+<li> Today's lecture is optional for BSc students (bonus points)
+
+</li>
+</ul>
+
+</li>
+<li> Last exercise sheet will be out today, due in one week as usual
+
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+<a id="lab98"></a><h1 class="section">Cryptographic constant-time</h1>
 
 <div class="paragraph"> </div>
 
@@ -90,7 +125,7 @@ This chapter looks at security against side-channel attacks:
 
 <div class="paragraph"> </div>
 
-<a id="lab98"></a><h2 class="section">CCT leakage model</h2>
+<a id="lab99"></a><h2 class="section">CCT leakage model</h2>
 
 <div class="paragraph"> </div>
 
@@ -132,7 +167,7 @@ This chapter looks at security against side-channel attacks:
 
 <div class="paragraph"> </div>
 
-<a id="lab99"></a><h2 class="section">CCT programming discipline</h2>
+<a id="lab100"></a><h2 class="section">CCT programming discipline</h2>
 
 <div class="paragraph"> </div>
 
@@ -183,7 +218,7 @@ This chapter looks at security against side-channel attacks:
 
 <div class="paragraph"> </div>
 
-<a id="lab100"></a><h2 class="section"> </h2>
+<a id="lab101"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -191,7 +226,7 @@ This chapter looks at security against side-channel attacks:
     language more realistic by adding arrays. 
 <div class="paragraph"> </div>
 
-<a id="lab101"></a><h2 class="section">Adding constant-time conditional and refactoring expressions</h2>
+<a id="lab102"></a><h2 class="section">Adding constant-time conditional and refactoring expressions</h2>
 
 <div class="paragraph"> </div>
 
@@ -208,7 +243,7 @@ This chapter looks at security against side-channel attacks:
     similar to that of C, where zero means false, and non-zero means true. 
 <div class="paragraph"> </div>
 
-<a id="lab102"></a><h2 class="section"> </h2>
+<a id="lab103"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -239,7 +274,7 @@ This chapter looks at security against side-channel attacks:
 </div>
 
 <div class="doc">
-<a id="lab103"></a><h2 class="section">Adding arrays</h2>
+<a id="lab104"></a><h2 class="section">Adding arrays</h2>
 
 <div class="paragraph"> </div>
 
@@ -258,7 +293,7 @@ This chapter looks at security against side-channel attacks:
 </div>
 
 <div class="doc">
-<a id="lab104"></a><h2 class="section">Instrumenting semantics with observations</h2>
+<a id="lab105"></a><h2 class="section">Instrumenting semantics with observations</h2>
 
 <div class="paragraph"> </div>
 
@@ -276,7 +311,7 @@ This chapter looks at security against side-channel attacks:
 </div>
 
 <div class="doc">
-<a id="lab105"></a><h2 class="section"> </h2>
+<a id="lab106"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -402,7 +437,7 @@ This chapter looks at security against side-channel attacks:
 </div>
 
 <div class="doc">
-<a id="lab106"></a><h2 class="section">Constant-time security definition</h2>
+<a id="lab107"></a><h2 class="section">Constant-time security definition</h2>
 
 </div>
 
@@ -421,7 +456,7 @@ We formalize this similarly to CF security:
 </div>
 
 <div class="doc">
-<a id="lab107"></a><h2 class="section">Type system for cryptographic constant-time programming</h2>
+<a id="lab108"></a><h2 class="section">Type system for cryptographic constant-time programming</h2>
 
 <div class="paragraph"> </div>
 
@@ -514,7 +549,7 @@ Our refactoring gives us a single noninterference theorem for expressions:
 </div>
 
 <div class="doc">
-<a id="lab108"></a><h2 class="section"> </h2>
+<a id="lab109"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -552,7 +587,7 @@ Our refactoring gives us a single noninterference theorem for expressions:
 </div>
 
 <div class="doc">
-<a id="lab109"></a><h2 class="section">Noninterference lemma</h2>
+<a id="lab110"></a><h2 class="section">Noninterference lemma</h2>
 
 <div class="paragraph"> </div>
 
@@ -617,7 +652,7 @@ Our refactoring gives us a single noninterference theorem for expressions:
 </div>
 
 <div class="doc">
-<a id="lab110"></a><h2 class="section">Theorem: cryptographic constant-time security by typing</h2>
+<a id="lab111"></a><h2 class="section">Theorem: cryptographic constant-time security by typing</h2>
 
 </div>
 <div class="code">
@@ -677,14 +712,43 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
     array indices to be public. 
 <div class="paragraph"> </div>
 
-<a id="lab111"></a><h1 class="section">Speculative constant-time (text under development)</h1>
+<a id="lab112"></a><h2 class="section">Connection to practice</h2>
+ Our type system can be seen as a much simplified version of the
+    constant-time checker of the Jasmin language for high-assurance crypto:
+<ul class="doclist">
+<li> main difference: Jasmin's type system is <i>flow-sensitive</i>:
+<ul class="doclist">
+<li> an assignment changes the variable's label to the expression's label
+
+</li>
+</ul>
+
+</li>
+<li> Jasmin's type system additionally supports declassification,
+       label inference, and functions
+
+</li>
+<li> it also has a variant enforcing <i>speculative constant-time</i> for
+       manually hardened code:
+<ul class="doclist">
+<li> we study this property next for automatically hardened code 
+</li>
+</ul>
+
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+<a id="lab113"></a><h1 class="section">Speculative constant-time</h1>
 
 <div class="paragraph"> </div>
 
  This second part of the chapter is based on the Spectre
     Declassified paper <a href="Bib.html#Shivakumar-et al 2023a"><span class="inlineref">[Shivakumar et al 2023a]</span></a> in simplified form
     (e.g., without declassification). Like in this paper, we only look
-    at a class of speculative execution attacks called Spectre v<sub>1</sub>. 
+    at a class of speculative execution attacks called Spectre v<sub>1</sub>
+    <a href="Bib.html#Kocher-et al 2019"><span class="inlineref">[Kocher et al 2019]</span></a>. 
 <div class="paragraph"> </div>
 
  The Rocq development below is complete, but the text about it is still under
@@ -694,7 +758,7 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
     look there for a high-level overview of the security proof. 
 <div class="paragraph"> </div>
 
-<a id="lab112"></a><h2 class="section">CCT programs can be insecure under speculative execution</h2>
+<a id="lab114"></a><h2 class="section">CCT programs can be insecure under speculative execution</h2>
 
 <div class="paragraph"> </div>
 
@@ -717,7 +781,7 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
 </div>
 
 <div class="doc">
-<a id="lab113"></a><h2 class="section"> </h2>
+<a id="lab115"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -775,7 +839,7 @@ All variables mentioned in the program are again public, so also this
     speculative execution. 
 <div class="paragraph"> </div>
 
-<a id="lab114"></a><h2 class="section">Speculative semantics</h2>
+<a id="lab116"></a><h2 class="section">Speculative semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -809,7 +873,7 @@ This gives us a very high-level model of speculation that abstracts away
     high-assurance crypto. 
 <div class="paragraph"> </div>
 
-<a id="lab115"></a><h2 class="section">Rules of Speculative Semantics</h2>
+<a id="lab117"></a><h2 class="section">Rules of Speculative Semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -881,7 +945,7 @@ This gives us a very high-level model of speculation that abstracts away
 </table></center>
 <div class="paragraph"> </div>
 
-<a id="lab116"></a><h2 class="section">If Rules of Speculative Semantics</h2>
+<a id="lab118"></a><h2 class="section">If Rules of Speculative Semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -930,7 +994,7 @@ This gives us a very high-level model of speculation that abstracts away
 </table></center>
 <div class="paragraph"> </div>
 
-<a id="lab117"></a><h2 class="section">Load and Store Rules of Speculative Semantics</h2>
+<a id="lab119"></a><h2 class="section">Load and Store Rules of Speculative Semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1010,7 +1074,7 @@ This gives us a very high-level model of speculation that abstracts away
 </div>
 
 <div class="doc">
-<a id="lab118"></a><h2 class="section">Speculative constant-time security definition</h2>
+<a id="lab120"></a><h2 class="section">Speculative constant-time security definition</h2>
 
 <div class="paragraph"> </div>
 
@@ -1030,7 +1094,7 @@ This gives us a very high-level model of speculation that abstracts away
 </div>
 
 <div class="doc">
-<a id="lab119"></a><h2 class="section"> </h2>
+<a id="lab121"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1100,7 +1164,7 @@ For this we build a counterexample where the attacker chooses an
 </div>
 
 <div class="doc">
-<a id="lab120"></a><h2 class="section">Selective SLH transformation</h2>
+<a id="lab122"></a><h2 class="section">Selective SLH transformation</h2>
 
 <div class="paragraph"> </div>
 
@@ -1129,7 +1193,7 @@ For this we build a counterexample where the attacker chooses an
     implement is anyway much more complicated. 
 <div class="paragraph"> </div>
 
-<a id="lab121"></a><h2 class="section">Selective SLH in Rocq</h2>
+<a id="lab123"></a><h2 class="section">Selective SLH in Rocq</h2>
 
 </div>
 <div class="code">
@@ -1154,7 +1218,7 @@ For this we build a counterexample where the attacker chooses an
 </div>
 
 <div class="doc">
-<a id="lab122"></a><h2 class="section">Securing speculatively-insecure program using Selective SLH</h2>
+<a id="lab124"></a><h2 class="section">Securing speculatively-insecure program using Selective SLH</h2>
 
 </div>
 <div class="code">
@@ -1183,7 +1247,7 @@ For this we build a counterexample where the attacker chooses an
 </div>
 
 <div class="doc">
-<a id="lab123"></a><h2 class="section">Main proof idea: use compiler correctness wrt ideal semantics</h2>
+<a id="lab125"></a><h2 class="section">Main proof idea: use compiler correctness wrt ideal semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1203,7 +1267,7 @@ For this we build a counterexample where the attacker chooses an
  
 <div class="paragraph"> </div>
 
-<a id="lab124"></a><h2 class="section"> </h2>
+<a id="lab126"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1239,7 +1303,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
     in our compiler correctness proof . 
 <div class="paragraph"> </div>
 
-<a id="lab125"></a><h2 class="section">Ideal semantics definition</h2>
+<a id="lab127"></a><h2 class="section">Ideal semantics definition</h2>
 
 <div class="paragraph"> </div>
 
@@ -1292,7 +1356,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab126"></a><h2 class="section">Ideal semantics enforces speculative constant-time</h2>
+<a id="lab128"></a><h2 class="section">Ideal semantics enforces speculative constant-time</h2>
 
 <div class="paragraph"> </div>
 
@@ -1331,7 +1395,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab127"></a><h2 class="section"> </h2>
+<a id="lab129"></a><h2 class="section"> </h2>
 
 </div>
 <div class="code">
@@ -1347,7 +1411,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab128"></a><h2 class="section">Correctness of sel_slh as a compiler from ideal to speculative semantics</h2>
+<a id="lab130"></a><h2 class="section">Correctness of sel_slh as a compiler from ideal to speculative semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1391,7 +1455,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab129"></a><h2 class="section"> </h2>
+<a id="lab131"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1600,7 +1664,7 @@ The backwards compiler correctness proof uses <span class="inlinecode"><span cla
 </div>
 
 <div class="doc">
-<a id="lab130"></a><h2 class="section">Speculative constant-time security for Selective SLH</h2>
+<a id="lab132"></a><h2 class="section">Speculative constant-time security for Selective SLH</h2>
 
 <div class="paragraph"> </div>
 

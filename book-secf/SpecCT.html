@@ -52,10 +52,10 @@ This chapter starts by presenting the cryptographic constant-time
     (CCT) discipline, which we statically enforce using a simple type
     system. This static discipline is, however, not enough to protect
     cryptographic programs against speculative execution attacks, like
-    Spectre. To secure CCT programs against this more powerful attacker model we
-    additionally use a program transformation called <i>Speculative Load
-    Hardening</i> (SLH). We prove formally that CCT programs protected by SLH
-    achieve speculative constant-time security. 
+    Spectre <a href="Bib.html#Kocher-et al 2019"><span class="inlineref">[Kocher et al 2019]</span></a>. To secure CCT programs against this more
+    powerful attacker model we additionally use a program transformation
+    called <i>Speculative Load Hardening</i> (SLH). We prove formally that CCT
+    programs protected by SLH achieve speculative constant-time security. 
 <div class="paragraph"> </div>
 
 <a id="lab87"></a><h1 class="section">Cryptographic constant-time</h1>
@@ -1141,7 +1141,7 @@ All rules for commands are the same as for <span class="inlinecode"><span class=
 </div>
 
 <div class="doc">
-<a id="lab95"></a><h2 class="section">CCT Type-Checker</h2>
+<a id="lab95"></a><h2 class="section">CCT type-checker</h2>
 
 <div class="paragraph"> </div>
 
@@ -1417,9 +1417,10 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
     difference is that Jasmin's type system is <i>flow-sensitive</i>: variables do
     not have fixed labels; instead each assignment changes the label of the
     assigned variable to the label of the assigned expression. Jasmin's type
-    system additionally supports declassification, label inference, functions,
-    and also has a variant <a href="Bib.html#Shivakumar-et al 2023b"><span class="inlineref">[Shivakumar et al 2023b]</span></a> enforcing speculative
-    constant-time, a property we discuss later in this chapter. 
+    system additionally supports declassification, label inference, and functions.
+    Their type system also has a variant <a href="Bib.html#Shivakumar-et al 2023b"><span class="inlineref">[Shivakumar et al 2023b]</span></a> enforcing
+    speculative constant-time for code manually hardened by SLH, a property we
+    study later in this chapter for automatically SLH-hardened code. 
 <div class="paragraph"> </div>
 
 <a id="lab98"></a><h2 class="section">Exercises: Fixing CCT violations</h2>
@@ -2019,7 +2020,8 @@ We add a new rule to the big-step operational semantics that produces an
  This second part of the chapter is based on the Spectre
     Declassified paper <a href="Bib.html#Shivakumar-et al 2023a"><span class="inlineref">[Shivakumar et al 2023a]</span></a> in simplified form
     (e.g., without declassification). Like in this paper, we only look
-    at a class of speculative execution attacks called Spectre v<sub>1</sub>. 
+    at a class of speculative execution attacks called Spectre v<sub>1</sub>
+    <a href="Bib.html#Kocher-et al 2019"><span class="inlineref">[Kocher et al 2019]</span></a>. 
 <div class="paragraph"> </div>
 
  The Rocq development below is complete, but the text about it is still under
@@ -4290,7 +4292,7 @@ As a result we get:
 <div class="code">
 
 <span class="id" title="keyword">End</span> <a class="idref" href="SpecCT.html#SpecCTInterpreter"><span class="id" title="module">SpecCTInterpreter</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2026-07-21&nbsp;11:10&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-07-21&nbsp;16:59&nbsp;*)</span><br/>
 </div>
 </div>
 
