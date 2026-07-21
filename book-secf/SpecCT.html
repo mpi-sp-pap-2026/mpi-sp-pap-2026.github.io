@@ -1409,6 +1409,19 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
     array indices to be public. 
 <div class="paragraph"> </div>
 
+ The type system of this chapter can be seen as a much simplified
+    version of the constant-time checker <a href="Bib.html#Shivakumar-et al 2022"><span class="inlineref">[Shivakumar et al 2022]</span></a>
+    implemented by the Jasmin language for high-assurance cryptography
+    <a href="Bib.html#Jasmin"><span class="inlineref">[Jasmin]</span></a>: there too, branch conditions and array indices must be
+    public, and operators get the join of their arguments' labels. The main
+    difference is that Jasmin's type system is <i>flow-sensitive</i>: variables do
+    not have fixed labels; instead each assignment changes the label of the
+    assigned variable to the label of the assigned expression. Jasmin's type
+    system additionally supports declassification, label inference, functions,
+    and also has a variant <a href="Bib.html#Shivakumar-et al 2023b"><span class="inlineref">[Shivakumar et al 2023b]</span></a> enforcing speculative
+    constant-time, a property we discuss later in this chapter. 
+<div class="paragraph"> </div>
+
 <a id="lab98"></a><h2 class="section">Exercises: Fixing CCT violations</h2>
 
 <div class="paragraph"> </div>
@@ -2004,7 +2017,7 @@ We add a new rule to the big-step operational semantics that produces an
 <div class="paragraph"> </div>
 
  This second part of the chapter is based on the Spectre
-    Declassified paper <a href="Bib.html#Shivakumar-et al 2023"><span class="inlineref">[Shivakumar et al 2023]</span></a> in simplified form
+    Declassified paper <a href="Bib.html#Shivakumar-et al 2023a"><span class="inlineref">[Shivakumar et al 2023a]</span></a> in simplified form
     (e.g., without declassification). Like in this paper, we only look
     at a class of speculative execution attacks called Spectre v<sub>1</sub>. 
 <div class="paragraph"> </div>
@@ -4277,7 +4290,7 @@ As a result we get:
 <div class="code">
 
 <span class="id" title="keyword">End</span> <a class="idref" href="SpecCT.html#SpecCTInterpreter"><span class="id" title="module">SpecCTInterpreter</span></a>.<br/><hr class='doublespaceincode'/>
-<span class="comment">(*&nbsp;2026-07-20&nbsp;17:59&nbsp;*)</span><br/>
+<span class="comment">(*&nbsp;2026-07-21&nbsp;11:10&nbsp;*)</span><br/>
 </div>
 </div>
 
