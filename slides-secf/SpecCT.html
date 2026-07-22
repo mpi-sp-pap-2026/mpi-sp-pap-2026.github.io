@@ -253,22 +253,24 @@ This chapter looks at security against side-channel attacks:
 <div class="code">
 
 <span class="id" title="keyword">Inductive</span> <span class="id" title="var">binop</span> : <span class="id" title="keyword">Type</span> :=<br/>
-&nbsp;&nbsp;| <span class="id" title="var">BinPlus</span><br/>
-&nbsp;&nbsp;| <span class="id" title="var">BinMinus</span><br/>
-&nbsp;&nbsp;| <span class="id" title="var">BinMult</span><br/>
-&nbsp;&nbsp;| <span class="id" title="var">BinEq</span><br/>
-&nbsp;&nbsp;| <span class="id" title="var">BinLe</span><br/>
-&nbsp;&nbsp;| <span class="id" title="var">BinAnd</span><br/>
-&nbsp;&nbsp;| <span class="id" title="var">BinImpl</span>.<br/><hr class='doublespaceincode'/>
+&nbsp;&nbsp;| <span class="id" title="var">BinPlus</span> | <span class="id" title="var">BinMinus</span> | <span class="id" title="var">BinMult</span> | <span class="id" title="var">BinEq</span> | <span class="id" title="var">BinLe</span> | <span class="id" title="var">BinAnd</span> | <span class="id" title="var">BinImpl</span>.<br/><hr class='doublespaceincode'/>
 
 <br/>
 <span class="id" title="keyword">Inductive</span> <span class="id" title="var">exp</span> : <span class="id" title="keyword">Type</span> :=<br/>
 &nbsp;&nbsp;| <span class="id" title="var">ANum</span> (<span class="id" title="var">n</span> : <span class="id" title="var">nat</span>)<br/>
 &nbsp;&nbsp;| <span class="id" title="var">AId</span> (<span class="id" title="var">x</span> : <span class="id" title="var">string</span>)<br/>
 &nbsp;&nbsp;| <span class="id" title="var">ABin</span> (<span class="id" title="var">o</span> : <span class="id" title="var">binop</span>) (<span class="id" title="var">e<sub>1</sub></span> <span class="id" title="var">e<sub>2</sub></span> : <span class="id" title="var">exp</span>) <span class="comment">(*&nbsp;&lt;---&nbsp;REFACTORED&nbsp;*)</span><br/>
-&nbsp;&nbsp;| <span class="id" title="var">ACTIf</span> (<span class="id" title="var">b</span> : <span class="id" title="var">exp</span>) (<span class="id" title="var">e<sub>1</sub></span> <span class="id" title="var">e<sub>2</sub></span> : <span class="id" title="var">exp</span>). <span class="comment">(*&nbsp;&lt;---&nbsp;NEW&nbsp;*)</span><br/><hr class='doublespaceincode'/>
+&nbsp;&nbsp;| <span class="id" title="var">ACTIf</span> (<span class="id" title="var">b</span> : <span class="id" title="var">exp</span>) (<span class="id" title="var">e<sub>1</sub></span> <span class="id" title="var">e<sub>2</sub></span> : <span class="id" title="var">exp</span>). <span class="comment">(*&nbsp;&lt;---&nbsp;NEW&nbsp;*)</span><br/>
+</div>
 
-<br/><hr class='doublespaceincode'/>
+<div class="doc">
+The most important fact about constant-time conditionals is that they are
+    expressions, so they will not cause any observations. 
+</div>
+<div class="code">
+<hr class='doublespaceincode'/>
+
+<br/>
 <span class="id" title="keyword">Notation</span> &quot;be '?' e<sub>1</sub> ':' e<sub>2</sub>"  := (<span class="id" title="var">ACTIf</span> <span class="id" title="var">be</span> <span class="id" title="var">e<sub>1</sub></span> <span class="id" title="var">e<sub>2</sub></span>) <span class="comment">(*&nbsp;&lt;--&nbsp;NEW&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">in</span> <span class="id" title="var">custom</span> <span class="id" title="var">com</span> <span class="id" title="tactic">at</span> <span class="id" title="keyword">level</span> 20, <span class="id" title="keyword">no</span> <span class="id" title="keyword">associativity</span>).<br/>
 </div>
@@ -311,14 +313,31 @@ This chapter looks at security against side-channel attacks:
 </div>
 
 <div class="doc">
-<a id="lab106"></a><h2 class="section"> </h2>
+Intuitively, variables act like machine registers (accesses not observable),
+    while arrays act like the memory (accessed array+index observable). 
+<div class="paragraph"> </div>
+
+<a id="lab106"></a><h2 class="section">Instrumented semantics (shape)</h2>
 
 <div class="paragraph"> </div>
 
- We define an instrumented operational semantics producing these observations: 
+ We define an instrumented operational semantics producing
+    these observations (<span class="inlinecode"><span class="id" title="var">os</span></span>):
+<br/>
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;&lt;(<span class="id" title="var">s</span>, <span class="id" title="var">m</span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s'</span>, <span class="id" title="var">m'</span>, <span class="id" title="var">os</span>)&gt;
+</span>    In addition to <i>states</i> (<span class="inlinecode"><span class="id" title="var">s</span></span>) that assign <span class="inlinecode"><span class="id" title="var">nat</span></span> values to variables, this
+    semantics also has <i>memories</i> (<span class="inlinecode"><span class="id" title="var">m</span></span>) that assign lists of values to arrays.
+
 <div class="paragraph"> </div>
 
- <center><table class="infrule">
+<a id="lab107"></a><h2 class="section">Rules of instrumented semantics</h2>
+
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+<center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">&nbsp;&nbsp;</td>
   <td class="infrulenamecol" rowspan="3">
@@ -382,13 +401,23 @@ This chapter looks at security against side-channel attacks:
   <td class="infrule"><(s', m', [OBranch (not_zero (eval s be))] ++ os<sub>1</sub>)></td>
   <td></td>
 </tr>
-</table></center><center><table class="infrule">
+</table></center>
+<div class="paragraph"> </div>
+
+<a id="lab108"></a><h2 class="section">Rules of instrumented semantics (continued)</h2>
+
+<div class="paragraph"> </div>
+
+
+<div class="paragraph"> </div>
+
+<center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><(s,m)> =[if be then (c; while be do c) end else skip end]=></td>
+  <td class="infrule"><(s,m)> =[ if be then (c; while be do c end)</td>
   <td></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><(s', m', os)></td>
+  <td class="infrule">else skip end ]=> <(s',m',s)></td>
   <td class="infrulenamecol" rowspan="3">
     (CTE_While) &nbsp;
   </td></tr>
@@ -396,7 +425,7 @@ This chapter looks at security against side-channel attacks:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><(s,m)> =[ while be do c end ]=> <(s', m', os)></td>
+  <td class="infrule"><(s,m)> =[ while be do c end ]=> <(s',m',os)></td>
   <td></td>
 </tr>
 </table></center><center><table class="infrule">
@@ -409,11 +438,11 @@ This chapter looks at security against side-channel attacks:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><(s,m)> =[ x <- a[ie] ]=></td>
+  <td class="infrule"><(s, m)> =[ x <- a[ie] ]=></td>
   <td></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><(x!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>(m a).[i]; s, m,[OALoad a i])></td>
+  <td class="infrule"><(x!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>(m a).[i]; s, m, [OALoad a i])></td>
   <td></td>
 </tr>
 </table></center><center><table class="infrule">
@@ -426,18 +455,18 @@ This chapter looks at security against side-channel attacks:
   <td class="infrule"><hr /></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><(s,m)> =[ a[ie] <- e ]=></td>
+  <td class="infrule"><(s, m)> =[ a[ie] <- e ]=></td>
   <td></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><(s, a!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>(m a).[i <- n]; m,[OAStore a i])></td>
+  <td class="infrule"><(s, a!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span>(m a).[i <- n]; m, [OAStore a i])></td>
   <td></td>
 </tr>
 </table></center>
 </div>
 
 <div class="doc">
-<a id="lab107"></a><h2 class="section">Constant-time security definition</h2>
+<a id="lab109"></a><h2 class="section">Constant-time security definition</h2>
 
 </div>
 
@@ -456,7 +485,7 @@ We formalize this similarly to CF security:
 </div>
 
 <div class="doc">
-<a id="lab108"></a><h2 class="section">Type system for cryptographic constant-time programming</h2>
+<a id="lab110"></a><h2 class="section">Type system for cryptographic constant-time programming</h2>
 
 <div class="paragraph"> </div>
 
@@ -520,7 +549,11 @@ We formalize this similarly to CF security:
 </div>
 
 <div class="doc">
-Our refactoring gives us a single noninterference theorem for expressions: 
+<a id="lab111"></a><h2 class="section">Noninterference for expressions</h2>
+
+<div class="paragraph"> </div>
+
+ Our refactoring gives us a single noninterference theorem for expressions: 
 </div>
 <div class="code">
 
@@ -549,7 +582,7 @@ Our refactoring gives us a single noninterference theorem for expressions:
 </div>
 
 <div class="doc">
-<a id="lab109"></a><h2 class="section"> </h2>
+<a id="lab112"></a><h2 class="section">Typing rules enforcing CCT programming</h2>
 
 <div class="paragraph"> </div>
 
@@ -558,6 +591,32 @@ Our refactoring gives us a single noninterference theorem for expressions:
 <div class="paragraph"> </div>
 
  <center><table class="infrule">
+<tr class="infruleassumption">
+  <td class="infrule">L &#x22A2; be &#x2208; public&nbsp;&nbsp;&nbsp;&nbsp;L ;; LA &#x22A2;ct- c<sub>1</sub>&nbsp;&nbsp;&nbsp;&nbsp;L ;; LA &#x22A2;ct- c<sub>2</sub></td>
+  <td class="infrulenamecol" rowspan="3">
+    (CCT_If) &nbsp;
+  </td></tr>
+<tr class="infrulemiddle">
+  <td class="infrule"><hr /></td>
+</tr>
+<tr class="infruleassumption">
+  <td class="infrule">L ;; LA &#x22A2;ct- if be then c<sub>1</sub> else c<sub>2</sub> end</td>
+  <td></td>
+</tr>
+</table></center><center><table class="infrule">
+<tr class="infruleassumption">
+  <td class="infrule">L &#x22A2; be &#x2208; public&nbsp;&nbsp;&nbsp;&nbsp;L ;; LA &#x22A2;ct- c</td>
+  <td class="infrulenamecol" rowspan="3">
+    (CCT_While) &nbsp;
+  </td></tr>
+<tr class="infrulemiddle">
+  <td class="infrule"><hr /></td>
+</tr>
+<tr class="infruleassumption">
+  <td class="infrule">L ;; LA &#x22A2;ct- while be do c end</td>
+  <td></td>
+</tr>
+</table></center><center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">L &#x22A2; i &#x2208; public&nbsp;&nbsp;&nbsp;can_flow (LA a) (L x) = true</td>
   <td class="infrulenamecol" rowspan="3">
@@ -587,7 +646,7 @@ Our refactoring gives us a single noninterference theorem for expressions:
 </div>
 
 <div class="doc">
-<a id="lab110"></a><h2 class="section">Noninterference lemma</h2>
+<a id="lab113"></a><h2 class="section">Noninterference lemma</h2>
 
 <div class="paragraph"> </div>
 
@@ -652,20 +711,11 @@ Our refactoring gives us a single noninterference theorem for expressions:
 </div>
 
 <div class="doc">
-<a id="lab111"></a><h2 class="section">Theorem: cryptographic constant-time security by typing</h2>
+<a id="lab114"></a><h2 class="section">Theorem: cryptographic constant-time security by typing</h2>
 
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Print</span> <span class="id" title="var">cct_secure</span>. <span class="comment">(*&nbsp;<br/>
-<span class="inlinecode">= <span class="id" title="keyword">fun</span> <span class="id" title="var">L</span> <span class="id" title="var">LA</span> <span class="id" title="var">c</span> ⇒<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <span class="id" title="var">s<sub>1</sub></span> <span class="id" title="var">s<sub>2</sub></span> <span class="id" title="var">m<sub>1</sub></span> <span class="id" title="var">m<sub>2</sub></span> <span class="id" title="var">s<sub>1</sub>'</span> <span class="id" title="var">s<sub>2</sub>'</span> <span class="id" title="var">m<sub>1</sub>'</span> <span class="id" title="var">m<sub>2</sub>'</span> <span class="id" title="var">os<sub>1</sub></span> <span class="id" title="var">os<sub>2</sub></span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pub_equiv</span> <span class="id" title="var">L</span> <span class="id" title="var">s<sub>1</sub></span> <span class="id" title="var">s<sub>2</sub></span> →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pub_equiv</span> <span class="id" title="var">LA</span> <span class="id" title="var">m<sub>1</sub></span> <span class="id" title="var">m<sub>2</sub></span> →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;(<span class="id" title="var">s<sub>1</sub></span>, <span class="id" title="var">m<sub>1</sub></span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>1</sub>'</span>, <span class="id" title="var">m<sub>1</sub>'</span>, <span class="id" title="var">os<sub>1</sub></span>)&gt; →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;(<span class="id" title="var">s<sub>2</sub></span>, <span class="id" title="var">m<sub>2</sub></span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>2</sub>'</span>, <span class="id" title="var">m<sub>2</sub>'</span>, <span class="id" title="var">os<sub>2</sub></span>)&gt; →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">os<sub>1</sub></span> = <span class="id" title="var">os<sub>2</sub></span>. 
-</span>*)</span><br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Theorem</span> <span class="id" title="var">cct_well_typed_secure</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">L</span> <span class="id" title="var">LA</span> <span class="id" title="var">c</span>,<br/>
 &nbsp;&nbsp;<span class="id" title="var">L</span> ;; <span class="id" title="var">LA</span> &#x22A2;<span class="id" title="var">ct</span>- <span class="id" title="var">c</span> →<br/>
 &nbsp;&nbsp;<span class="id" title="var">cct_secure</span> <span class="id" title="var">L</span> <span class="id" title="var">LA</span> <span class="id" title="var">c</span>.<br/>
@@ -709,13 +759,30 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
 
     The only new cases here are for array operations, and they follow
     immediately from <span class="inlinecode"><span class="id" title="var">noninterferent_exp</span></span>, since the CCT type system requires
-    array indices to be public. 
+    array indices to be public.
+
 <div class="paragraph"> </div>
 
-<a id="lab112"></a><h2 class="section">Connection to practice</h2>
- Our type system can be seen as a much simplified version of the
+    So everything we've done for CCT security---the instrumented semantics, the
+    type system, and its security proof---is just a simple and natural extension
+    of what we did for CF security, which was itself simple. 
+<div class="paragraph"> </div>
+
+<a id="lab115"></a><h2 class="section">Connection to practice</h2>
+
+<div class="paragraph"> </div>
+
+ Yet this simple type system provides a formalization of the CCT programming
+    discipline, which is widely used in practice. 
+<div class="paragraph"> </div>
+
+ This type system can be seen as a much simplified version of the
     constant-time checker of the Jasmin language for high-assurance crypto:
 <ul class="doclist">
+<li> the same: branch conditions and array indices must be public,
+       and operators get the join of their arguments' labels
+
+</li>
 <li> main difference: Jasmin's type system is <i>flow-sensitive</i>:
 <ul class="doclist">
 <li> an assignment changes the variable's label to the expression's label
@@ -724,14 +791,13 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
 </ul>
 
 </li>
-<li> Jasmin's type system additionally supports declassification,
-       label inference, and functions
+<li> Jasmin additionally supports declassification, label inference, and functions
 
 </li>
-<li> it also has a variant enforcing <i>speculative constant-time</i> for
-       manually hardened code:
+<li> Jasmin also has a type system variant enforcing <i>speculative constant-time</i>
+       for code <i>manually</i> hardened with SLH
 <ul class="doclist">
-<li> we study this property next for automatically hardened code 
+<li> we study this property next for <i>automatically</i> SLH-hardened code 
 </li>
 </ul>
 
@@ -740,7 +806,7 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
 
 <div class="paragraph"> </div>
 
-<a id="lab113"></a><h1 class="section">Speculative constant-time</h1>
+<a id="lab116"></a><h1 class="section">Speculative constant-time</h1>
 
 <div class="paragraph"> </div>
 
@@ -751,37 +817,35 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
     <a href="Bib.html#Kocher-et al 2019"><span class="inlineref">[Kocher et al 2019]</span></a>. 
 <div class="paragraph"> </div>
 
- The Rocq development below is complete, but the text about it is still under
-    development and gets sparse after the first 3-4 subsections, especially for
-    the security proof. Readers can skip the security proof, or if they have
-    access to the slides associated to this chapter (i.e. the TERSE version)
-    look there for a high-level overview of the security proof. 
-<div class="paragraph"> </div>
-
-<a id="lab114"></a><h2 class="section">CCT programs can be insecure under speculative execution</h2>
+<a id="lab117"></a><h2 class="section">CCT programs can be insecure under speculative execution</h2>
 
 <div class="paragraph"> </div>
 
- All variables mentioned in the program below (<span class="inlinecode"><span class="id" title="var">X</span></span>, <span class="inlinecode"><span class="id" title="var">Y</span></span>, <span class="inlinecode"><span class="id" title="var">AP</span></span>) are <i>public</i>,
-    so this program respects the CCT discipline, yet this program is not secure
-    under speculative execution. 
-<div class="paragraph"> </div>
-
- The size of public array <span class="inlinecode"><span class="id" title="var">AP</span></span> is <span class="inlinecode">3</span> and we check we're in bounds, yet this
-    check can misspeculate! 
+ All variables and arrays mentioned in the code below (<span class="inlinecode"><span class="id" title="var">X</span></span>, <span class="inlinecode"><span class="id" title="var">Y</span></span>, <span class="inlinecode"><span class="id" title="var">AP</span></span>) are
+    <i>public</i>, so this code respects the CCT discipline, yet this code is not
+    secure under speculative execution. 
 </div>
 <div class="code">
 
 <span class="id" title="keyword">Definition</span> <span class="id" title="var">spec_insecure_prog</span> :=<br/>
 &nbsp;&nbsp;&lt;<span style='letter-spacing:-.4em;'>{</span>{ <span class="id" title="keyword">if</span> <span class="id" title="var">Y</span> &lt; 3 <span class="id" title="keyword">then</span> <span class="comment">(*&nbsp;&lt;-&nbsp;this&nbsp;check&nbsp;can&nbsp;misspeculate&nbsp;for&nbsp;Y&nbsp;&gt;=&nbsp;3!&nbsp;*)</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">X</span> &lt;- <span class="id" title="var">AP</span>[<span class="id" title="var">Y</span>]; <span class="comment">(*&nbsp;&lt;-&nbsp;speculative&nbsp;out&nbsp;of&nbsp;bounds&nbsp;access<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loads&nbsp;_a&nbsp;secret_&nbsp;to&nbsp;public&nbsp;variable&nbsp;X&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> <span class="id" title="var">X</span> ≤ 5 <span class="id" title="keyword">then</span> <span class="id" title="var">X</span> := 5 <span class="id" title="keyword">else</span> <span class="id" title="var">skip</span> <span class="id" title="keyword">end</span> <span class="comment">(*&nbsp;&lt;-&nbsp;speculatively&nbsp;leak&nbsp;X&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;loads&nbsp;_a&nbsp;secret_&nbsp;to&nbsp;public&nbsp;variable&nbsp;X&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> <span class="id" title="var">X</span> ≤ 5   <span class="comment">(*&nbsp;&lt;-&nbsp;speculatively&nbsp;leak&nbsp;X&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">then</span> <span class="id" title="var">X</span> := 5<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">skip</span> <span class="id" title="keyword">end</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">skip</span> <span class="id" title="keyword">end</span> <span style='letter-spacing:-.4em;'>}</span>}&gt; .<br/>
 </div>
 
 <div class="doc">
-<a id="lab115"></a><h2 class="section"> </h2>
+The size of public array <span class="inlinecode"><span class="id" title="var">AP</span></span> is <span class="inlinecode">3</span> and we check we're in bounds, yet a
+    modern processor can predict that the <span class="inlinecode"><span class="id" title="var">Y</span></span> <span class="inlinecode">&lt;</span> <span class="inlinecode">3</span> check will be true and start
+    executing the then branch even in cases when <span class="inlinecode"><span class="id" title="var">Y</span></span> <span class="inlinecode">≥</span> <span class="inlinecode">3</span>. We assume we also
+    have a secret array <span class="inlinecode"><span class="id" title="var">AS</span></span>, which is not even mentioned in the code, yet its
+    contents can still be leaked under speculative execution. 
+<div class="paragraph"> </div>
+
+<a id="lab118"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -797,55 +861,22 @@ Most proof cases are similar to the security proof for <span class="inlinecode">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">X</span> := <span class="id" title="var">X</span> + <span class="id" title="var">Z</span>;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Y</span> := <span class="id" title="var">Y</span> + 1<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">end</span>;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> <span class="id" title="var">X</span> ≤ 5 <span class="id" title="keyword">then</span> <span class="id" title="var">X</span> := 5 <span class="id" title="keyword">else</span> <span class="id" title="var">skip</span> <span class="id" title="keyword">end</span> <span style='letter-spacing:-.4em;'>}</span>}&gt; .<br/><hr class='doublespaceincode'/>
-<span class="id" title="keyword">Example</span> <span class="id" title="var">spec_insecure_prog_2_is_ct_well_typed</span> :<br/>
-&nbsp;&nbsp;<span class="id" title="var">LXYZpub</span> ;; <span class="id" title="var">LAPpub</span> &#x22A2;<span class="id" title="var">ct</span>- <span class="id" title="var">spec_insecure_prog_2</span>.<br/>
-<div class="togglescript" id="proofcontrol14" onclick="toggleDisplay('proof14');toggleDisplay('proofcontrol14')"><span class="show"></span></div>
-<div class="proofscript" id="proof14" onclick="toggleDisplay('proof14');toggleDisplay('proofcontrol14')">
-<span class="id" title="keyword">Proof</span>.<br/>
-&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">CCT_Seq</span>.<br/>
-&nbsp;&nbsp;- <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_Asgn</span>; <span class="id" title="tactic">auto</span>.<br/>
-&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">CCT_Seq</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_Asgn</span>; <span class="id" title="tactic">auto</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_Seq</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">apply</span> <span class="id" title="var">CCT_While</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">join_public_l</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">T_Bin</span>; <span class="id" title="tactic">auto</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">join_public_l</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">T_Bin</span>; <span class="id" title="tactic">auto</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">unfold</span> <span class="id" title="var">BFalse</span>. <span class="id" title="tactic">auto</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_Seq</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_ALoad</span>; <span class="id" title="tactic">auto</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_Seq</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_Asgn</span> <span class="id" title="keyword">with</span> (<span class="id" title="var">l</span>:= <span class="id" title="var">public</span>).<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">join_public_l</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <span class="id" title="var">T_Bin</span>; <span class="id" title="tactic">auto</span>. }<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">reflexivity</span>. }<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_Asgn</span> <span class="id" title="keyword">with</span> (<span class="id" title="var">l</span>:= <span class="id" title="var">public</span>).<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">join_public_l</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <span class="id" title="var">T_Bin</span>; <span class="id" title="tactic">auto</span>. }<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">reflexivity</span>. } }<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">apply</span> <span class="id" title="var">CCT_If</span>; <span class="id" title="tactic">auto</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">rewrite</span> &lt;- <span class="id" title="var">join_public_l</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <span class="id" title="var">T_Bin</span>; <span class="id" title="tactic">auto</span>.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">eapply</span> <span class="id" title="var">CCT_Asgn</span>; <span class="id" title="tactic">auto</span>. }<br/>
-<span class="id" title="keyword">Qed</span>.<br/>
-</div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> <span class="id" title="var">X</span> ≤ 5 <span class="id" title="keyword">then</span> <span class="id" title="var">X</span> := 5 <span class="id" title="keyword">else</span> <span class="id" title="var">skip</span> <span class="id" title="keyword">end</span> <span style='letter-spacing:-.4em;'>}</span>}&gt; .<br/>
 </div>
 
 <div class="doc">
-All variables mentioned in the program are again public, so also this
-    program respects the CCT discipline, yet it is also not secure under
+All variables and arrays mentioned in the program are again public, so also
+    this program respects the CCT discipline, yet it is also not secure under
     speculative execution. 
 <div class="paragraph"> </div>
 
-<a id="lab116"></a><h2 class="section">Speculative semantics</h2>
+<a id="lab119"></a><h2 class="section">Speculative semantics</h2>
 
 <div class="paragraph"> </div>
 
- To reason about the security of these examples against Spectre v<sub>1</sub> we will
-    introduce a speculative semantics. To model leakage the semantics uses the
-    same CCT observations as above (<span class="inlinecode"><span class="id" title="var">OBranch</span></span>, <span class="inlinecode"><span class="id" title="var">OALoad</span></span>, and <span class="inlinecode"><span class="id" title="var">OAStore</span></span>). 
+ To reason about security against such Spectre v<sub>1</sub> attacks we will introduce a
+    speculative semantics. This semantics models leakage using the same CCT
+    observations as above (<span class="inlinecode"><span class="id" title="var">OBranch</span></span>, <span class="inlinecode"><span class="id" title="var">OALoad</span></span>, and <span class="inlinecode"><span class="id" title="var">OAStore</span></span>). 
 <div class="paragraph"> </div>
 
  More interestingly, to model speculative execution we add to the semantics
@@ -854,8 +885,8 @@ All variables mentioned in the program are again public, so also this
 <div class="code">
 
 <span class="id" title="keyword">Inductive</span> <span class="id" title="var">direction</span> :=<br/>
-| <span class="id" title="var">DStep</span>  <span class="comment">(*&nbsp;adversary&nbsp;chooses&nbsp;the&nbsp;correct&nbsp;branch&nbsp;of&nbsp;conditional&nbsp;*)</span><br/>
-| <span class="id" title="var">DForce</span> <span class="comment">(*&nbsp;adversary&nbsp;forces&nbsp;us&nbsp;take&nbsp;the&nbsp;wrong&nbsp;branch&nbsp;of&nbsp;conditional&nbsp;*)</span><br/>
+| <span class="id" title="var">DStep</span>  <span class="comment">(*&nbsp;adversary&nbsp;chooses&nbsp;the&nbsp;correct&nbsp;branch&nbsp;*)</span><br/>
+| <span class="id" title="var">DForce</span> <span class="comment">(*&nbsp;adversary&nbsp;forces&nbsp;us&nbsp;to&nbsp;take&nbsp;the&nbsp;wrong&nbsp;branch&nbsp;*)</span><br/>
 | <span class="id" title="var">DLoad</span> (<span class="id" title="var">a</span> : <span class="id" title="var">string</span>) (<span class="id" title="var">i</span> : <span class="id" title="var">nat</span>)   <span class="comment">(*&nbsp;for&nbsp;speculative&nbsp;OOB&nbsp;array&nbsp;accesses&nbsp;*)</span><br/>
 | <span class="id" title="var">DStore</span> (<span class="id" title="var">a</span> : <span class="id" title="var">string</span>) (<span class="id" title="var">i</span> : <span class="id" title="var">nat</span>). <span class="comment">(*&nbsp;adversary&nbsp;chooses&nbsp;array&nbsp;and&nbsp;index&nbsp;*)</span><br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Definition</span> <span class="id" title="var">dirs</span> := <span class="id" title="var">list</span> <span class="id" title="var">direction</span>.<br/>
@@ -869,11 +900,10 @@ This gives us a very high-level model of speculation that abstracts away
 
 <div class="paragraph"> </div>
 
-    This kind of speculation model is actually used by the Jasmin language for
-    high-assurance crypto. 
+    This is the kind of speculation model used by the Jasmin language. 
 <div class="paragraph"> </div>
 
-<a id="lab117"></a><h2 class="section">Rules of Speculative Semantics</h2>
+<a id="lab120"></a><h2 class="section">Rules of Speculative Semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -927,7 +957,7 @@ This gives us a very high-level model of speculation that abstracts away
 </tr>
 </table></center><center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><(s,m,b,ds)> =[ if be then c; while be do c end ]=></td>
+  <td class="infrule"><(s,m,b,ds)> =[ if be then (c; while be do c end) ]=></td>
   <td></td>
 </tr>
 <tr class="infruleassumption">
@@ -945,11 +975,13 @@ This gives us a very high-level model of speculation that abstracts away
 </table></center>
 <div class="paragraph"> </div>
 
-<a id="lab118"></a><h2 class="section">If Rules of Speculative Semantics</h2>
+<a id="lab121"></a><h2 class="section">If Rules of Speculative Semantics</h2>
 
 <div class="paragraph"> </div>
 
- <center><table class="infrule">
+ If the attacker issues the <span class="inlinecode"><span class="id" title="var">DStep</span></span> directive we execute the correct
+    if branch, as before:
+<center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">let c := if not_zero (eval s be) then c<sub>1</sub> else c<sub>2</sub> in</td>
   <td></td>
@@ -970,13 +1002,17 @@ This gives us a very high-level model of speculation that abstracts away
   <td class="infrule"><(s',m',b', [OBranch (not_zero (eval s be))]++os<sub>1</sub>)></td>
   <td></td>
 </tr>
-</table></center><center><table class="infrule">
+</table></center>
+<div class="paragraph"> </div>
+
+ If the attacker issues <span class="inlinecode"><span class="id" title="var">DForce</span></span> we execute the wrong if branch:
+<center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">let c := if not_zero (eval s be) then c<sub>2</sub> else c<sub>1</sub> in</td>
   <td></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><(s,m,true,ds)> =[ c ]=> <(s',m',b',os<sub>1</sub>)></td>
+  <td class="infrule"><(s,m,true,ds)> =[ c ]=> <(s',m',true,os<sub>1</sub>)></td>
   <td class="infrulenamecol" rowspan="3">
     (Spec_If_F) &nbsp;
   </td></tr>
@@ -988,17 +1024,20 @@ This gives us a very high-level model of speculation that abstracts away
   <td></td>
 </tr>
 <tr class="infruleassumption">
-  <td class="infrule"><(s',m',b', [OBranch (not_zero (eval s be))]++os<sub>1</sub>)></td>
+  <td class="infrule"><(s',m',true, [OBranch (not_zero (eval s be))]++os<sub>1</sub>)></td>
   <td></td>
 </tr>
-</table></center>
-<div class="paragraph"> </div>
-
-<a id="lab119"></a><h2 class="section">Load and Store Rules of Speculative Semantics</h2>
+</table></center>    In case of such misspeculation we also set <span class="inlinecode"><span class="id" title="var">b</span></span> to <span class="inlinecode"><span class="id" title="var">true</span></span>.
 
 <div class="paragraph"> </div>
 
- <center><table class="infrule">
+<a id="lab122"></a><h2 class="section">Load Rules of Speculative Semantics</h2>
+
+<div class="paragraph"> </div>
+
+ If the attacker issues <span class="inlinecode"><span class="id" title="var">DStep</span></span> we load from the correct index (<span class="inlinecode"><span class="id" title="var">i</span></span>)
+    in the correct array (<span class="inlinecode"><span class="id" title="var">a</span></span>), as before:
+<center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">eval s ie = i&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i < length(m a)</td>
   <td class="infrulenamecol" rowspan="3">
@@ -1015,7 +1054,12 @@ This gives us a very high-level model of speculation that abstracts away
   <td class="infrule"><(x !<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> (m a).[i]; s, m, b, [OALoad a i])></td>
   <td></td>
 </tr>
-</table></center><center><table class="infrule">
+</table></center>
+<div class="paragraph"> </div>
+
+ If we have already misspeculated (<span class="inlinecode"><span class="id" title="var">b</span>=<span class="id" title="var">true</span></span>) the attacker can also issue
+    <span class="inlinecode"><span class="id" title="var">DLoad</span></span> <span class="inlinecode"><span class="id" title="var">a'</span></span> <span class="inlinecode"><span class="id" title="var">i'</span></span> and then we load from the array <span class="inlinecode"><span class="id" title="var">a'</span></span> at location <span class="inlinecode"><span class="id" title="var">i'</span></span>:
+<center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">eval s ie = i&nbsp;&nbsp;&nbsp;i >= length(m a)&nbsp;&nbsp;&nbsp;i' < length(m a')</td>
   <td class="infrulenamecol" rowspan="3">
@@ -1032,54 +1076,23 @@ This gives us a very high-level model of speculation that abstracts away
   <td class="infrule"><(x !<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> (m a').[i']; s, m, true, [OALoad a i])></td>
   <td></td>
 </tr>
-</table></center><center><table class="infrule">
-<tr class="infruleassumption">
-  <td class="infrule">eval s e = n&nbsp;&nbsp;&nbsp;&nbsp;eval s ie = i&nbsp;&nbsp;&nbsp;&nbsp;i < length(m a)</td>
-  <td class="infrulenamecol" rowspan="3">
-    (Spec_AStore) &nbsp;
-  </td></tr>
-<tr class="infrulemiddle">
-  <td class="infrule"><hr /></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule"><(s, m, b, [DStep])> =[ a[ie] <- e ]=></td>
-  <td></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule"><(s, a !<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> (m a).[i <- n]; m, b, [OAStore a i])></td>
-  <td></td>
-</tr>
-</table></center><center><table class="infrule">
-<tr class="infruleassumption">
-  <td class="infrule">eval s e = n&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eval s ie = i</td>
-  <td></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule">i >= length(m a)&nbsp;&nbsp;&nbsp;i' < length(m a')</td>
-  <td class="infrulenamecol" rowspan="3">
-    (Spec_AStore_U) &nbsp;
-  </td></tr>
-<tr class="infrulemiddle">
-  <td class="infrule"><hr /></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule"><(s, m, true, [DStore a' i'])> =[ a[ie] <- e ]=></td>
-  <td></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule"><(s, a' !<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> (m a').[i' <- n]; m, true, [OAStore a i])></td>
-  <td></td>
-</tr>
 </table></center>
+<div class="paragraph"> </div>
+
+ The rules for store are very similar to the ones for load. 
+<div class="paragraph"> </div>
+
+ These array access rules abstract away from the actual layout of the arrays
+    in memory at a lower level, while overapproximating the attacker's power. 
 </div>
 
 <div class="doc">
-<a id="lab120"></a><h2 class="section">Speculative constant-time security definition</h2>
+<a id="lab123"></a><h2 class="section">Speculative constant-time security definition</h2>
 
 <div class="paragraph"> </div>
 
  The definition of speculative constant-time security is very similar to CCT
-    security, but applied to the speculative semantics. The two executions
+    security, but applied to the speculative semantics, where the two executions
     receive the same directions <span class="inlinecode"><span class="id" title="var">ds</span></span>: 
 </div>
 <div class="code">
@@ -1094,7 +1107,7 @@ This gives us a very high-level model of speculation that abstracts away
 </div>
 
 <div class="doc">
-<a id="lab121"></a><h2 class="section"> </h2>
+<a id="lab124"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1118,15 +1131,22 @@ For this we build a counterexample where the attacker chooses an
     different values for <span class="inlinecode"><span class="id" title="var">X</span></span> from index <span class="inlinecode">0</span> of secret array <span class="inlinecode"><span class="id" title="var">AS</span></span>.
     If the different values loaded from <span class="inlinecode"><span class="id" title="var">AS</span>[0]</span> are well chosen (e.g., <span class="inlinecode">4</span> <span class="inlinecode">≤</span> <span class="inlinecode">5</span>
     in the first execution and <span class="inlinecode">7</span> <span class="inlinecode">&gt;</span> <span class="inlinecode">5</span> in the second) this causes two different
-    observations: - <span class="inlinecode">[<span class="id" title="var">OBranch</span></span> <span class="inlinecode"><span class="id" title="var">false</span>;</span> <span class="inlinecode"><span class="id" title="var">OALoad</span></span> <span class="inlinecode"><span class="id" title="var">AP</span></span> <span class="inlinecode">3;</span> <span class="inlinecode"><span class="id" title="var">OBranch</span></span> <span class="inlinecode"><span class="id" title="var">true</span>]</span> and - <span class="inlinecode">[<span class="id" title="var">OBranch</span></span>
-    <span class="inlinecode"><span class="id" title="var">false</span>;</span> <span class="inlinecode"><span class="id" title="var">OALoad</span></span> <span class="inlinecode"><span class="id" title="var">AP</span></span> <span class="inlinecode">3;</span> <span class="inlinecode"><span class="id" title="var">OBranch</span></span> <span class="inlinecode"><span class="id" title="var">false</span>]</span>.  
+    observations:
+<ul class="doclist">
+<li> <span class="inlinecode">[<span class="id" title="var">OBranch</span></span> <span class="inlinecode"><span class="id" title="var">false</span>;</span> <span class="inlinecode"><span class="id" title="var">OALoad</span></span> <span class="inlinecode"><span class="id" title="var">AP</span></span> <span class="inlinecode">3;</span> <span class="inlinecode"><span class="id" title="var">OBranch</span></span> <span class="inlinecode"><span class="id" title="var">true</span>]</span> and
+
+</li>
+<li> <span class="inlinecode">[<span class="id" title="var">OBranch</span></span> <span class="inlinecode"><span class="id" title="var">false</span>;</span> <span class="inlinecode"><span class="id" title="var">OALoad</span></span> <span class="inlinecode"><span class="id" title="var">AP</span></span> <span class="inlinecode">3;</span> <span class="inlinecode"><span class="id" title="var">OBranch</span></span> <span class="inlinecode"><span class="id" title="var">false</span>]</span>.  
+
+</li>
+</ul>
 </div>
 <div class="code">
 
 <span class="id" title="keyword">Example</span> <span class="id" title="var">spec_insecure_prog_is_spec_insecure</span> :<br/>
 &nbsp;&nbsp;~(<span class="id" title="var">spec_ct_secure</span> <span class="id" title="var">LXYZpub</span> <span class="id" title="var">LAPpub</span> <span class="id" title="var">spec_insecure_prog</span>).<br/>
-<div class="togglescript" id="proofcontrol15" onclick="toggleDisplay('proof15');toggleDisplay('proofcontrol15')"><span class="show"></span></div>
-<div class="proofscript" id="proof15" onclick="toggleDisplay('proof15');toggleDisplay('proofcontrol15')">
+<div class="togglescript" id="proofcontrol14" onclick="toggleDisplay('proof14');toggleDisplay('proofcontrol14')"><span class="show"></span></div>
+<div class="proofscript" id="proof14" onclick="toggleDisplay('proof14');toggleDisplay('proofcontrol14')">
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">unfold</span> <span class="id" title="var">spec_insecure_prog</span>. <span class="id" title="tactic">intros</span> <span class="id" title="var">Hcs</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="var">remember</span> (<span class="id" title="var">Y</span>!<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> 3; <span class="id" title="var">__</span> !<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> 0) <span class="id" title="keyword">as</span> <span class="id" title="var">s</span>.<br/>
@@ -1164,7 +1184,7 @@ For this we build a counterexample where the attacker chooses an
 </div>
 
 <div class="doc">
-<a id="lab122"></a><h2 class="section">Selective SLH transformation</h2>
+<a id="lab125"></a><h2 class="section">Selective SLH transformation</h2>
 
 <div class="paragraph"> </div>
 
@@ -1184,41 +1204,45 @@ For this we build a counterexample where the attacker chooses an
 
     We implement this as a <i>Selective Speculative Load Hardening</i> (SLH)
     transformation that we will show enforces speculative constant-time security
-    for all CCT programs.
+    for all CCT-well-typed programs.
 
 <div class="paragraph"> </div>
 
     This SLH transformation is "selective", since it only masks <i>public</i> loads.
-    A non-selective SLH transformation was invented in LLVM, but what they
-    implement is anyway much more complicated. 
+    A non-selective SLH transformation was invented in LLVM
+    <a href="Bib.html#Carruth-2018"><span class="inlineref">[Carruth 2018]</span></a>, but what they implement is anyway much more
+    complicated. 
 <div class="paragraph"> </div>
 
-<a id="lab123"></a><h2 class="section">Selective SLH in Rocq</h2>
+<a id="lab126"></a><h2 class="section">Selective SLH in Rocq</h2>
 
 </div>
 <div class="code">
 
-<span class="id" title="keyword">Definition</span> <span class="id" title="var">msf</span> : <span class="id" title="var">string</span> := "msf".<br/><hr class='doublespaceincode'/>
+<span class="id" title="keyword">Definition</span> <span class="id" title="var">msf</span> : <span class="id" title="var">string</span> := "msf". <span class="comment">(*&nbsp;misspeculation&nbsp;flag&nbsp;variable&nbsp;*)</span><br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Fixpoint</span> <span class="id" title="var">sel_slh</span> (<span class="id" title="var">L</span>:<span class="id" title="var">label_map</span>) (<span class="id" title="var">c</span>:<span class="id" title="var">com</span>) :=<br/>
 &nbsp;&nbsp;<span class="id" title="keyword">match</span> <span class="id" title="var">c</span> <span class="id" title="keyword">with</span><br/>
-&nbsp;&nbsp;| &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">skip</span><span style='letter-spacing:-.4em;'>}</span>}&gt; ⇒ &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">skip</span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
-&nbsp;&nbsp;| &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">x</span> := <span class="id" title="var">e</span><span style='letter-spacing:-.4em;'>}</span>}&gt; ⇒ &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">x</span> := <span class="id" title="var">e</span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
-&nbsp;&nbsp;| &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">c<sub>1</sub></span>; <span class="id" title="var">c<sub>2</sub></span><span style='letter-spacing:-.4em;'>}</span>}&gt; ⇒ &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c<sub>1</sub></span>; <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c<sub>2</sub></span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
 &nbsp;&nbsp;| &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="keyword">if</span> <span class="id" title="var">be</span> <span class="id" title="keyword">then</span> <span class="id" title="var">c<sub>1</sub></span> <span class="id" title="keyword">else</span> <span class="id" title="var">c<sub>2</sub></span> <span class="id" title="keyword">end</span><span style='letter-spacing:-.4em;'>}</span>}&gt; ⇒<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="keyword">if</span> <span class="id" title="var">be</span> <span class="id" title="keyword">then</span> <span class="id" title="var">msf</span> := (<span class="id" title="var">be</span> ? <span class="id" title="var">msf</span> : 1); <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c<sub>1</sub></span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">msf</span> := (<span class="id" title="var">be</span> ? 1 : <span class="id" title="var">msf</span>); <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c<sub>2</sub></span> <span class="id" title="keyword">end</span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="keyword">if</span> <span class="id" title="var">be</span> <span class="id" title="keyword">then</span> <span class="id" title="var">msf</span> := (<span class="id" title="var">be</span> ? <span class="id" title="var">msf</span> : 1); <span class="comment">(*&nbsp;&lt;-&nbsp;tracking&nbsp;flag&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c<sub>1</sub></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">msf</span> := (<span class="id" title="var">be</span> ? 1 : <span class="id" title="var">msf</span>); <span class="comment">(*&nbsp;&lt;-&nbsp;tracking&nbsp;flag&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c<sub>2</sub></span> <span class="id" title="keyword">end</span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
 &nbsp;&nbsp;| &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">while</span> <span class="id" title="var">be</span> <span class="id" title="tactic">do</span> <span class="id" title="var">c</span> <span class="id" title="keyword">end</span><span style='letter-spacing:-.4em;'>}</span>}&gt; ⇒<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">while</span> <span class="id" title="var">be</span> <span class="id" title="tactic">do</span> <span class="id" title="var">msf</span> := (<span class="id" title="var">be</span> ? <span class="id" title="var">msf</span> : 1); <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c</span> <span class="id" title="keyword">end</span>;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">msf</span> := (<span class="id" title="var">be</span> ? 1 : <span class="id" title="var">msf</span>)<span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">while</span> <span class="id" title="var">be</span> <span class="id" title="tactic">do</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">msf</span> := (<span class="id" title="var">be</span> ? <span class="id" title="var">msf</span> : 1); <span class="comment">(*&nbsp;&lt;-&nbsp;tracking&nbsp;flag&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c</span> <span class="id" title="keyword">end</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">msf</span> := (<span class="id" title="var">be</span> ? 1 : <span class="id" title="var">msf</span>)<span style='letter-spacing:-.4em;'>}</span>}&gt; <span class="comment">(*&nbsp;&lt;-&nbsp;tracking&nbsp;flag&nbsp;*)</span><br/>
 &nbsp;&nbsp;| &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">x</span> &lt;- <span class="id" title="var">a</span>[<span class="id" title="var">i</span>]<span style='letter-spacing:-.4em;'>}</span>}&gt; ⇒<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> <span class="id" title="var">L</span> <span class="id" title="var">x</span> <span class="id" title="keyword">then</span> &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">x</span> &lt;- <span class="id" title="var">a</span>[<span class="id" title="var">i</span>]; <span class="id" title="var">x</span> := (<span class="id" title="var">msf</span> ≠ 0) ? 0 : <span class="id" title="var">x</span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">if</span> <span class="id" title="var">L</span> <span class="id" title="var">x</span> <span class="id" title="keyword">then</span> &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">x</span> &lt;- <span class="id" title="var">a</span>[<span class="id" title="var">i</span>]; <span class="comment">(*&nbsp;↓&nbsp;masking&nbsp;public&nbsp;load&nbsp;value&nbsp;*)</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">x</span> := (<span class="id" title="var">msf</span> ≠ 0) ? 0 : <span class="id" title="var">x</span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">x</span> &lt;- <span class="id" title="var">a</span>[<span class="id" title="var">i</span>]<span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
-&nbsp;&nbsp;| &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">a</span>[<span class="id" title="var">i</span>] &lt;- <span class="id" title="var">e</span><span style='letter-spacing:-.4em;'>}</span>}&gt; ⇒ &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">a</span>[<span class="id" title="var">i</span>] &lt;- <span class="id" title="var">e</span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
+&nbsp;&nbsp;| &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">c<sub>1</sub></span>; <span class="id" title="var">c<sub>2</sub></span><span style='letter-spacing:-.4em;'>}</span>}&gt; ⇒ &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c<sub>1</sub></span>; <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c<sub>2</sub></span><span style='letter-spacing:-.4em;'>}</span>}&gt;<br/>
+&nbsp;&nbsp;| <span class="id" title="var">_</span> ⇒ <span class="id" title="var">c</span><br/>
 &nbsp;&nbsp;<span class="id" title="keyword">end</span>.<br/>
 </div>
 
 <div class="doc">
-<a id="lab124"></a><h2 class="section">Securing speculatively-insecure program using Selective SLH</h2>
+<a id="lab127"></a><h2 class="section">Hardening speculatively-insecure program with Selective SLH</h2>
 
 </div>
 <div class="code">
@@ -1240,14 +1264,14 @@ For this we build a counterexample where the attacker chooses an
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="keyword">else</span> <span class="id" title="var">msf</span> := ((<span class="id" title="var">Y</span> &lt; 3) ? 1 : <span class="id" title="var">msf</span>); <span class="id" title="var">skip</span> <span class="id" title="keyword">end</span> <span style='letter-spacing:-.4em;'>}</span>}&gt;.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Lemma</span> <span class="id" title="var">sel_slh_spec_insecure_prog_check</span>:<br/>
 &nbsp;&nbsp;<span class="id" title="var">sel_slh</span> <span class="id" title="var">LXYZpub</span> <span class="id" title="var">spec_insecure_prog</span> = <span class="id" title="var">sel_slh_spec_insecure_prog</span>.<br/>
-<div class="togglescript" id="proofcontrol16" onclick="toggleDisplay('proof16');toggleDisplay('proofcontrol16')"><span class="show"></span></div>
-<div class="proofscript" id="proof16" onclick="toggleDisplay('proof16');toggleDisplay('proofcontrol16')">
+<div class="togglescript" id="proofcontrol15" onclick="toggleDisplay('proof15');toggleDisplay('proofcontrol15')"><span class="show"></span></div>
+<div class="proofscript" id="proof15" onclick="toggleDisplay('proof15');toggleDisplay('proofcontrol15')">
 <span class="id" title="keyword">Proof</span>. <span class="id" title="tactic">reflexivity</span>. <span class="id" title="keyword">Qed</span>.<br/>
 </div>
 </div>
 
 <div class="doc">
-<a id="lab125"></a><h2 class="section">Main proof idea: use compiler correctness wrt ideal semantics</h2>
+<a id="lab128"></a><h2 class="section">Main proof idea: use compiler correctness wrt ideal semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1267,7 +1291,7 @@ For this we build a counterexample where the attacker chooses an
  
 <div class="paragraph"> </div>
 
-<a id="lab126"></a><h2 class="section"> </h2>
+<a id="lab129"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1300,16 +1324,16 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
     in the <span class="inlinecode"><span class="id" title="var">msf</span></span> variable, but instead directly uses the misspeculation bit in
     the speculative semantics for masking. This allows us to keep the ideal
     semantics simple, and then we show that <span class="inlinecode"><span class="id" title="var">msf</span></span> correctly tracks misspeculation
-    in our compiler correctness proof . 
+    in our compiler correctness proof. 
 <div class="paragraph"> </div>
 
-<a id="lab127"></a><h2 class="section">Ideal semantics definition</h2>
+<a id="lab130"></a><h2 class="section">Ideal semantics definition</h2>
 
 <div class="paragraph"> </div>
 
  All rules of the ideal semantics are the same as for the speculative
-    semantics, except the ones for array loads, which add the extra
-    masking done by <span class="inlinecode"><span class="id" title="var">sel_slh</span></span> on top of the speculative semantics.
+    semantics, except the rules for array loads, which add the extra
+    masking done by <span class="inlinecode"><span class="id" title="var">sel_slh</span></span> on top of the speculative semantics:
 <center><table class="infrule">
 <tr class="infruleassumption">
   <td class="infrule">eval s ie = i&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i < length(m a)</td>
@@ -1331,46 +1355,52 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
   <td class="infrule"><(x !<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> v; s, m, b, [OALoad a i])></td>
   <td></td>
 </tr>
-</table></center><center><table class="infrule">
-<tr class="infruleassumption">
-  <td class="infrule">eval s ie = i&nbsp;&nbsp;&nbsp;i >= length(m a)&nbsp;&nbsp;&nbsp;i' < length(m a')</td>
-  <td class="infrulenamecol" rowspan="3">
-    (Ideal_ALoad_U) &nbsp;
-  </td></tr>
-<tr class="infrulemiddle">
-  <td class="infrule"><hr /></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule">let v := if L x then 0 else (m a').[i'] in</td>
-  <td></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule">L &#x22A2;i <(s, m, true, [DLoad a' i'])> =[ x <- a[ie] ]=></td>
-  <td></td>
-</tr>
-<tr class="infruleassumption">
-  <td class="infrule"><(x !<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> v; s, m, true, [OALoad a i])></td>
-  <td></td>
-</tr>
 </table></center>
+<div class="paragraph"> </div>
+
+ The rule for the <span class="inlinecode"><span class="id" title="var">DLoad</span></span> directive is very similar. 
 </div>
 
 <div class="doc">
-<a id="lab128"></a><h2 class="section">Ideal semantics enforces speculative constant-time</h2>
+<a id="lab131"></a><h2 class="section">Ideal semantics enforces speculative constant-time</h2>
 
 <div class="paragraph"> </div>
 
- Let's now prove that the ideal semantics does enforce speculative
-    constant-time.  As in the proofs we did before for constant-time and CF
-    security, we rely on a proof of noninterference. For our ideal semantics
-    this noninterference proof requires interesting generalization of the
-    induction hypothesis (see <span class="inlinecode"><span class="id" title="var">ct_well_typed_ideal_noninterferent_general</span></span>). 
+ We prove that the ideal semantics does enforce speculative
+    constant-time for CCT-well-typed programs:
+<br/>
+<span class="inlinecode">&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> ;; <span class="id" title="var">LA</span> &#x22A2;<span class="id" title="var">ct</span>- <span class="id" title="var">c</span> →<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pub_equiv</span> <span class="id" title="var">L</span> <span class="id" title="var">s<sub>1</sub></span> <span class="id" title="var">s<sub>2</sub></span> →<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pub_equiv</span> <span class="id" title="var">LA</span> <span class="id" title="var">m<sub>1</sub></span> <span class="id" title="var">m<sub>2</sub></span> →<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> &#x22A2;<span class="id" title="var">i</span> &lt;(<span class="id" title="var">s<sub>1</sub></span>, <span class="id" title="var">m<sub>1</sub></span>, <span class="id" title="var">false</span>, <span class="id" title="var">ds</span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>1</sub>'</span>, <span class="id" title="var">m<sub>1</sub>'</span>, <span class="id" title="var">b<sub>1</sub>'</span>, <span class="id" title="var">os<sub>1</sub></span>)&gt; →<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> &#x22A2;<span class="id" title="var">i</span> &lt;(<span class="id" title="var">s<sub>2</sub></span>, <span class="id" title="var">m<sub>2</sub></span>, <span class="id" title="var">false</span>, <span class="id" title="var">ds</span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>2</sub>'</span>, <span class="id" title="var">m<sub>2</sub>'</span>, <span class="id" title="var">b<sub>2</sub>'</span>, <span class="id" title="var">os<sub>2</sub></span>)&gt; →<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">os<sub>1</sub></span> = <span class="id" title="var">os<sub>2</sub></span>.
+</span>
+<div class="paragraph"> </div>
+
+    On its own this proof is simple and standard. As in the proofs we did before
+    for instance for CCT and CF security, we rely on a proof of
+    <i>noninterference</i>, which for us where all the interesting action happens.
+<ul class="doclist">
+<li> For a start, it is noninterference that is broken by our speculative
+      execution attacks and that is fixed by masking misspeculated public loads.
+
+</li>
+<li> Moreover, for our ideal semantics the noninterference proof requires two
+      interesting generalizations of the induction hypothesis. 
+</li>
+</ul>
+
+<div class="paragraph"> </div>
+
+<a id="lab132"></a><h2 class="section">Generalizations needed for noninterference</h2>
+
 <div class="paragraph"> </div>
 
  Generalization 1: We need to also deal with executions ending with <span class="inlinecode"><span class="id" title="var">b</span>=<span class="id" title="var">true</span></span>,
     but in that case we cannot ensure that the array states are publicly
     equivalent, since our selective SLH does not mask misspeculated stores (for
-    efficiency, since it's not needed for security). This requires to generalize
+    efficiency, since it's not needed for security). This requires generalizing
     the <span class="inlinecode"><span class="id" title="var">pub_equiv</span></span> <span class="inlinecode"><span class="id" title="var">LA</span></span> <span class="inlinecode"><span class="id" title="var">m<sub>1</sub></span></span> <span class="inlinecode"><span class="id" title="var">m<sub>2</sub></span></span> premise of our statements too. 
 <div class="paragraph"> </div>
 
@@ -1395,23 +1425,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab129"></a><h2 class="section"> </h2>
-
-</div>
-<div class="code">
-
-<span class="id" title="keyword">Theorem</span> <span class="id" title="var">ideal_spec_ct_secure</span> :<br/>
-&nbsp;&nbsp;<span class="id" title="keyword">∀</span> <span class="id" title="var">L</span> <span class="id" title="var">LA</span> <span class="id" title="var">c</span> <span class="id" title="var">s<sub>1</sub></span> <span class="id" title="var">s<sub>2</sub></span> <span class="id" title="var">m<sub>1</sub></span> <span class="id" title="var">m<sub>2</sub></span> <span class="id" title="var">b</span> <span class="id" title="var">s<sub>1</sub>'</span> <span class="id" title="var">s<sub>2</sub>'</span> <span class="id" title="var">m<sub>1</sub>'</span> <span class="id" title="var">m<sub>2</sub>'</span> <span class="id" title="var">b<sub>1</sub>'</span> <span class="id" title="var">b<sub>2</sub>'</span> <span class="id" title="var">os<sub>1</sub></span> <span class="id" title="var">os<sub>2</sub></span> <span class="id" title="var">ds</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> ;; <span class="id" title="var">LA</span> &#x22A2;<span class="id" title="var">ct</span>- <span class="id" title="var">c</span> →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">pub_equiv</span> <span class="id" title="var">L</span> <span class="id" title="var">s<sub>1</sub></span> <span class="id" title="var">s<sub>2</sub></span> →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="var">b</span> = <span class="id" title="var">false</span> → <span class="id" title="var">pub_equiv</span> <span class="id" title="var">LA</span> <span class="id" title="var">m<sub>1</sub></span> <span class="id" title="var">m<sub>2</sub></span>) →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> &#x22A2;<span class="id" title="var">i</span> &lt;(<span class="id" title="var">s<sub>1</sub></span>, <span class="id" title="var">m<sub>1</sub></span>, <span class="id" title="var">b</span>, <span class="id" title="var">ds</span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>1</sub>'</span>, <span class="id" title="var">m<sub>1</sub>'</span>, <span class="id" title="var">b<sub>1</sub>'</span>, <span class="id" title="var">os<sub>1</sub></span>)&gt; →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> &#x22A2;<span class="id" title="var">i</span> &lt;(<span class="id" title="var">s<sub>2</sub></span>, <span class="id" title="var">m<sub>2</sub></span>, <span class="id" title="var">b</span>, <span class="id" title="var">ds</span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>2</sub>'</span>, <span class="id" title="var">m<sub>2</sub>'</span>, <span class="id" title="var">b<sub>2</sub>'</span>, <span class="id" title="var">os<sub>2</sub></span>)&gt; →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">os<sub>1</sub></span> = <span class="id" title="var">os<sub>2</sub></span>.<br/>
-</div>
-
-<div class="doc">
-<a id="lab130"></a><h2 class="section">Correctness of sel_slh as a compiler from ideal to speculative semantics</h2>
+<a id="lab133"></a><h2 class="section">Correctness of sel_slh as a compiler from ideal to speculative semantics</h2>
 
 <div class="paragraph"> </div>
 
@@ -1432,7 +1446,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
     To see this we need to invert the premise of <span class="inlinecode"><span class="id" title="var">Spec_While</span></span> a few times:
 <center><table class="infrule">
 <tr class="infruleassumption">
-  <td class="infrule"><(s,m,b,ds)> =[ if be then c; while be do c end ]=></td>
+  <td class="infrule"><(s,m,b,ds)> =[ if be then (c; while be do c end) ]=></td>
   <td></td>
 </tr>
 <tr class="infruleassumption">
@@ -1455,7 +1469,7 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 
 <div class="doc">
-<a id="lab131"></a><h2 class="section"> </h2>
+<a id="lab134"></a><h2 class="section"> </h2>
 
 <div class="paragraph"> </div>
 
@@ -1463,22 +1477,22 @@ forall s<sub>1</sub> s<sub>2</sub> m<sub>1</sub> m<sub>2</sub> s<sub>1</sub>' s<
 </div>
 <div class="code">
 <hr class='doublespaceincode'/>
-<span class="id" title="keyword">Lemma</span> <span class="id" title="var">size_ind</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">L</span> : <span class="id" title="var">com</span> → <span class="id" title="var">dirs</span> → <span class="id" title="keyword">Prop</span>,<br/>
+<span class="id" title="keyword">Lemma</span> <span class="id" title="var">size_ind</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">P</span> : <span class="id" title="var">com</span> → <span class="id" title="var">dirs</span> → <span class="id" title="keyword">Prop</span>,<br/>
 &nbsp;&nbsp;(<span class="id" title="keyword">∀</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>,<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">∀</span> <span class="id" title="var">c'</span> <span class="id" title="var">ds'</span>, <span class="id" title="var">size</span> <span class="id" title="var">c'</span> <span class="id" title="var">ds'</span> &lt; <span class="id" title="var">size</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span> → <span class="id" title="var">L</span> <span class="id" title="var">c'</span> <span class="id" title="var">ds'</span>) →<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">L</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>) →<br/>
-&nbsp;&nbsp;(<span class="id" title="keyword">∀</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>, <span class="id" title="var">L</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>).<br/>
-<div class="togglescript" id="proofcontrol28" onclick="toggleDisplay('proof28');toggleDisplay('proofcontrol28')"><span class="show"></span></div>
-<div class="proofscript" id="proof28" onclick="toggleDisplay('proof28');toggleDisplay('proofcontrol28')">
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" title="keyword">∀</span> <span class="id" title="var">c'</span> <span class="id" title="var">ds'</span>, <span class="id" title="var">size</span> <span class="id" title="var">c'</span> <span class="id" title="var">ds'</span> &lt; <span class="id" title="var">size</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span> → <span class="id" title="var">P</span> <span class="id" title="var">c'</span> <span class="id" title="var">ds'</span>) →<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">P</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>) →<br/>
+&nbsp;&nbsp;(<span class="id" title="keyword">∀</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>, <span class="id" title="var">P</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>).<br/>
+<div class="togglescript" id="proofcontrol27" onclick="toggleDisplay('proof27');toggleDisplay('proofcontrol27')"><span class="show"></span></div>
+<div class="proofscript" id="proof27" onclick="toggleDisplay('proof27');toggleDisplay('proofcontrol27')">
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span>.<br/>
-&nbsp;&nbsp;<span class="id" title="var">remember</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">c_ds</span> ⇒ <span class="id" title="var">L</span> (<span class="id" title="var">fst</span> <span class="id" title="var">c_ds</span>) (<span class="id" title="var">snd</span> <span class="id" title="var">c_ds</span>)) <span class="id" title="keyword">as</span> <span class="id" title="var">L'</span>.<br/>
-&nbsp;&nbsp;<span class="id" title="tactic">replace</span> (<span class="id" title="var">L</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>) <span class="id" title="keyword">with</span> (<span class="id" title="var">L'</span> (<span class="id" title="var">c</span>, <span class="id" title="var">ds</span>)) <span class="id" title="tactic">by</span> <span class="id" title="var">now</span> <span class="id" title="tactic">rewrite</span> <span class="id" title="var">HeqL'</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="var">remember</span> (<span class="id" title="keyword">fun</span> <span class="id" title="var">c_ds</span> ⇒ <span class="id" title="var">P</span> (<span class="id" title="var">fst</span> <span class="id" title="var">c_ds</span>) (<span class="id" title="var">snd</span> <span class="id" title="var">c_ds</span>)) <span class="id" title="keyword">as</span> <span class="id" title="var">P'</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">replace</span> (<span class="id" title="var">P</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>) <span class="id" title="keyword">with</span> (<span class="id" title="var">P'</span> (<span class="id" title="var">c</span>, <span class="id" title="var">ds</span>)) <span class="id" title="tactic">by</span> <span class="id" title="var">now</span> <span class="id" title="tactic">rewrite</span> <span class="id" title="var">HeqP'</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <span class="id" title="var">measure_induction</span> <span class="id" title="keyword">with</span> (<span class="id" title="var">f</span>:=<span class="id" title="keyword">fun</span> <span class="id" title="var">c_ds</span> ⇒ <span class="id" title="var">size</span> (<span class="id" title="var">fst</span> <span class="id" title="var">c_ds</span>) (<span class="id" title="var">snd</span> <span class="id" title="var">c_ds</span>)).<br/>
-&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">HeqL'</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">intros</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">HeqP'</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">H</span>. <span class="id" title="tactic">intros</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="var">remember</span> (<span class="id" title="var">c'</span>, <span class="id" title="var">ds'</span>) <span class="id" title="keyword">as</span> <span class="id" title="var">c_ds'</span>.<br/>
-&nbsp;&nbsp;<span class="id" title="tactic">replace</span> (<span class="id" title="var">L</span> <span class="id" title="var">c'</span> <span class="id" title="var">ds'</span>) <span class="id" title="keyword">with</span> (<span class="id" title="var">L'</span> <span class="id" title="var">c_ds'</span>) <span class="id" title="tactic">by</span> <span class="id" title="var">now</span> <span class="id" title="tactic">rewrite</span> <span class="id" title="var">Heqc_ds'</span>, <span class="id" title="var">HeqL'</span>.<br/>
+&nbsp;&nbsp;<span class="id" title="tactic">replace</span> (<span class="id" title="var">P</span> <span class="id" title="var">c'</span> <span class="id" title="var">ds'</span>) <span class="id" title="keyword">with</span> (<span class="id" title="var">P'</span> <span class="id" title="var">c_ds'</span>) <span class="id" title="tactic">by</span> <span class="id" title="var">now</span> <span class="id" title="tactic">rewrite</span> <span class="id" title="var">Heqc_ds'</span>, <span class="id" title="var">HeqP'</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">H<sub>0</sub></span>. <span class="id" title="var">now</span> <span class="id" title="tactic">rewrite</span> <span class="id" title="var">Heqc_ds'</span>.<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
 </div>
@@ -1497,12 +1511,10 @@ The backwards compiler correctness proof uses <span class="inlinecode"><span cla
 &nbsp;&nbsp;<span class="id" title="var">L</span> &#x22A2;<span class="id" title="var">i</span> &lt;(<span class="id" title="var">s</span>, <span class="id" title="var">m</span>, <span class="id" title="var">b</span>, <span class="id" title="var">ds</span>)&gt; =[ <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">msf</span> !<span class="nowrap"><span style='font-size:85%;'><span style='vertical-align:5%;'><span style='letter-spacing:-.2em;'>-</span></span>&gt;</span></span> <span class="id" title="var">s</span> <span class="id" title="var">msf</span>; <span class="id" title="var">s'</span>, <span class="id" title="var">m'</span>, <span class="id" title="var">b'</span>, <span class="id" title="var">os</span>)&gt;.<br/><hr class='doublespaceincode'/>
 <span class="id" title="keyword">Lemma</span> <span class="id" title="var">sel_slh_compiler_correctness</span> : <span class="id" title="keyword">∀</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>,<br/>
 &nbsp;&nbsp;<span class="id" title="var">sel_slh_compiler_correctness_prop</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span>.<br/>
-<div class="togglescript" id="proofcontrol35" onclick="toggleDisplay('proof35');toggleDisplay('proofcontrol35')"><span class="show"></span></div>
-<div class="proofscript" id="proof35" onclick="toggleDisplay('proof35');toggleDisplay('proofcontrol35')">
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">size_ind</span>. <span class="id" title="tactic">unfold</span> <span class="id" title="var">sel_slh_compiler_correctness_prop</span>.<br/>
-<div class="togglescript" id="proofcontrol36" onclick="toggleDisplay('proof36');toggleDisplay('proofcontrol36')"><span class="show"></span></div>
-<div class="proofscript" id="proof36" onclick="toggleDisplay('proof36');toggleDisplay('proofcontrol36')">
+<div class="togglescript" id="proofcontrol34" onclick="toggleDisplay('proof34');toggleDisplay('proofcontrol34')"><span class="show"></span></div>
+<div class="proofscript" id="proof34" onclick="toggleDisplay('proof34');toggleDisplay('proofcontrol34')">
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">c</span> <span class="id" title="var">ds</span> <span class="id" title="var">IH</span> <span class="id" title="var">L</span> <span class="id" title="var">s</span> <span class="id" title="var">m</span> <span class="id" title="var">b</span> <span class="id" title="var">s'</span> <span class="id" title="var">m'</span> <span class="id" title="var">b'</span> <span class="id" title="var">os</span> <span class="id" title="var">Hunused</span> <span class="id" title="var">Hstb</span> <span class="id" title="var">Heval</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">c</span>; <span class="id" title="tactic">simpl</span> <span class="id" title="keyword">in</span> *; <span class="id" title="var">invert</span> <span class="id" title="var">Heval</span>;<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">try</span> (<span class="id" title="tactic">destruct</span> (<span class="id" title="var">L</span> <span class="id" title="var">x</span>); <span class="id" title="tactic">discriminate</span>).<br/>
@@ -1581,16 +1593,16 @@ The backwards compiler correctness proof uses <span class="inlinecode"><span cla
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <span class="id" title="tactic">apply</span> <span class="id" title="var">sel_slh_flag</span> <span class="id" title="keyword">in</span> <span class="id" title="var">H<sub>13</sub></span>; <span class="id" title="tactic">try</span> <span class="id" title="tactic">tauto</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">rewrite</span> <span class="id" title="var">t_update_eq</span>. <span class="id" title="tactic">rewrite</span> <span class="id" title="var">Eqnbe</span>. <span class="id" title="tactic">assumption</span>. }<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;+ <span class="comment">(*&nbsp;speculative;&nbsp;analog&nbsp;to&nbsp;non_speculative&nbsp;*)</span><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span>(<span class="id" title="var">Lnil</span>: <span class="id" title="var">os<sub>2</sub></span> = [] ∧ <span class="id" title="var">ds<sub>2</sub></span> = []).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span>(<span class="id" title="var">Lnil</span>: <span class="id" title="var">os<sub>2</sub></span> = [] ∧ <span class="id" title="var">ds<sub>2</sub></span> = [] ∧ <span class="id" title="var">b'</span> = <span class="id" title="var">true</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">inversion</span> <span class="id" title="var">H<sub>10</sub></span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">eauto</span>. }<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">Lnil</span>; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">simpl</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> <span class="id" title="var">Lnil</span> <span class="id" title="keyword">as</span> [? [? ?]]; <span class="id" title="tactic">subst</span>; <span class="id" title="tactic">simpl</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">apply</span> <span class="id" title="var">Ideal_If_F</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">destruct</span> (<span class="id" title="tactic">eval</span> <span class="id" title="var">s</span> <span class="id" title="var">be</span>) <span class="id" title="var">eqn</span>:<span class="id" title="var">Eqnbe</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;× <span class="id" title="var">invert</span> <span class="id" title="var">H<sub>12</sub></span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>1</sub></span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">invert</span> <span class="id" title="var">H<sub>2</sub></span>; <span class="id" title="tactic">simpl</span> <span class="id" title="keyword">in</span> ×.<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span>(<span class="id" title="var">Hwhile</span>: &lt;(<span class="id" title="var">s'1</span>, <span class="id" title="var">m'1</span>, <span class="id" title="var">b'1</span>, <span class="id" title="var">ds<sub>2</sub></span>)&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=[ <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">while</span> <span class="id" title="var">be</span> <span class="id" title="tactic">do</span> <span class="id" title="var">c</span> <span class="id" title="keyword">end</span><span style='letter-spacing:-.4em;'>}</span>}&gt; ]=&gt; &lt;(<span class="id" title="var">s'</span>, <span class="id" title="var">m'</span>, <span class="id" title="var">b'</span>, <span class="id" title="var">os<sub>2</sub></span>)&gt; ).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">assert</span>(<span class="id" title="var">Hwhile</span>: &lt;(<span class="id" title="var">s'1</span>, <span class="id" title="var">m'1</span>, <span class="id" title="var">b'</span>, <span class="id" title="var">ds<sub>2</sub></span>)&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=[ <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> &lt;<span style='letter-spacing:-.4em;'>{</span>{<span class="id" title="var">while</span> <span class="id" title="var">be</span> <span class="id" title="tactic">do</span> <span class="id" title="var">c</span> <span class="id" title="keyword">end</span><span style='letter-spacing:-.4em;'>}</span>}&gt; ]=&gt; &lt;(<span class="id" title="var">s'</span>, <span class="id" title="var">m'</span>, <span class="id" title="var">true</span>, <span class="id" title="var">os<sub>2</sub></span>)&gt; ).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="id" title="tactic">simpl</span>. <span class="id" title="tactic">replace</span> <span class="id" title="var">ds<sub>2</sub></span> <span class="id" title="keyword">with</span> (<span class="id" title="var">ds<sub>2</sub></span> ++ [])%<span class="id" title="var">list</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">by</span> (<span class="id" title="tactic">rewrite</span> <span class="id" title="var">app_nil_r</span>; <span class="id" title="tactic">reflexivity</span>).<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="tactic">replace</span> <span class="id" title="var">os<sub>2</sub></span> <span class="id" title="keyword">with</span> (<span class="id" title="var">os<sub>2</sub></span> ++ [])%<span class="id" title="var">list</span> <span class="id" title="tactic">by</span> (<span class="id" title="tactic">rewrite</span> <span class="id" title="var">app_nil_r</span>; <span class="id" title="tactic">reflexivity</span>).<br/>
@@ -1660,11 +1672,8 @@ The backwards compiler correctness proof uses <span class="inlinecode"><span cla
 </div>
 </div>
 
-<br/>
-</div>
-
 <div class="doc">
-<a id="lab132"></a><h2 class="section">Speculative constant-time security for Selective SLH</h2>
+<a id="lab135"></a><h2 class="section">Speculative constant-time security for Selective SLH</h2>
 
 <div class="paragraph"> </div>
 
@@ -1684,8 +1693,8 @@ The backwards compiler correctness proof uses <span class="inlinecode"><span cla
 &nbsp;&nbsp;&lt;(<span class="id" title="var">s<sub>1</sub></span>, <span class="id" title="var">m<sub>1</sub></span>, <span class="id" title="var">false</span>, <span class="id" title="var">ds</span>)&gt; =[ <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>1</sub>'</span>, <span class="id" title="var">m<sub>1</sub>'</span>, <span class="id" title="var">b<sub>1</sub>'</span>, <span class="id" title="var">os<sub>1</sub></span>)&gt; →<br/>
 &nbsp;&nbsp;&lt;(<span class="id" title="var">s<sub>2</sub></span>, <span class="id" title="var">m<sub>2</sub></span>, <span class="id" title="var">false</span>, <span class="id" title="var">ds</span>)&gt; =[ <span class="id" title="var">sel_slh</span> <span class="id" title="var">L</span> <span class="id" title="var">c</span> ]=&gt; &lt;(<span class="id" title="var">s<sub>2</sub>'</span>, <span class="id" title="var">m<sub>2</sub>'</span>, <span class="id" title="var">b<sub>2</sub>'</span>, <span class="id" title="var">os<sub>2</sub></span>)&gt; →<br/>
 &nbsp;&nbsp;<span class="id" title="var">os<sub>1</sub></span> = <span class="id" title="var">os<sub>2</sub></span>.<br/>
-<div class="togglescript" id="proofcontrol37" onclick="toggleDisplay('proof37');toggleDisplay('proofcontrol37')"><span class="show"></span></div>
-<div class="proofscript" id="proof37" onclick="toggleDisplay('proof37');toggleDisplay('proofcontrol37')">
+<div class="togglescript" id="proofcontrol35" onclick="toggleDisplay('proof35');toggleDisplay('proofcontrol35')"><span class="show"></span></div>
+<div class="proofscript" id="proof35" onclick="toggleDisplay('proof35');toggleDisplay('proofcontrol35')">
 <span class="id" title="keyword">Proof</span>.<br/>
 &nbsp;&nbsp;<span class="id" title="tactic">intros</span> <span class="id" title="var">L</span> <span class="id" title="var">LA</span> <span class="id" title="var">c</span> <span class="id" title="var">s<sub>1</sub></span> <span class="id" title="var">s<sub>2</sub></span> <span class="id" title="var">m<sub>1</sub></span> <span class="id" title="var">m<sub>2</sub></span> <span class="id" title="var">s<sub>1</sub>'</span> <span class="id" title="var">s<sub>2</sub>'</span> <span class="id" title="var">m<sub>1</sub>'</span> <span class="id" title="var">m<sub>2</sub>'</span> <span class="id" title="var">b<sub>1</sub>'</span> <span class="id" title="var">b<sub>2</sub>'</span> <span class="id" title="var">os<sub>1</sub></span> <span class="id" title="var">os<sub>2</sub></span> <span class="id" title="var">ds</span><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="id" title="var">Hwt</span> <span class="id" title="var">Hunused</span> <span class="id" title="var">Hs1b</span> <span class="id" title="var">Hs2b</span> <span class="id" title="var">Hequiv</span> <span class="id" title="var">Haequiv</span> <span class="id" title="var">Heval1</span> <span class="id" title="var">Heval2</span>.<br/>
@@ -1694,6 +1703,33 @@ The backwards compiler correctness proof uses <span class="inlinecode"><span cla
 &nbsp;&nbsp;<span class="id" title="tactic">eapply</span> <span class="id" title="var">ideal_spec_ct_secure</span>; <span class="id" title="tactic">eauto</span>.<br/>
 <span class="id" title="keyword">Qed</span>.<br/>
 </div>
+</div>
+
+<div class="doc">
+<a id="lab136"></a><h2 class="section">This Selective SLH formalization is already research-level</h2>
+
+<div class="paragraph"> </div>
+
+ What we did above was to use ideas from this course to mechanize the core of
+    a research paper: Spectre Declassified <a href="Bib.html#Shivakumar-et al 2023a"><span class="inlineref">[Shivakumar et al 2023a]</span></a>.
+
+<div class="paragraph"> </div>
+
+    This mechanization served as the base for two more recent papers that use
+    stronger SLH variants to provide security for arbitrary programs (no CCT):
+<ul class="doclist">
+<li> Formalized a stronger SLH variant <a href="Bib.html#Zhang-et al 2023"><span class="inlineref">[Zhang et al 2023]</span></a> and proved
+      relative security: any hardened program running with speculation must not
+      leak more than what the source program leaks sequentially.  Pervasive
+      hardening can make things slow though, so being selective still helps
+      <a href="Bib.html#Baumann-et al 2025"><span class="inlineref">[Baumann et al 2025]</span></a>.
+
+</li>
+<li> Also used SLH as a base for protection against speculative control-flow
+      hijacking attacks (Spectre BTB and PHT) <a href="Bib.html#Baumann-et al 2026"><span class="inlineref">[Baumann et al 2026]</span></a>. 
+
+</li>
+</ul>
 </div>
 </div>
 
